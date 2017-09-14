@@ -1,0 +1,6 @@
+加拿大项目API接口
+
+系统接口：
+后台登陆：请求方式（post）上传参数（用户名、密码）
+/admin/login
+参数：username    password
