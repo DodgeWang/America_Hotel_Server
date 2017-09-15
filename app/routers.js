@@ -23,6 +23,8 @@ module.exports = function(app) {
 
     app.get('/System/exit',System.exit);  //退出后台系统
 
+    app.get('/Users/list',Users.getList) //获取用户列表
+
     app.post('/Users/add',Users.add);//添加用户  
     
 }
