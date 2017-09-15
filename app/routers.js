@@ -1,4 +1,5 @@
 var Users = require('./controllers/Users.controller');
+var System = require('./controllers/System.controller');
 
 module.exports = function(app) {
 
@@ -18,14 +19,10 @@ module.exports = function(app) {
     /**
      * api routers
      */
+    app.post('/System/login',System.login);//管理员登陆
+
+    app.get('/System/exit',System.exit);  //退出后台系统
+
     app.post('/Users/add',Users.add);//添加用户  
-
-    // app.get('/admin/managerInfo',administrators.managerInfo);//获取管理员信息
-
-    // app.get('/admin/exit',administrators.exit);  //退出后台系统 
-
-    // app.post('/admin/resetPassword',administrators.resetPassword);  //修改管理员密码
-
-    // app.post('/fileuploads',processData.importData); //导入数据
     
 }
