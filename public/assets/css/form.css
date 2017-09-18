@@ -1,0 +1,43 @@
+.form-horizontal .control-label-two {}
+
+.controls-wdq .radio {
+    float: left;
+    margin-right: 40px;
+    padding-top: 5px;
+}
+
+.controls-wdq .checkbox {
+    float: left;
+    margin-right: 20px;
+    padding-top: 5px;
+}
+
+#highSchoolBox,
+#collegeSchoolBox,
+#workBox {
+    overflow: hidden;
+}
+
+#highSchoolBox>.row-fluid,
+#collegeSchoolBox>.row-fluid,
+#workBox>.row-fluid {
+    margin-bottom: 25px;
+}
+
+.widget-body {
+    position: relative;
+}
+
+.wdq-del-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 28px;
+    height: 28px;
+    padding: 4px 0;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    ;
+    color: #ffffff;
+    border-radius: 0 0 0 4px;
+}

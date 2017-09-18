@@ -1,9 +1,5 @@
 {{#section 'head'}}
-    <link rel="shortcut icon" href="assets/ico/favicon.html">
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
-    <link href="assets/css/theme.css" rel="stylesheet">
-    <link href="assets/css/font-awesome.min.css" rel="stylesheet">
-    <link href="assets/css/alertify.css" rel="stylesheet">
+    
 {{/section}}
 
 
@@ -31,7 +27,7 @@
               <i class="icon-group"></i>
               <h5>Users</h5>
               <div class="widget-buttons">
-                  <a href="forms.html"><i class="icon-plus"></i></a>
+                  <a href="/AddUser"><i class="icon-plus"></i></a>
               </div>
             </div>  
             <div class="widget-body">
@@ -119,9 +115,9 @@
                   <div class="span6">
                     <div class="dataTables_paginate paging_bootstrap pagination">
                         <ul style="margin:0 auto;">
-                            <li class="prev"><a href="#">← Previous</a></li>
+                            <li class="prev" id="prev_btn"><a href="#">← Previous</a></li>
                             <li class="active"><a href="#">1</a></li>
-                            <li class="next disabled"><a href="#">Next → </a></li>
+                            <li class="next disabled" id="next_btn"><a href="#">Next → </a></li>
                         </ul>
                     </div>
                 </div>
@@ -138,5 +134,5 @@
 
 
 {{#section 'script'}}
-    
+    <script type="text/javascript" src="/controller/Users.js"></script>
 {{/section}}

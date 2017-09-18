@@ -34,12 +34,13 @@ module.exports = function() {
 
 
     app.use(function(req, res, next) {
-        if(req.url == '/System/login' || req.url == '/login' ||  req.url == '/System/exit') return next();
-        if(!req.session.administrator){
-           res.redirect('/login')
-        }else{
-           next();
-        }
+        // if(req.url == '/System/login' || req.url == '/login' ||  req.url == '/System/exit') return next();
+        // if(!req.session.administrator){
+        //    res.redirect('/login')
+        // }else{
+        //    next();
+        // }
+        next();
     })
 
     routers(app);

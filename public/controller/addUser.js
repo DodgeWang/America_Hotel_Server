@@ -1,5 +1,7 @@
 $(function() {
-    console.log(window)
+
+    $('.datepicker-basic').datepicker();
+
     var nowDate = new Date();
     var nowDate_Str = nowDate.getDate()+"-"+(nowDate.getMonth()+1)+"-"+nowDate.getFullYear()
     $('.date-box').attr("value",nowDate_Str);
@@ -90,41 +92,54 @@ $(function() {
           Item.Could_Contact = $(this).find('input[name="Company_Could_Contact"]:checked').val();//能否联系上家公司
           Work_Experience.push(Item)
         });
-
-        // console.log(Username);
-        // console.log(Password);
-
-        // console.log(Name);
-        // console.log(Social_security_Number)
-        // console.log(Mailing_Address)
-        // console.log(city_state_Zip_Code)
-        // console.log(Telephone)
-        // console.log(Age)
-        // console.log(Email)
-
-        // console.log(Days_work)
-        // console.log(Work_nature)
-        // console.log(Work_hours)
-        // console.log(Work_at_night)
-        // console.log(Work_available_date)
-
-        // console.log(Is_Legal_status)
-        // console.log(Have_Criminal_Record)
-        // console.log(Criminal_Record)
-        // console.log(Have_DL)
-        // console.log(DL_Number)
-        // console.log(DL_Issued_State)
-
-        // console.log(Is_Jioned_Army)
-        // console.log(Is_Member_NG)
-        // console.log(Military_Specialty)
         
+        function toStr(data){
+          for(var i = 0; i<data.length; i++){
+             data[i]=JSON.stringify(data[i])
+          }
+          return data.join('_&_');
+        }
 
-        // console.log(High_School)
-        // console.log(College_School)
-        console.log(Work_Experience)
+        var param = {
+          Username : Username,
+          Password : Password,
+          Name : Name,
+          Social_security_Number : Social_security_Number,
+          Mailing_Address : Mailing_Address,
+          city_state_Zip_Code : city_state_Zip_Code,
+          Telephone : Telephone,
+          Age : Age,
+          Email : Email,
+          Days_work : Days_work.join('_&_'),
+          Work_nature : Work_nature,
+          Work_hours : Work_hours,
+          Work_at_night : Work_at_night,
+          Work_available_date : Work_available_date,
+          Is_Legal_status : Is_Legal_status,
+          Have_Criminal_Record : Have_Criminal_Record,
+          Criminal_Record : Criminal_Record,
+          Have_DL : Have_DL,
+          DL_Number : DL_Number,
+          DL_Issued_State : DL_Issued_State,
+          Is_Jioned_Army : Is_Jioned_Army,
+          Is_Member_NG : Is_Member_NG,
+          Military_Specialty : Military_Specialty,
+          High_School : toStr(High_School),
+          College_School : toStr(College_School),
+          Work_Experience : toStr(Work_Experience)
+        }
+        console.log(param)
+        $.ajax({      
+            url: '/Users/add',  
+           data: param,      
+           dataType: "json",      
+           type: "POST",     
+           success: function (responseJSON) {   
+           }      
+        });  
+
     })
-})
+});
 
 function addHighSchool() {
     var boxDom = '<div class="row-fluid">\
@@ -150,7 +165,7 @@ function addHighSchool() {
                     <div class="controls">\
                       <div class="input-append date span5 datepicker datepicker-basic" data-date="" data-date-format="dd-mm-yyyy">\
                           <input size="16" type="text" name="Years_Completed" value="">\
-                          <span class="add-on" onclick="wang(this)"><i class="icon-th"></i></span>\
+                          <span class="add-on" onclick="timeGet(this)"><i class="icon-th"></i></span>\
                         </div>\
                     </div>\
                   </div>\
@@ -202,7 +217,7 @@ function addCollegeSchool() {
                     <div class="controls">\
                       <div class="input-append date span5 datepicker datepicker-basic" data-date="" data-date-format="dd-mm-yyyy">\
                           <input size="16" type="text" name="Years_Completed" value="">\
-                          <span class="add-on"><i class="icon-th"></i></span>\
+                          <span class="add-on" onclick="timeGet(this)"><i class="icon-th"></i></span>\
                         </div>\
                     </div>\
                   </div>\
@@ -282,7 +297,7 @@ function addWork(){
                     <div class="controls">\
                       <div class="input-append date span5 datepicker datepicker-basic" data-date="" data-date-format="dd-mm-yyyy">\
                           <input size="16" type="text" name="Company_Start_Date" value="">\
-                          <span class="add-on"><i class="icon-th"></i></span>\
+                          <span class="add-on" onclick="timeGet(this)"><i class="icon-th"></i></span>\
                         </div>\
                     </div>\
                   </div>\
@@ -291,7 +306,7 @@ function addWork(){
                     <div class="controls">\
                       <div class="input-append date span5 datepicker datepicker-basic" data-date="" data-date-format="dd-mm-yyyy">\
                           <input size="16" type="text" name="Company_End_Date" value="">\
-                          <span class="add-on"><i class="icon-th"></i></span>\
+                          <span class="add-on" onclick="timeGet(this)"><i class="icon-th"></i></span>\
                         </div>\
                     </div>\
                   </div>\
@@ -351,11 +366,12 @@ function DeleteDom(nowDom){
 }
 
 
-function wang(w){
+function timeGet(w){
   var nowDate = new Date();
     var nowDate_Str = nowDate.getDate()+"-"+(nowDate.getMonth()+1)+"-"+nowDate.getFullYear()
     var option = {
        format:nowDate_Str
     }
-  $(w).parent().datepicker()
+  $(w).parent().datepicker();
 }
+

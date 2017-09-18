@@ -13,6 +13,9 @@ module.exports = function(app) {
     app.get('/Users', function(req, res) {
        res.render('Users');
     });
+    app.get('/AddUser', function(req, res) {
+       res.render('AddUser');
+    });
 
 
 
