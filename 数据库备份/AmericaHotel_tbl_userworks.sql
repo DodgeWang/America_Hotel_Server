@@ -16,28 +16,40 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tbl_administrators`
+-- Table structure for table `tbl_userworks`
 --
 
-DROP TABLE IF EXISTS `tbl_administrators`;
+DROP TABLE IF EXISTS `tbl_userworks`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbl_administrators` (
+CREATE TABLE `tbl_userworks` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `supervisor` varchar(45) DEFAULT NULL,
+  `address` varchar(45) DEFAULT NULL,
+  `zipCode` varchar(45) DEFAULT NULL,
+  `phone` varchar(45) DEFAULT NULL,
+  `hours` varchar(45) DEFAULT NULL,
+  `job_title` varchar(45) DEFAULT NULL,
+  `start_date` varchar(45) DEFAULT NULL,
+  `end_date` varchar(45) DEFAULT NULL,
+  `start_salary` varchar(45) DEFAULT NULL,
+  `end_salary` varchar(45) DEFAULT NULL,
+  `reason_leaving` varchar(45) DEFAULT NULL,
+  `self_summary` varchar(45) DEFAULT NULL,
+  `could_contact` varchar(45) DEFAULT NULL,
+  `userId` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tbl_administrators`
+-- Dumping data for table `tbl_userworks`
 --
 
-LOCK TABLES `tbl_administrators` WRITE;
-/*!40000 ALTER TABLE `tbl_administrators` DISABLE KEYS */;
-INSERT INTO `tbl_administrators` VALUES (1,'admin','96e79218965eb72c92a549dd5a330112');
-/*!40000 ALTER TABLE `tbl_administrators` ENABLE KEYS */;
+LOCK TABLES `tbl_userworks` WRITE;
+/*!40000 ALTER TABLE `tbl_userworks` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_userworks` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +61,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-18 17:58:24
+-- Dump completed on 2017-09-18 17:58:25

@@ -16,28 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tbl_administrators`
+-- Table structure for table `tbl_users`
 --
 
-DROP TABLE IF EXISTS `tbl_administrators`;
+DROP TABLE IF EXISTS `tbl_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbl_administrators` (
+CREATE TABLE `tbl_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
+  `create_time` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tbl_administrators`
+-- Dumping data for table `tbl_users`
 --
 
-LOCK TABLES `tbl_administrators` WRITE;
-/*!40000 ALTER TABLE `tbl_administrators` DISABLE KEYS */;
-INSERT INTO `tbl_administrators` VALUES (1,'admin','96e79218965eb72c92a549dd5a330112');
-/*!40000 ALTER TABLE `tbl_administrators` ENABLE KEYS */;
+LOCK TABLES `tbl_users` WRITE;
+/*!40000 ALTER TABLE `tbl_users` DISABLE KEYS */;
+INSERT INTO `tbl_users` VALUES (1,'wangdaiqiang','123456','4545454'),(2,'test2','5555','888'),(3,'test3','ddd','1212'),(4,'test4','fdfdf','111'),(5,'test5','fdfsd','112122'),(6,'test6','fdfd','ssss');
+/*!40000 ALTER TABLE `tbl_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-18 17:58:24
+-- Dump completed on 2017-09-18 17:58:25
