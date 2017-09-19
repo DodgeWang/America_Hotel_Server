@@ -17,7 +17,7 @@ module.exports = function(app) {
        res.render('AddUser');
     });
     app.get('/EditUser', function(req, res) {
-       res.render('EditUser',{data:Users.userInfoById()});
+       res.render('EditUser',{data:Users.userInfoById(req.query.userId)});
     });
 
 

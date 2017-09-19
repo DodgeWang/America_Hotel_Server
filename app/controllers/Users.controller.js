@@ -73,7 +73,7 @@ exports.add = function(req, res, next) {
  * @param  {Function} next the next func
  * @return {null}     
  */
-exports.userInfoById = function() {
+exports.userInfoById = function(userId) {
     // if (!req.query.page || !req.query.size) return res.json(resUtil.generateRes(null, config.statusCode.STATUS_INVAILD_PARAMS));
     // var page = Number(req.query.page);
     // var size = Number(req.query.size);
@@ -83,100 +83,139 @@ exports.userInfoById = function() {
     //     }
     //     res.json(resUtil.generateRes(rows, config.statusCode.STATUS_OK));       
     // })
-    var data = {
-          UserId : 1,
-          Username : "wangdaiqiang@qq.com",
-          Password : "123456",
 
-          Name : "wangdaiqiang",
-          Social_security_Number : "510622199308152716",
-          Mailing_Address : "四川省绵竹市",
-          city_state_Zip_Code : "618200",
-          Telephone : "18281865016",
-          Age : "25",
-          Email : "453831794@qq.com",
+    // var data = {
+    //       UserId : 1,
+    //       Username : "wangdaiqiang@qq.com",
+    //       Password : "123456",
 
-          Days_work : [1,2,3,0],
-          Work_nature : 0,
-          Work_hours : "13",
-          Work_at_night : 0,
-          Work_available_date : "19-9-2017",
+    //       Name : "wangdaiqiang",
+    //       Social_security_Number : "510622199308152716",
+    //       Mailing_Address : "四川省绵竹市",
+    //       city_state_Zip_Code : "618200",
+    //       Telephone : "18281865016",
+    //       Age : "25",
+    //       Email : "453831794@qq.com",
 
-          Is_Legal_status : 0,
-          Have_Criminal_Record : 0,
-          Criminal_Record : "抢劫",
-          Have_DL : 0,
-          DL_Number : "9859598",
-          DL_Issued_State : "华盛顿",
+    //       Days_work : [1,2,3,0],
+    //       Work_nature : 0,
+    //       Work_hours : "13",
+    //       Work_at_night : 0,
+    //       Work_available_date : "19-9-2017",
 
-          Is_Jioned_Army : 0,
-          Is_Member_NG : 0,
-          Military_Specialty : "狙击手",
+    //       Is_Legal_status : 0,
+    //       Have_Criminal_Record : 0,
+    //       Criminal_Record : "抢劫",
+    //       Have_DL : 0,
+    //       DL_Number : "9859598",
+    //       DL_Issued_State : "华盛顿",
 
-          High_School : [{
-            Name : "绵竹实验中学",
-            Address : "绵竹滨河路东段",
-            Years_Completed : "20-06-2009",
-            Major : "无",
-            Degree_Diploma : "初中" 
-          },{
-            Name : "绵竹中学",
-            Address : "绵竹新城",
-            Years_Completed : "20-06-2012",
-            Major : "理科",
-            Degree_Diploma : "高中" 
-          }],
-          College_School : [{
-            Name : "四川文理学院",
-            Address : "达州南坝街",
-            Years_Completed : "20-06-2016",
-            Major : "计算机科学与技术",
-            Degree_Diploma : "本科" 
-          },{
-            Name : "清华大学",
-            Address : "北京",
-            Years_Completed : "20-06-2019",
-            Major : "计算机",
-            Degree_Diploma : "硕士" 
-          }],
-          Work_Experience : [{
-            Name : "四川有乐信息技术有限公司",
-            Supervisor : "张国良",
-            Hours : "8",
-            Address : "成都市高新区益州大道移动互联创业大厦1011",
-            ZipCode : "658741",
-            Phone : "18281865044",
-            Job_Title : "前端工程师",
-            Start_Date : "01-12-2015",
-            End_Date : "19-09-2017",
-            Start_Salary : "3000",
-            End_Salary : "7000",
-            Reason_Leaving : "技术提升不够",
-            Self_Summary : "在公司学到了很多东西",
-            Could_Contact :0
-          },{
-            Name : "四川有乐信息技术有限公司2",
-            Supervisor : "张国良",
-            Hours : "8",
-            Address : "成都市高新区益州大道移动互联创业大厦1011",
-            ZipCode : "658741",
-            Phone : "18281865044",
-            Job_Title : "前端工程师",
-            Start_Date : "01-12-2015",
-            End_Date : "19-09-2017",
-            Start_Salary : "3000",
-            End_Salary : "7000",
-            Reason_Leaving : "技术提升不够",
-            Self_Summary : "在公司学到了很多东西",
-            Could_Contact :1
-          }],
-          References: [{
-            Content : "熟人信息一"
-          },{
-            Content : "熟人信息二"
-          }]
+    //       Is_Jioned_Army : 0,
+    //       Is_Member_NG : 0,
+    //       Military_Specialty : "狙击手",
+
+    //       High_School : [{
+    //         Name : "绵竹实验中学",
+    //         Address : "绵竹滨河路东段",
+    //         Years_Completed : "20-06-2009",
+    //         Major : "无",
+    //         Degree_Diploma : "初中" 
+    //       },{
+    //         Name : "绵竹中学",
+    //         Address : "绵竹新城",
+    //         Years_Completed : "20-06-2012",
+    //         Major : "理科",
+    //         Degree_Diploma : "高中" 
+    //       }],
+    //       College_School : [{
+    //         Name : "四川文理学院",
+    //         Address : "达州南坝街",
+    //         Years_Completed : "20-06-2016",
+    //         Major : "计算机科学与技术",
+    //         Degree_Diploma : "本科" 
+    //       },{
+    //         Name : "清华大学",
+    //         Address : "北京",
+    //         Years_Completed : "20-06-2019",
+    //         Major : "计算机",
+    //         Degree_Diploma : "硕士" 
+    //       }],
+    //       Work_Experience : [{
+    //         Name : "四川有乐信息技术有限公司",
+    //         Supervisor : "张国良",
+    //         Hours : "8",
+    //         Address : "成都市高新区益州大道移动互联创业大厦1011",
+    //         ZipCode : "658741",
+    //         Phone : "18281865044",
+    //         Job_Title : "前端工程师",
+    //         Start_Date : "01-12-2015",
+    //         End_Date : "19-09-2017",
+    //         Start_Salary : "3000",
+    //         End_Salary : "7000",
+    //         Reason_Leaving : "技术提升不够",
+    //         Self_Summary : "在公司学到了很多东西",
+    //         Could_Contact :0
+    //       },{
+    //         Name : "四川有乐信息技术有限公司2",
+    //         Supervisor : "张国良",
+    //         Hours : "8",
+    //         Address : "成都市高新区益州大道移动互联创业大厦1011",
+    //         ZipCode : "658741",
+    //         Phone : "18281865044",
+    //         Job_Title : "前端工程师",
+    //         Start_Date : "01-12-2015",
+    //         End_Date : "19-09-2017",
+    //         Start_Salary : "3000",
+    //         End_Salary : "7000",
+    //         Reason_Leaving : "技术提升不够",
+    //         Self_Summary : "在公司学到了很多东西",
+    //         Could_Contact :1
+    //       }],
+    //       References: [{
+    //         Content : "熟人信息一"
+    //       },{
+    //         Content : "熟人信息二"
+    //       }]
+    //     }
+    //     return data;
+    var data = {}
+    Users.userBaseInfo(userId, function(err,data) {
+        if (err) {
+            return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
         }
-        return data;
+        var data = {
+          UserId : data.id,
+          Username : data.username,
+          Password : data.password,
+
+          Name : data.name,
+          Social_security_Number : data.SSN,
+          Mailing_Address : data.mailAddress,
+          city_state_Zip_Code : data.zipCode,
+          Telephone : data.telephone,
+          Age : data.age,
+          Email : data.email,
+
+          Days_work : data.daysWork.split(","),
+          Work_nature : data.workNature,
+          Work_hours : data.workNature,
+          Work_at_night : data.workAtNight,
+          Work_available_date : data.workAvailableDate,
+
+          Is_Legal_status : data.isLegalStatus,
+          Have_Criminal_Record : data.haveCriminalRecord,
+          Criminal_Record : data.criminalRecord,
+          Have_DL : data.haveDL,
+          DL_Number : data.DLNumber,
+          DL_Issued_State : data.DLIssuedState,
+
+          Is_Jioned_Army : data.IsJionedArmy,
+          Is_Member_NG : data.isMemberNG,
+          Military_Specialty : data.militarySpecialty
+        }
+        console.log(data)
+        return data;      
+    })
 }
 
 
