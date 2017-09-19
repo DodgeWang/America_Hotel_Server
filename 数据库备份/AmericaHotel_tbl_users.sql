@@ -26,7 +26,28 @@ CREATE TABLE `tbl_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
-  `create_time` varchar(45) DEFAULT NULL,
+  `createTime` varchar(45) DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `SSN` varchar(100) DEFAULT NULL,
+  `mailAddress` varchar(255) DEFAULT NULL,
+  `zipCode` varchar(45) DEFAULT NULL,
+  `telephone` varchar(45) DEFAULT NULL,
+  `age` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `daysWork` varchar(45) DEFAULT NULL,
+  `workNature` varchar(45) DEFAULT NULL,
+  `workHours` varchar(45) DEFAULT NULL,
+  `workAtNight` varchar(45) DEFAULT NULL,
+  `workAvailableDate` varchar(45) DEFAULT NULL,
+  `isLegalStatus` varchar(45) DEFAULT NULL,
+  `haveCriminalRecord` varchar(45) DEFAULT NULL,
+  `criminalRecord` varchar(255) DEFAULT NULL,
+  `haveDL` varchar(45) DEFAULT NULL,
+  `DLNumber` varchar(45) DEFAULT NULL,
+  `DLIssuedState` varchar(45) DEFAULT NULL,
+  `IsJionedArmy` varchar(45) DEFAULT NULL,
+  `isMemberNG` varchar(45) DEFAULT NULL,
+  `militarySpecialty` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -37,7 +58,7 @@ CREATE TABLE `tbl_users` (
 
 LOCK TABLES `tbl_users` WRITE;
 /*!40000 ALTER TABLE `tbl_users` DISABLE KEYS */;
-INSERT INTO `tbl_users` VALUES (1,'wangdaiqiang','123456','4545454'),(2,'test2','5555','888'),(3,'test3','ddd','1212'),(4,'test4','fdfdf','111'),(5,'test5','fdfsd','112122'),(6,'test6','fdfd','ssss');
+INSERT INTO `tbl_users` VALUES (1,'wangdaiqiang','123456','4545454',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(2,'test2','5555','888',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,'test3','ddd','1212',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(4,'test4','fdfdf','111',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(5,'test5','fdfsd','112122',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(6,'test6','fdfd','ssss',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `tbl_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +71,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-18 17:58:25
+-- Dump completed on 2017-09-19 17:16:32

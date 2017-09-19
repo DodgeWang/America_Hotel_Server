@@ -30,15 +30,15 @@ CREATE TABLE `tbl_userworks` (
   `zipCode` varchar(45) DEFAULT NULL,
   `phone` varchar(45) DEFAULT NULL,
   `hours` varchar(45) DEFAULT NULL,
-  `job_title` varchar(45) DEFAULT NULL,
-  `start_date` varchar(45) DEFAULT NULL,
-  `end_date` varchar(45) DEFAULT NULL,
-  `start_salary` varchar(45) DEFAULT NULL,
-  `end_salary` varchar(45) DEFAULT NULL,
-  `reason_leaving` varchar(45) DEFAULT NULL,
-  `self_summary` varchar(45) DEFAULT NULL,
-  `could_contact` varchar(45) DEFAULT NULL,
-  `userId` varchar(45) DEFAULT NULL,
+  `jobTitle` varchar(45) DEFAULT NULL,
+  `startDate` varchar(45) DEFAULT NULL,
+  `endDate` varchar(45) DEFAULT NULL,
+  `startSalary` varchar(45) DEFAULT NULL,
+  `endSalary` varchar(45) DEFAULT NULL,
+  `reasonLeaving` varchar(255) DEFAULT NULL,
+  `selfSummary` varchar(255) DEFAULT NULL,
+  `couldContact` varchar(45) DEFAULT NULL,
+  `userId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -61,4 +61,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-18 17:58:25
+-- Dump completed on 2017-09-19 17:16:32

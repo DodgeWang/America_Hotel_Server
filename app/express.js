@@ -3,6 +3,7 @@ var routers = require('./routers');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
+var hbsHelper = require('./hbsHelper');
 
 
 module.exports = function() {
@@ -10,36 +11,8 @@ module.exports = function() {
     var app = express();
     var handlebars = require('express3-handlebars').create({ 
                     defaultLayout:'main' ,
-                    helpers: {
-                      section: function(name, options){ 
-                        if(!this._sections) this._sections = {}; 
-                        this._sections[name] = options.fn(this); 
-                        return null;
-                      },
-                      radio_ck: function(v1, v2) {
-                          if(v1 == v2) return 'checked';
-                      },
-                      checkbox_ck: function(list,x) {
-                          for(var i = 0; i < list.length; i++){
-                            if(list[i] == x) return 'checked'; 
-                          }
-                      },
-                      if_eq: function(v1, v2,options){
-                         if(v1 == v2){
-                            return options.fn(this);
-                         }else{
-                            return options.inverse(this);
-                         }
-                      },
-                      numAdd: function(num) {
-                          return num + 1;
-                      }
-                    }
+                    helpers: hbsHelper
                  });
-
-
-                      
-
 
     app.engine('handlebars', handlebars.engine);
     app.set('view engine', 'handlebars');

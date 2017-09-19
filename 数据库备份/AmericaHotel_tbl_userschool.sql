@@ -16,28 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tbl_administrators`
+-- Table structure for table `tbl_userschool`
 --
 
-DROP TABLE IF EXISTS `tbl_administrators`;
+DROP TABLE IF EXISTS `tbl_userschool`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbl_administrators` (
+CREATE TABLE `tbl_userschool` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `address` varchar(45) DEFAULT NULL,
+  `yearCompleted` varchar(45) DEFAULT NULL,
+  `major` varchar(45) DEFAULT NULL,
+  `degreeDiploma` varchar(45) DEFAULT NULL,
+  `type` varchar(45) DEFAULT NULL,
+  `userId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tbl_administrators`
+-- Dumping data for table `tbl_userschool`
 --
 
-LOCK TABLES `tbl_administrators` WRITE;
-/*!40000 ALTER TABLE `tbl_administrators` DISABLE KEYS */;
-INSERT INTO `tbl_administrators` VALUES (1,'admin','96e79218965eb72c92a549dd5a330112');
-/*!40000 ALTER TABLE `tbl_administrators` ENABLE KEYS */;
+LOCK TABLES `tbl_userschool` WRITE;
+/*!40000 ALTER TABLE `tbl_userschool` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_userschool` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

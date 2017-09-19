@@ -38,7 +38,7 @@
                                                <span class='caret'></span>\
                                             </a>\
                                             <ul class='dropdown-menu pull-right'>\
-                                              <li><a href='#'><i class='icon-edit'></i> Edit</a></li>\
+                                              <li><a href='/EditUser?userId="+id+"'><i class='icon-edit'></i> Edit</a></li>\
                                               <li><a href='#'><i class='icon-trash'></i> Delete</a></li>\
                                             </ul>\
                                           </div>\
