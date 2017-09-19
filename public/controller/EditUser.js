@@ -1,12 +1,10 @@
 $(function() {
-    $('.datepicker-basic').datepicker();
-    var nowDate = new Date();
-    var nowDate_Str = nowDate.getDate()+"-"+(nowDate.getMonth()+1)+"-"+nowDate.getFullYear()
-    $('.date-box').attr("value",nowDate_Str);
 
+    $('.datepicker-basic').datepicker();
 
     $('#form_sublime').on('click',function(){
         //登陆信息
+        var UserId = $('input[name="UserId"]').val();//用户名
         var Username = $('input[name="Username"]').val();//用户名
         var Password = $('input[name="Password"]').val();//密码
 
@@ -108,6 +106,7 @@ $(function() {
         }
 
         var param = {
+          UserId : UserId,
           Username : Username,
           Password : Password,
           Name : Name,
@@ -149,6 +148,3 @@ $(function() {
 
     })
 });
-
-
-

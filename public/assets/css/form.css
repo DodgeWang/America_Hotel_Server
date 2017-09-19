@@ -41,3 +41,17 @@
     color: #ffffff;
     border-radius: 0 0 0 4px;
 }
+
+.wdq-del-btn-two{
+    position: absolute;
+    top: 0;
+    right: -28px;
+    width: 28px;
+    height: 28px;
+    padding: 4px 0;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    ;
+    color: #ffffff;
+    border-radius: 0 4px 4px 0;
+}

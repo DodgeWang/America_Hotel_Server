@@ -8,10 +8,10 @@
           <ul class="breadcrumb">
             <li><a href="#">Home</a> <span class="divider">/</span></li>
             <li><a href="users.html">Users</a> <span class="divider">/</span></li>
-            <li class="active">Add User</li>
+            <li class="active">Edit User</li>
           </ul>
           <h2 class="heading">
-                Add User
+                Edit User
           </h2>
         </div>
         <!-- 登陆信息 -->
@@ -23,16 +23,22 @@
             <div class="widget-body">
               <div class="widget-forms clearfix">
                 <form class="form-horizontal">
+                 <div class="control-group" style="display:none;">
+                    <label class="control-label">UserID</label>
+                    <div class="controls">
+                      <input class="span7" type="text" name="UserId" value={{data.UserId}}>
+                    </div>
+                 </div>
                  <div class="control-group">
                     <label class="control-label">Username</label>
                     <div class="controls">
-                      <input class="span7" type="text" name="Username">
+                      <input class="span7" type="text" name="Username" value={{data.Username}}>
                     </div>
-                  </div>
+                 </div>
                  <div class="control-group">
                     <label class="control-label">Password</label>
                     <div class="controls">
-                      <input class="span7 tip" type="password" name="Password">
+                      <input class="span7 tip" type="password" name="Password" value={{data.Password}}>
                     </div>
                   </div>
                 </form>
@@ -53,44 +59,44 @@
                  <div class="control-group">
                     <label class="control-label">Name</label>
                     <div class="controls">
-                      <input class="span7" type="text" name="Name">
+                      <input class="span7" type="text" name="Name" value={{data.Name}}>
                     </div>
                   </div>
                  <div class="control-group">
                     <label class="control-label">Social security Number</label>
                     <div class="controls">
-                      <input class="span7 tip" type="text" name="Social_security_Number">
+                      <input class="span7 tip" type="text" name="Social_security_Number" value={{data.Social_security_Number}}>
                     </div>
                   </div>
                   <div class="control-group">
                     <label class="control-label">Mailing Address</label>
                     <div class="controls">
-                      <input class="span7 tip" type="text" name="Mailing_Address">
+                      <input class="span7 tip" type="text" name="Mailing_Address" value={{data.Mailing_Address}}>
                     </div>
                   </div>
                   <div class="control-group">
                     <label class="control-label">city state Zip Code</label>
                     <div class="controls">
-                      <input class="span7 tip" type="text" name="city_state_Zip_Code">
+                      <input class="span7 tip" type="text" name="city_state_Zip_Code" value={{data.city_state_Zip_Code}}>
                     </div>
                   </div>
                   <div class="control-group">
                     <label class="control-label">Telephone</label>
                     <div class="controls">
-                      <input class="span7 tip" type="text" name="Telephone">
+                      <input class="span7 tip" type="text" name="Telephone" value={{data.Telephone}}>
                     </div>
                   </div>
                   <div class="control-group">
                     <label class="control-label">Age</label>
                     <div class="controls">
-                      <input class="span7 tip" type="text" name="Age">
+                      <input class="span7 tip" type="text" name="Age" value={{data.Age}}>
                       <span class="help-inline">If under 18,please list age.</span>
                     </div>
                   </div>
                   <div class="control-group">
                     <label class="control-label">Email</label>
                     <div class="controls">
-                      <input class="span7 tip" type="text" name="Email">
+                      <input class="span7 tip" type="text" name="Email" value={{data.Email}}>
                     </div>
                   </div>
                 </form>
@@ -114,35 +120,35 @@
                     <label style="text-align:left">Days/hours available to work:</label>
                     <div class="controls controls-wdq">
                       <label class="checkbox">
-                        <input name="Days_work" type="checkbox" value="1">
+                        <input name="Days_work" type="checkbox" value="1" {{#checkbox_ck data.Days_work 1}}{{/checkbox_ck}}>
                         Mon
                       </label>
                       <label class="checkbox">
-                        <input name="Days_work" type="checkbox" value="2">
+                        <input name="Days_work" type="checkbox" value="2" {{#checkbox_ck data.Days_work 2}}{{/checkbox_ck}}>
                         Tues
                       </label>
                       <label class="checkbox">
-                        <input name="Days_work" type="checkbox" value="3">
+                        <input name="Days_work" type="checkbox" value="3" {{#checkbox_ck data.Days_work 3}}{{/checkbox_ck}}>
                         Wed
                       </label>
                       <label class="checkbox">
-                        <input name="Days_work" type="checkbox" value="4">
+                        <input name="Days_work" type="checkbox" value="4" {{#checkbox_ck data.Days_work 4}}{{/checkbox_ck}}>
                         Thurs
                       </label>
                       <label class="checkbox">
-                        <input name="Days_work" type="checkbox" value="5">
+                        <input name="Days_work" type="checkbox" value="5" {{#checkbox_ck data.Days_work 5}}{{/checkbox_ck}}>
                         Fri
                       </label>
                       <label class="checkbox">
-                        <input name="Days_work" type="checkbox" value="6">
+                        <input name="Days_work" type="checkbox" value="6" {{#checkbox_ck data.Days_work 6}}{{/checkbox_ck}}>
                         Sat
                       </label>
                       <label class="checkbox">
-                        <input name="Days_work" type="checkbox" value="7">
+                        <input name="Days_work" type="checkbox" value="7" {{#checkbox_ck data.Days_work 7}}{{/checkbox_ck}}>
                         Sun
                       </label>
                       <label class="checkbox">
-                        <input name="Days_work" type="checkbox" value="0">
+                        <input name="Days_work" type="checkbox" value="0" {{#checkbox_ck data.Days_work 0}}{{/checkbox_ck}}>
                         I have no preference.
                       </label>
                     </div>
@@ -152,15 +158,15 @@
                     <label class="control-label">I am seeking a:</label>
                     <div class="controls controls-wdq">
                       <label class="radio">
-                        <input type="radio" name="Work_nature" value="0" checked>
+                        <input type="radio" name="Work_nature" value="0" {{#radio_ck data.Work_nature 0}}{{/radio_ck}}>
                         Full-time job
                       </label> 
                       <label class="radio">
-                        <input type="radio" name="Work_nature" value="1">
+                        <input type="radio" name="Work_nature" value="1" {{#radio_ck data.Work_nature 1}}{{/radio_ck}}>
                         Part-time job
                       </label> 
                       <label class="radio">
-                        <input type="radio" name="Work_nature" value="2">
+                        <input type="radio" name="Work_nature" value="2" {{#radio_ck data.Work_nature 2}}{{/radio_ck}}>
                         Full- or Part-time
                       </label>
                     </div>
@@ -169,18 +175,18 @@
                   <div class="control-group">
                     <label>How many hours can you work weekly?</label>
                     <div class="controls">
-                      <input class="span7 tip" name="Work_hours" type="text">
+                      <input class="span7 tip" name="Work_hours" type="text" value={{data.Work_hours}}>
                     </div>
                   </div>
                   <div class="control-group">
                     <label class="control-label">Can you work nights?</label>
                     <div class="controls controls-wdq">
                       <label class="radio">
-                        <input type="radio" name="Work_at_night" value="1" checked>
+                        <input type="radio" name="Work_at_night" value="1" {{#radio_ck data.Work_at_night 1}}{{/radio_ck}}>
                         Yes
                       </label> 
                       <label class="radio">
-                        <input type="radio" name="Work_at_night" value="0">
+                        <input type="radio" name="Work_at_night" value="0" {{#radio_ck data.Work_at_night 0}}{{/radio_ck}}>
                         No
                       </label> 
                     </div>
@@ -188,8 +194,8 @@
                   <div class="control-group">
                     <label class="control-label">Date available to begin</label>
                     <div class="controls">
-                      <div class="input-append date span5 datepicker datepicker-basic" data-date="" data-date-format="dd-mm-yyyy">
-                          <input class="date-box" size="16" type="text" name="Work_available_date" value="">
+                      <div class="input-append date span5 datepicker datepicker-basic" data-date={{data.Work_available_date}} data-date-format="dd-mm-yyyy">
+                          <input class="date-box" size="16" type="text" name="Work_available_date" value={{data.Work_available_date}}>
                           <span class="add-on"><i class="icon-th"></i></span>
                         </div>
                     </div>
@@ -214,11 +220,11 @@
                     <label>I certify that a U.S. citizen,permanent resident,or a foreign national with authorization to work in the United States.</label>
                     <div class="controls controls-wdq">
                       <label class="radio">
-                        <input type="radio" name="Is_Legal_status" value="1" checked>
+                        <input type="radio" name="Is_Legal_status" value="1" {{#radio_ck data.Is_Legal_status 1}}{{/radio_ck}}>
                         Yes
                       </label> 
                       <label class="radio">
-                        <input type="radio" name="Is_Legal_status" value="0">
+                        <input type="radio" name="Is_Legal_status" value="0" {{#radio_ck data.Is_Legal_status 0}}{{/radio_ck}}>
                         No
                       </label> 
                     </div>
@@ -227,11 +233,11 @@
                     <label>Have you ever been convicted of,or entered a plea of guilty,no contest,or had a withheld judgment to a felony.</label>
                     <div class="controls controls-wdq">
                       <label class="radio">
-                        <input type="radio" name="Have_Criminal_Record" value="1" checked>
+                        <input type="radio" name="Have_Criminal_Record" value="1" {{#radio_ck data.Have_Criminal_Record 1}}{{/radio_ck}}>
                         Yes
                       </label> 
                       <label class="radio">
-                        <input type="radio" name="Have_Criminal_Record" value="0">
+                        <input type="radio" name="Have_Criminal_Record" value="0" {{#radio_ck data.Have_Criminal_Record 0}}{{/radio_ck}}>
                         No
                       </label> 
                     </div>
@@ -239,18 +245,18 @@
                   <div class="control-group">
                     <label class="control-label">If Yes,please explain:</label>
                     <div class="controls">
-                      <textarea class="span7" rows="5" style="height:100px;" name="Criminal_Record"></textarea>
+                      <textarea class="span7" rows="5" style="height:100px;" name="Criminal_Record">{{data.Criminal_Record}}</textarea>
                     </div>
                   </div>
                   <div class="control-group">
                     <label>Do you have a driver's license?</label>
                     <div class="controls controls-wdq">
                       <label class="radio">
-                        <input type="radio" name="Have_DL" value="1" checked>
+                        <input type="radio" name="Have_DL" value="1" {{#radio_ck data.Have_DL 1}}{{/radio_ck}}>
                         Yes
                       </label> 
                       <label class="radio">
-                        <input type="radio" name="Have_DL" value="0">
+                        <input type="radio" name="Have_DL" value="0" {{#radio_ck data.Have_DL 0}}{{/radio_ck}}>
                         No
                       </label> 
                     </div>
@@ -258,13 +264,13 @@
                   <div class="control-group">
                     <label class="control-label">Driver's license number</label>
                     <div class="controls">
-                      <input class="span7" type="text" name="DL_Number">
+                      <input class="span7" type="text" name="DL_Number" value={{data.DL_Number}}>
                     </div>
                   </div>
                   <div class="control-group">
                     <label class="control-label">Issued in what state?</label>
                     <div class="controls">
-                      <input class="span7" type="text" name="DL_Issued_State">
+                      <input class="span7" type="text" name="DL_Issued_State" value={{data.DL_Issued_State}}>
                     </div>
                   </div>
                 </form>
@@ -274,118 +280,127 @@
         </div>
 
         
-        <!-- 高中学历信息 -->
+      <!-- 高中学历信息 -->
       <div id="highSchoolBox"> 
-        <div class="row-fluid">
-          <div class="widget widget-padding span12">
-            <div class="widget-header">
-              <i class="icon-list-alt"></i><h5>Education（High School）</h5>
-              <div class="widget-buttons">
-                  <a data-title="Add" onclick="addHighSchool()"><i class="icon-plus"></i></a>
-              </div>
-            </div>
-            <div class="widget-body highSchoolItem">
-              <div class="widget-forms clearfix">
-                <form class="form-horizontal">
-                  <div class="control-group">
-                    <label class="control-label">School</label>
-                    <div class="controls">
-                      <input class="span7" type="text" name="School_Name">
-                    </div>
+        {{#each data.High_School}}
+            <div class="row-fluid">
+              <div class="widget widget-padding span12">
+              {{#if_eq @index 0}}
+                <div class="widget-header">
+                  <i class="icon-list-alt"></i><h5>Education（High School）</h5>
+                  <div class="widget-buttons">
+                      <a data-title="Add" onclick="addHighSchool()"><i class="icon-plus"></i></a>
                   </div>
-                  <div class="control-group">
-                    <label class="control-label">Mailing Address</label>
-                    <div class="controls">
-                      <input class="span7 tip" type="text" name="School_Address">
-                    </div>
-                  </div>
-                  <div class="control-group">
-                    <label class="control-label">Years Completed</label>
-                    <div class="controls">
-                      <div class="input-append date span5 datepicker datepicker-basic" data-date="" data-date-format="dd-mm-yyyy">
-                          <input size="16" type="text" name="Years_Completed" value="">
-                          <span class="add-on"><i class="icon-th"></i></span>
+                </div>
+              {{/if_eq}}
+                <div class="widget-body highSchoolItem">
+                  {{#if_eq @index 0}}{{else}}
+                  <div onclick="DeleteDom(this)" class="wdq-del-btn"><i class="icon-remove"></i></div>
+                  {{/if_eq}}
+                  <div class="widget-forms clearfix">
+                    <form class="form-horizontal">
+                      <div class="control-group">
+                        <label class="control-label">School</label>
+                        <div class="controls">
+                          <input class="span7" type="text" name="School_Name" value={{Name}}>
                         </div>
-                    </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label">Mailing Address</label>
+                        <div class="controls">
+                          <input class="span7 tip" type="text" name="School_Address" value={{Address}}>
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label">Years Completed</label>
+                        <div class="controls">
+                          <div class="input-append date span5 datepicker datepicker-basic" data-date={{Years_Completed}} data-date-format="dd-mm-yyyy">
+                              <input size="16" type="text" name="Years_Completed" value={{Years_Completed}}>
+                              <span class="add-on"><i class="icon-th"></i></span>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label">Major</label>
+                        <div class="controls">
+                          <input class="span7 tip" type="text" name="Major" value={{Major}}>
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label">Degree or Diploma</label>
+                        <div class="controls">
+                          <input class="span7 tip" type="text" name="Degree_Diploma" value={{Degree_Diploma}}>
+                        </div>
+                      </div>
+                    </form>
                   </div>
-                  <div class="control-group">
-                    <label class="control-label">Major</label>
-                    <div class="controls">
-                      <input class="span7 tip" type="text" name="Major">
-                    </div>
-                  </div>
-                  <div class="control-group">
-                    <label class="control-label">Degree or Diploma</label>
-                    <div class="controls">
-                      <input class="span7 tip" type="text" name="Degree_Diploma">
-                    </div>
-                  </div>
-                </form>
+                </div>
               </div>
-            
-            </div>
-          </div>
-        </div>
+            </div> 
+        {{/each}}
       </div>
 
 
-
-
-
-        <!-- 大学学历信息 -->
+      <!-- 大学学历信息 -->
       <div id="collegeSchoolBox"> 
-        <div class="row-fluid">
-          <div class="widget widget-padding span12">
-            <div class="widget-header">
-              <i class="icon-list-alt"></i><h5>Education（College or Business/Trade School）</h5>
-              <div class="widget-buttons">
-                  <a data-title="Add" onclick="addCollegeSchool()"><i class="icon-plus"></i></a>
-              </div>
-            </div>
-            <div class="widget-body collegeItem">
-              <div class="widget-forms clearfix">
-                <form class="form-horizontal">
-                  <div class="control-group">
-                    <label class="control-label">School</label>
-                    <div class="controls">
-                      <input class="span7" type="text" name="School_Name">
-                    </div>
+        {{#each data.College_School}}
+            <div class="row-fluid">
+              <div class="widget widget-padding span12">
+                {{#if_eq @index 0}}
+                <div class="widget-header">
+                   <i class="icon-list-alt"></i><h5>Education（College or Business/Trade School）</h5>
+                  <div class="widget-buttons">
+                    <a data-title="Add" onclick="addCollegeSchool()"><i class="icon-plus"></i></a>
                   </div>
-                  <div class="control-group">
-                    <label class="control-label">Mailing Address</label>
-                    <div class="controls">
-                      <input class="span7 tip" type="text" name="School_Address">
-                    </div>
-                  </div>
-                  <div class="control-group">
-                    <label class="control-label">Years Completed</label>
-                    <div class="controls">
-                      <div class="input-append date span5 datepicker datepicker-basic" data-date="" data-date-format="dd-mm-yyyy">
-                          <input size="16" type="text" name="Years_Completed" value="">
-                          <span class="add-on"><i class="icon-th"></i></span>
+                </div>
+                {{/if_eq}}
+                <div class="widget-body collegeItem">
+                  {{#if_eq @index 0}}{{else}}
+                  <div onclick="DeleteDom(this)" class="wdq-del-btn"><i class="icon-remove"></i></div>
+                  {{/if_eq}}
+                  <div class="widget-forms clearfix">
+                    <form class="form-horizontal">
+                      <div class="control-group">
+                        <label class="control-label">School</label>
+                        <div class="controls">
+                          <input class="span7" type="text" name="School_Name" value={{Name}}>
                         </div>
-                    </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label">Mailing Address</label>
+                        <div class="controls">
+                          <input class="span7 tip" type="text" name="School_Address" value={{Address}}>
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label">Years Completed</label>
+                        <div class="controls">
+                          <div class="input-append date span5 datepicker datepicker-basic" data-date={{Years_Completed}} data-date-format="dd-mm-yyyy">
+                              <input size="16" type="text" name="Years_Completed" value={{Years_Completed}}>
+                              <span class="add-on"><i class="icon-th"></i></span>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label">Major</label>
+                        <div class="controls">
+                          <input class="span7 tip" type="text" name="Major" value={{Major}}>
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label">Degree or Diploma</label>
+                        <div class="controls">
+                          <input class="span7 tip" type="text" name="Degree_Diploma" value={{Degree_Diploma}}>
+                        </div>
+                      </div>
+                    </form>
                   </div>
-                  <div class="control-group">
-                    <label class="control-label">Major</label>
-                    <div class="controls">
-                      <input class="span7 tip" type="text" name="Major">
-                    </div>
-                  </div>
-                  <div class="control-group">
-                    <label class="control-label">Degree or Diploma</label>
-                    <div class="controls">
-                      <input class="span7 tip" type="text" name="Degree_Diploma">
-                    </div>
-                  </div>
-                </form>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+            
+        {{/each}}
       </div>
-
-
 
 
 
@@ -402,11 +417,11 @@
                     <label>Have you even been in the Armed Forces?</label>
                     <div class="controls controls-wdq">
                       <label class="radio">
-                        <input type="radio" name="Is_Jioned_Army" value="1" checked>
+                        <input type="radio" name="Is_Jioned_Army" value="1" {{#radio_ck data.Is_Jioned_Army 1}}{{/radio_ck}}>
                         Yes
                       </label> 
                       <label class="radio">
-                        <input type="radio" name="Is_Jioned_Army" value="0">
+                        <input type="radio" name="Is_Jioned_Army" value="0" {{#radio_ck data.Is_Jioned_Army 0}}{{/radio_ck}}>
                         No
                       </label> 
                     </div>
@@ -415,11 +430,11 @@
                     <label>Are you now a member of the National Guard?</label>
                     <div class="controls controls-wdq">
                       <label class="radio">
-                        <input type="radio" name="Is_Member_NG" value="1" checked>
+                        <input type="radio" name="Is_Member_NG" value="1" {{#radio_ck data.Is_Member_NG 1}}{{/radio_ck}}>
                         Yes
                       </label> 
                       <label class="radio">
-                        <input type="radio" name="Is_Member_NG" value="0">
+                        <input type="radio" name="Is_Member_NG" value="0" {{#radio_ck data.Is_Member_NG 0}}{{/radio_ck}}>
                         No
                       </label> 
                     </div>
@@ -427,7 +442,7 @@
                   <div class="control-group">
                     <label class="control-label">Specialty</label>
                     <div class="controls">
-                      <input class="span7" type="text" name="Military_Specialty">
+                      <input class="span7" type="text" name="Military_Specialty" value={{data.Military_Specialty}}>
                     </div>
                   </div>
                 </form>
@@ -438,65 +453,71 @@
 
         
         <!-- 工作经历 -->
-      <div id="workBox"> 
+      <div id="workBox">
+        {{#each data.Work_Experience}} 
         <div class="row-fluid">
           <div class="widget widget-padding span12">
+          {{#if_eq @index 0}}
             <div class="widget-header">
               <i class="icon-list-alt"></i><h5>Work Experience</h5>
               <div class="widget-buttons">
                   <a data-title="Add"  onclick="addWork()"><i class="icon-plus"></i></a>
               </div>
             </div>
+          {{/if_eq}}
             <div class="widget-body workItem">
+              {{#if_eq @index 0}}{{else}}
+              <div onclick="DeleteDom(this)" class="wdq-del-btn"><i class="icon-remove"></i></div>
+              {{/if_eq}}
               <div class="widget-forms clearfix">
                 <form class="form-horizontal">
                   <div class="control-group">
                     <label class="control-label">Company</label>
                     <div class="controls">
-                      <input class="span7" type="text" name="Company_Name">
+                      <input class="span7" type="text" name="Company_Name" value={{Name}}>
                     </div>
                   </div>
                   <div class="control-group">
                     <label class="control-label">Name of last supervisor</label>
                     <div class="controls">
-                      <input class="span7" type="text" name="Company_Supervisor">
+                      <input class="span7" type="text" name="Company_Supervisor" value={{Supervisor}}>
                     </div>
                   </div>
                   <div class="control-group">
                     <label class="control-label">Hrs/week</label>
                     <div class="controls">
-                      <input class="span7" type="text" name="Company_Hours">
+                      <input class="span7" type="text" name="Company_Hours" value={{Hours}}>
                     </div>
                   </div>
                   <div class="control-group">
                     <label class="control-label">Address</label>
                     <div class="controls">
-                      <input class="span7" type="text" name="Company_Address">
+                      <input class="span7" type="text" name="Company_Address" value={{Address}}>
                     </div>
                   </div>
                   <div class="control-group">
                     <label class="control-label">City,State,and Zip Code</label>
                     <div class="controls">
-                      <input class="span7" type="text" name="Company_ZipCode">
+                      <input class="span7" type="text" name="Company_ZipCode" value={{ZipCode}}>
                     </div>
                   </div>
                   <div class="control-group">
                     <label class="control-label">Phone number</label>
                     <div class="controls">
-                      <input class="span7" type="text" name="Company_Phone">
+                      <input class="span7" type="text" name="Company_Phone" value={{Phone}}>
                     </div>
                   </div>
                   <div class="control-group">
                     <label class="control-label">Your last job title</label>
                     <div class="controls">
-                      <input class="span7" type="text" name="Company_Job_Title">
+                      <input class="span7" type="text" name="Company_Job_Title" value={{Job_Title}}>
                     </div>
                   </div>
                   <div class="control-group">
                     <label class="control-label">Start Date</label>
                     <div class="controls">
-                      <div class="input-append date span5 datepicker datepicker-basic" data-date="" data-date-format="dd-mm-yyyy">
-                          <input size="16" type="text" name="Company_Start_Date" value="">
+                      <div class="input-append date span5 datepicker datepicker-basic" data-date={{Start_Date}} data-date-format="dd-mm-yyyy">
+                          <input size="16" type="text" name="Company_Start_Date" value={{Start_Date}}>
                           <span class="add-on"><i class="icon-th"></i></span>
                         </div>
                     </div>
@@ -504,8 +525,8 @@
                   <div class="control-group">
                     <label class="control-label">End Date</label>
                     <div class="controls">
-                      <div class="input-append date span5 datepicker datepicker-basic" data-date="" data-date-format="dd-mm-yyyy">
-                          <input size="16" type="text" name="Company_End_Date" value="">
+                      <div class="input-append date span5 datepicker datepicker-basic" data-date={{End_Date}} data-date-format="dd-mm-yyyy">
+                          <input size="16" type="text" name="Company_End_Date" value={{End_Date}}>
                           <span class="add-on"><i class="icon-th"></i></span>
                         </div>
                     </div>
@@ -514,7 +535,7 @@
                     <label class="control-label">Starting Salary</label>
                     <div class="controls">
                       <div class="input-append">
-                        <input class="span7" type="text" name="Company_Start_Salary" placeholder="5.000"><span class="add-on">$</span>
+                        <input class="span7" type="text" name="Company_Start_Salary" placeholder="5.000" value={{Start_Salary}}><span class="add-on">$</span>
                       </div>
                     </div>
                   </div>
@@ -522,31 +543,31 @@
                     <label class="control-label">Final Salary</label>
                     <div class="controls">
                       <div class="input-append">
-                        <input class="span7" type="text" name="Company_End_Salary" placeholder="5.000"><span class="add-on">$</span>
+                        <input class="span7" type="text" name="Company_End_Salary" placeholder="5.000" value={{End_Salary}}><span class="add-on">$</span>
                       </div>
                     </div>
                   </div>
                   <div class="control-group">
                     <label>Reason for leaving(be specific)</label>
                     <div class="controls">
-                      <textarea class="span7" rows="5" style="height:100px;" name="Company_Reason_Leaving"></textarea>
+                      <textarea class="span7" rows="5" style="height:100px;" name="Company_Reason_Leaving">{{Reason_Leaving}}</textarea>
                     </div>
                   </div>
                   <div class="control-group">
                     <label>List the jobs you held,duties performed,skills used or learned,advancements or promotions while you worked at this company.</label>
                     <div class="controls">
-                      <textarea class="span7" rows="5" style="height:100px;" name="Company_Self_Summary"></textarea>
+                      <textarea class="span7" rows="5" style="height:100px;" name="Company_Self_Summary">{{Self_Summary}}</textarea>
                     </div>
                   </div>
                   <div class="control-group">
                     <label>May we contact this employer?</label>
                     <div class="controls controls-wdq">
                       <label class="radio">
-                        <input type="radio" name="Company_Could_Contact" value="1" checked>
+                        <input type="radio" name="Company_Could_Contact" value="1" {{#radio_ck Could_Contact 1}}{{/radio_ck}}>
                         Yes
                       </label> 
                       <label class="radio">
-                        <input type="radio" name="Company_Could_Contact" value="0">
+                        <input type="radio" name="Company_Could_Contact" value="0" {{#radio_ck Could_Contact 0}}{{/radio_ck}}>
                         No
                       </label> 
                     </div>
@@ -556,6 +577,7 @@
             </div>
           </div>
         </div>
+        {{/each}}
       </div>
 
 
@@ -577,15 +599,19 @@
                   <div class="control-group">
                     <label style="color:red;">Please include name,phone number,and cirumstances of your acquaintance,Exclude relatives and former employers.</label>
                   </div>
+                  {{#each data.References}}
                   <div class="control-group references_Item">
-                      <label class="control-label">No.1</label>
-                      <div class="controls"> 
+                    <label class="control-label">No.{{#numAdd @index}}{{/numAdd}}</label>
+                      <div class="controls">
                         <div class="span7" style="position:relative;">
-                          <textarea class="span12" rows="5" style="height:100px;"></textarea>
+                          <textarea class="span12" rows="5" style="height:100px;">{{Content}}</textarea>
+                          {{#if_eq @index 0}}{{else}}
+                             <div onclick="DeleteDom(this)" class="wdq-del-btn-two"><i class="icon-remove"></i></div>
+                          {{/if_eq}}
                         </div>
-                      </div> 
+                      </div>
                   </div>
-
+                  {{/each}}
                 </form>
               </div>
             </div>
@@ -602,7 +628,7 @@
 
 {{#section 'script'}}
     <script type="text/javascript" src="assets/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="assets/js/bootstrap-datepicker.js"></script>  
-    <script type="text/javascript" src="controller/userinfoDom.js"></script>
-    <script type="text/javascript" src="controller/AddUser.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="controller/userinfoDom.js"></script>  
+    <script type="text/javascript" src="controller/EditUser.js"></script>
 {{/section}}
