@@ -1,4 +1,5 @@
 var mysql = require('../mysql');
+var Mapping = require('../../config/env/sqlMapping');
 
 /**
  * 获取用户列表
@@ -54,6 +55,84 @@ exports.userBaseInfo = function(id, callback) {
 }
 
 
+/**
+ * 根据用户id获取用户教育信息    
+ * @param  {num}   id   用户id
+ * @param  {num}   type   学校级别         
+ * @param  {Function} callback 回调函数
+ * @return {null}
+ */
+exports.userSchoolInfo = function(userId, type, callback) {
+    mysql.query({
+        sql: "SELECT "+Mapping.mappingToStr(Mapping.userSchool)+" FROM AmericaHotel.tbl_userschool WHERE userId= :userId AND type= :type",
+        params: {
+            "userId": userId,
+            "type": type
+        }
+    }, function(err, rows) {
+        if (err) {
+            callback(err, null);
+        }
+
+        if (rows && rows.length > 0) {
+            callback(null, rows);
+        } else {
+            callback(null, []);
+        }
+    })
+}
+
+
+/**
+ * 根据用户id获取用户工作经历信息    
+ * @param  {num}   id   用户id        
+ * @param  {Function} callback 回调函数
+ * @return {null}
+ */
+exports.userWorkInfo = function(userId, callback) {
+    mysql.query({
+        sql: "SELECT "+Mapping.mappingToStr(Mapping.userWork)+" FROM AmericaHotel.tbl_userworks WHERE userId= :userId",
+        params: {
+            "userId": userId
+        }
+    }, function(err, rows) {
+        if (err) {
+            callback(err, null);
+        }
+
+        if (rows && rows.length > 0) {
+            callback(null, rows);
+        } else {
+            callback(null, []);
+        }
+    })
+}
+
+/**
+ * 根据用户id获取用户熟人信息    
+ * @param  {num}   id   用户id        
+ * @param  {Function} callback 回调函数
+ * @return {null}
+ */
+exports.userReferencesInfo = function(userId, callback) {
+    mysql.query({
+        sql: "SELECT "+Mapping.mappingToStr(Mapping.userReferences)+" FROM AmericaHotel.tbl_userreferences WHERE userId= :userId",
+        params: {
+            "userId": userId
+        }
+    }, function(err, rows) {
+        if (err) {
+            callback(err, null);
+        }
+
+        if (rows && rows.length > 0) {
+            callback(null, rows);
+        } else {
+            callback(null, []);
+        }
+    })
+}
+
 
 
 /**
@@ -65,3 +144,7 @@ exports.userBaseInfo = function(id, callback) {
 exports.add = function(data, callback) {
     
 }
+
+
+
+

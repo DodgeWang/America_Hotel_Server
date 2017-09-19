@@ -73,7 +73,7 @@ exports.add = function(req, res, next) {
  * @param  {Function} next the next func
  * @return {null}     
  */
-exports.userInfoById = function(userId) {
+exports.userInfoById = function(req,res,next) {
     // if (!req.query.page || !req.query.size) return res.json(resUtil.generateRes(null, config.statusCode.STATUS_INVAILD_PARAMS));
     // var page = Number(req.query.page);
     // var size = Number(req.query.size);
@@ -178,43 +178,69 @@ exports.userInfoById = function(userId) {
     //       }]
     //     }
     //     return data;
+    var userId = req.query.userId;
     var data = {}
-    Users.userBaseInfo(userId, function(err,data) {
+    Users.userBaseInfo(userId, function(err,obj) {
         if (err) {
             return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
         }
         var data = {
-          UserId : data.id,
-          Username : data.username,
-          Password : data.password,
+          UserId : obj.id,
+          Username : obj.username,
+          Password : obj.password,
 
-          Name : data.name,
-          Social_security_Number : data.SSN,
-          Mailing_Address : data.mailAddress,
-          city_state_Zip_Code : data.zipCode,
-          Telephone : data.telephone,
-          Age : data.age,
-          Email : data.email,
+          Name : obj.name,
+          Social_security_Number : obj.SSN,
+          Mailing_Address : obj.mailAddress,
+          city_state_Zip_Code : obj.zipCode,
+          Telephone : obj.telephone,
+          Age : obj.age,
+          Email : obj.email,
 
-          Days_work : data.daysWork.split(","),
-          Work_nature : data.workNature,
-          Work_hours : data.workNature,
-          Work_at_night : data.workAtNight,
-          Work_available_date : data.workAvailableDate,
+          Days_work : obj.daysWork.split(","),
+          Work_nature : obj.workNature,
+          Work_hours : obj.workNature,
+          Work_at_night : obj.workAtNight,
+          Work_available_date : obj.workAvailableDate,
 
-          Is_Legal_status : data.isLegalStatus,
-          Have_Criminal_Record : data.haveCriminalRecord,
-          Criminal_Record : data.criminalRecord,
-          Have_DL : data.haveDL,
-          DL_Number : data.DLNumber,
-          DL_Issued_State : data.DLIssuedState,
+          Is_Legal_status : obj.isLegalStatus,
+          Have_Criminal_Record : obj.haveCriminalRecord,
+          Criminal_Record : obj.criminalRecord,
+          Have_DL : obj.haveDL,
+          DL_Number : obj.DLNumber,
+          DL_Issued_State : obj.DLIssuedState,
 
-          Is_Jioned_Army : data.IsJionedArmy,
-          Is_Member_NG : data.isMemberNG,
-          Military_Specialty : data.militarySpecialty
+          Is_Jioned_Army : obj.IsJionedArmy,
+          Is_Member_NG : obj.isMemberNG,
+          Military_Specialty : obj.militarySpecialty
         }
-        console.log(data)
-        return data;      
+        Users.userSchoolInfo(userId, 1, function(err,obj) {
+          if (err) {
+            return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+          }
+          data.High_School = obj;
+          Users.userSchoolInfo(userId, 2, function(err,obj) {
+            if (err) {
+              return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+            }
+            data.College_School = obj;
+            Users.userWorkInfo(userId, function(err,obj) {
+              if (err) {
+                return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+              }
+              data.Work_Experience = obj;
+              Users.userReferencesInfo(userId, function(err,obj) {
+                if (err) {
+                  return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+                }
+                data.References = obj;
+                res.render('EditUser',{data:data}); 
+              })
+              // res.render('EditUser',{data:data});
+            }) 
+          }) 
+        })
+             
     })
 }
 

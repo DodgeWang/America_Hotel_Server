@@ -16,10 +16,10 @@ module.exports = function(app) {
     app.get('/AddUser', function(req, res) {
        res.render('AddUser');
     });
-    app.get('/EditUser', function(req, res) {
-       res.render('EditUser',{data:Users.userInfoById(req.query.userId)});
-    });
-
+    // app.get('/EditUser', function(req, res) {
+    //    res.render('EditUser',{data:Users.userInfoById(req.query.userId)});
+    // });
+    app.get('/EditUser', Users.userInfoById);
 
 
     /**
