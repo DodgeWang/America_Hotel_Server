@@ -31,6 +31,8 @@ module.exports = function(app) {
 
     app.get('/Users/list',Users.getList) //获取用户列表
 
-    app.post('/Users/add',Users.add);//添加用户  
+    app.post('/Users/add',Users.add);//添加用户 
+
+    app.post('/Users/edit',Users.edit);//添加用户 
     
 }

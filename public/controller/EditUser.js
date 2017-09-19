@@ -138,7 +138,7 @@ $(function() {
 
         console.log(param)
         $.ajax({      
-            url: '/Users/add',  
+           url: '/Users/edit',  
            data: param,      
            dataType: "json",      
            type: "POST",     
