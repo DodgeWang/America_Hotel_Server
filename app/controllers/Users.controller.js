@@ -22,6 +22,27 @@ exports.getList = function(req, res, next) {
 
 
 /**
+ * 删除用户
+ * @param  {object}   req  the request object
+ * @param  {object}   res  the response object
+ * @param  {Function} next the next func
+ * @return {null}     
+ */
+exports.delete = function(req, res, next) {
+    if (!req.query.idCode) return res.json(resUtil.generateRes(null, config.statusCode.STATUS_INVAILD_PARAMS));
+    var idCode = req.query.idCode;
+    Users.delete(idCode, function(err,rows) {
+        if (err) {
+            return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+        }
+        res.json(resUtil.generateRes(rows, config.statusCode.STATUS_OK));       
+    })
+}
+
+
+
+
+/**
  * 添加用户
  * @param  {object}   req  the request object
  * @param  {object}   res  the response object
@@ -58,7 +79,6 @@ exports.add = function(req, res, next) {
           College_School : strTo(req.body.College_School),
           Work_Experience : strTo(req.body.Work_Experience)
         }
-    console.log(data)
     Users.add(data, function(err,rows){
     	
     })
@@ -74,17 +94,113 @@ exports.add = function(req, res, next) {
  * @return {null}     
  */
 exports.userInfoById = function(req,res,next) {
-    // if (!req.query.page || !req.query.size) return res.json(resUtil.generateRes(null, config.statusCode.STATUS_INVAILD_PARAMS));
-    // var page = Number(req.query.page);
-    // var size = Number(req.query.size);
-    // Users.getList(page, size, function(err,rows) {
-    //     if (err) {
-    //         return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
-    //     }
-    //     res.json(resUtil.generateRes(rows, config.statusCode.STATUS_OK));       
-    // })
+    if (!req.query.userIdCode) return res.json(resUtil.generateRes(null, config.statusCode.STATUS_INVAILD_PARAMS));
+    var idCode = req.query.userIdCode;
+    var data = {}
+    console.log(idCode)
+    Users.userBaseInfo(idCode, function(err,obj) {
+        if (err) {
+            return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+        }
+        var data = {}
+        if(obj != null){
+          data = obj;
+          data.Days_work = null ? [] : data.Days_work.split(",");
+        }
+        
+        Users.userSchoolInfo(idCode, 1, function(err,obj) {
+          if (err) {
+            return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+          }
+          data.High_School = obj;
+          Users.userSchoolInfo(idCode, 2, function(err,obj) {
+            if (err) {
+              return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+            }
+            data.College_School = obj;
+            Users.userWorkInfo(idCode, function(err,obj) {
+              if (err) {
+                return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+              }
+              data.Work_Experience = obj;
+              Users.userReferencesInfo(idCode, function(err,obj) {
+                if (err) {
+                  return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+                }
+                data.References = obj;
+                res.render('EditUser',{data:data});
+              })
+            }) 
+          }) 
+        })           
+    })
+}
 
-    // var data = {
+
+
+/**
+ * 修改用户信息
+ * @param  {object}   req  the request object
+ * @param  {object}   res  the response object
+ * @param  {Function} next the next func
+ * @return {null}     
+ */
+exports.edit = function(req, res, next) {
+    console.log(req.body) 
+    var data = {
+          UserId : req.body.UserId,
+          Username : req.body.Username,
+          Password : req.body.Password,
+          Name : req.body.Name,
+          Social_security_Number : req.body.Social_security_Number,
+          Mailing_Address : req.body.Mailing_Address,
+          city_state_Zip_Code : req.body.city_state_Zip_Code,
+          Telephone : req.body.Telephone,
+          Age : req.body.Age,
+          Email : req.body.Email,
+          Days_work : req.body.Days_work.split("_&_"),
+          Work_nature : req.body.Work_nature,
+          Work_hours : req.body.Work_hours,
+          Work_at_night : req.body.Work_at_night,
+          Work_available_date : req.body.Work_available_date,
+          Is_Legal_status : req.body.Is_Legal_status,
+          Have_Criminal_Record : req.body.Have_Criminal_Record,
+          Criminal_Record : req.body.Criminal_Record,
+          Have_DL : req.body.Have_DL,
+          DL_Number : req.body.DL_Number,
+          DL_Issued_State : req.body.DL_Issued_State,
+          Is_Jioned_Army : req.body.Is_Jioned_Army,
+          Is_Member_NG : req.body.Is_Member_NG,
+          Military_Specialty : req.body.Military_Specialty,
+          High_School : strTo(req.body.High_School),
+          College_School : strTo(req.body.College_School),
+          Work_Experience : strTo(req.body.Work_Experience)
+        }
+    console.log(data)
+    Users.add(data, function(err,rows){
+      
+    })
+  
+}
+
+
+
+
+
+
+function strTo(str){
+    var arrayList = str.split("_&_");
+    for(var i = 0; i<arrayList.length;i++){
+    	arrayList[i] = JSON.parse(arrayList[i]);
+    }
+    return arrayList;
+}
+
+
+
+
+
+// var data = {
     //       UserId : 1,
     //       Username : "wangdaiqiang@qq.com",
     //       Password : "123456",
@@ -177,125 +293,5 @@ exports.userInfoById = function(req,res,next) {
     //         Content : "熟人信息二"
     //       }]
     //     }
-    //     return data;
-    var userId = req.query.userId;
-    var data = {}
-    Users.userBaseInfo(userId, function(err,obj) {
-        if (err) {
-            return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
-        }
-        var data = {
-          UserId : obj.id,
-          Username : obj.username,
-          Password : obj.password,
-
-          Name : obj.name,
-          Social_security_Number : obj.SSN,
-          Mailing_Address : obj.mailAddress,
-          city_state_Zip_Code : obj.zipCode,
-          Telephone : obj.telephone,
-          Age : obj.age,
-          Email : obj.email,
-
-          Days_work : obj.daysWork.split(","),
-          Work_nature : obj.workNature,
-          Work_hours : obj.workNature,
-          Work_at_night : obj.workAtNight,
-          Work_available_date : obj.workAvailableDate,
-
-          Is_Legal_status : obj.isLegalStatus,
-          Have_Criminal_Record : obj.haveCriminalRecord,
-          Criminal_Record : obj.criminalRecord,
-          Have_DL : obj.haveDL,
-          DL_Number : obj.DLNumber,
-          DL_Issued_State : obj.DLIssuedState,
-
-          Is_Jioned_Army : obj.IsJionedArmy,
-          Is_Member_NG : obj.isMemberNG,
-          Military_Specialty : obj.militarySpecialty
-        }
-        Users.userSchoolInfo(userId, 1, function(err,obj) {
-          if (err) {
-            return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
-          }
-          data.High_School = obj;
-          Users.userSchoolInfo(userId, 2, function(err,obj) {
-            if (err) {
-              return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
-            }
-            data.College_School = obj;
-            Users.userWorkInfo(userId, function(err,obj) {
-              if (err) {
-                return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
-              }
-              data.Work_Experience = obj;
-              Users.userReferencesInfo(userId, function(err,obj) {
-                if (err) {
-                  return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
-                }
-                data.References = obj;
-                res.render('EditUser',{data:data}); 
-              })
-              // res.render('EditUser',{data:data});
-            }) 
-          }) 
-        })
-             
-    })
-}
 
 
-
-/**
- * 修改用户信息
- * @param  {object}   req  the request object
- * @param  {object}   res  the response object
- * @param  {Function} next the next func
- * @return {null}     
- */
-exports.edit = function(req, res, next) {
-    console.log(req.body) 
-    var data = {
-          UserId : req.body.UserId,
-          Username : req.body.Username,
-          Password : req.body.Password,
-          Name : req.body.Name,
-          Social_security_Number : req.body.Social_security_Number,
-          Mailing_Address : req.body.Mailing_Address,
-          city_state_Zip_Code : req.body.city_state_Zip_Code,
-          Telephone : req.body.Telephone,
-          Age : req.body.Age,
-          Email : req.body.Email,
-          Days_work : req.body.Days_work.split("_&_"),
-          Work_nature : req.body.Work_nature,
-          Work_hours : req.body.Work_hours,
-          Work_at_night : req.body.Work_at_night,
-          Work_available_date : req.body.Work_available_date,
-          Is_Legal_status : req.body.Is_Legal_status,
-          Have_Criminal_Record : req.body.Have_Criminal_Record,
-          Criminal_Record : req.body.Criminal_Record,
-          Have_DL : req.body.Have_DL,
-          DL_Number : req.body.DL_Number,
-          DL_Issued_State : req.body.DL_Issued_State,
-          Is_Jioned_Army : req.body.Is_Jioned_Army,
-          Is_Member_NG : req.body.Is_Member_NG,
-          Military_Specialty : req.body.Military_Specialty,
-          High_School : strTo(req.body.High_School),
-          College_School : strTo(req.body.College_School),
-          Work_Experience : strTo(req.body.Work_Experience)
-        }
-    console.log(data)
-    Users.add(data, function(err,rows){
-      
-    })
-  
-}
-
-
-function strTo(str){
-    var arrayList = str.split("_&_");
-    for(var i = 0; i<arrayList.length;i++){
-    	arrayList[i] = JSON.parse(arrayList[i]);
-    }
-    return arrayList;
-}

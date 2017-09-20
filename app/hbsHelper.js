@@ -10,10 +10,9 @@ var helper = {
             if (v1 == v2) return 'checked';
         },
         checkbox_ck: function(list, x) {
-            // for (var i = 0; i < list.length; i++) {
-            //     if (list[i] == x) return 'checked';
-            // }
-            return 'checked';
+            for (var i = 0; i < list.length; i++) {
+                if (list[i] == x) return 'checked';
+            }
         },
         if_eq: function(v1, v2, options) {
             if (v1 == v2) {

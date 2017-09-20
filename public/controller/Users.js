@@ -26,6 +26,7 @@
                     for (var i = 0; i < obj.data.length; i++) {
                         var username = obj.data[i].username;
                         var id = obj.data[i].id;
+                        var idCode = obj.data[i].idCode;
                         var htmlStr = "<tr>\
                                      <td>" + username + "</td>\
                                         <td>Admin</td>\
@@ -38,8 +39,8 @@
                                                <span class='caret'></span>\
                                             </a>\
                                             <ul class='dropdown-menu pull-right'>\
-                                              <li><a href='/EditUser?userId="+id+"'><i class='icon-edit'></i> Edit</a></li>\
-                                              <li><a href='#'><i class='icon-trash'></i> Delete</a></li>\
+                                              <li><a href='/EditUser?userIdCode="+idCode+"'><i class='icon-edit'></i> Edit</a></li>\
+                                              <li><a onclick='delUser("+idCode+")'><i class='icon-trash'></i> Delete</a></li>\
                                             </ul>\
                                           </div>\
                                         </td>\
@@ -52,13 +53,25 @@
                 } else {
                     switch (type) {
                         case 0:
-                            $("#datalist tbody").empty();
+                            $("#users tbody").empty();
                             break;
                         case 2:
                             alert('It’s the last page');
                             break;
                     }
                 }
+            }
+        })
+    }
+
+
+
+    function delUser(idCode){
+        $.get("/Users/delete", { idCode: idCode }, function(obj) {
+            if (obj.status.code !== 0) {
+                alert(obj.status.msg);
+            } else {
+                userList(page, size, 0)
             }
         })
     }

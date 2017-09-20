@@ -33,6 +33,8 @@ module.exports = function(app) {
 
     app.post('/Users/add',Users.add);//添加用户 
 
-    app.post('/Users/edit',Users.edit);//添加用户 
+    app.post('/Users/edit',Users.edit);//修改用户 
+
+    app.get('/Users/delete',Users.delete);//删除用户 
     
 }

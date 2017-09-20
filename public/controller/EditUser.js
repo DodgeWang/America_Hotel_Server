@@ -4,7 +4,7 @@ $(function() {
 
     $('#form_sublime').on('click',function(){
         //登陆信息
-        var UserId = $('input[name="UserId"]').val();//用户名
+        var IdCode = $('input[name="IdCode"]').val();//用户名
         var Username = $('input[name="Username"]').val();//用户名
         var Password = $('input[name="Password"]').val();//密码
 
@@ -106,7 +106,7 @@ $(function() {
         }
 
         var param = {
-          UserId : UserId,
+          IdCode : IdCode,
           Username : Username,
           Password : Password,
           Name : Name,

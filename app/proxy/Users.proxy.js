@@ -29,18 +29,70 @@ exports.getList = function(page, size, callback) {
     })
 }
 
+
 /**
- * 根据用户id获取用户基础信息    
- * @param  {num}   id   用户id         
+ * 根据用户id删除用户所有信息           
+ * @param  {num}   idCode   用户唯一识别码         
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.userBaseInfo = function(id, callback) {
+exports.delete = function(idCode, callback) {
     mysql.query({
-        sql: "SELECT * FROM AmericaHotel.tbl_users WHERE id= :id",
+        sql: "DELETE tbl_users,tbl_userschool,tbl_userworks,tbl_userreferences FROM tbl_users\
+              LEFT JOIN tbl_userschool ON tbl_userschool.userIdCode=tbl_users.idCode AND tbl_users.idCode = :idCode\
+              LEFT JOIN tbl_userworks ON tbl_userworks.userIdCode=tbl_users.idCode AND tbl_users.idCode = :idCode\
+              LEFT JOIN tbl_userreferences ON tbl_userreferences.userIdCode=tbl_users.idCode AND tbl_users.idCode = :idCode\
+              WHERE (tbl_userschool.userIdCode=tbl_users.idCode )\
+              OR (tbl_userworks.userIdCode=tbl_users.idCode)\
+              OR (tbl_userreferences.userIdCode=tbl_users.idCode)\
+              OR (tbl_users.idCode = :idCode);",
         params: {
-            "id": id
+            "idCode": idCode
         }
+    }, function(err, rows) {
+        if (err) {
+            callback(err, null);
+        }
+        callback(null,null);
+    })
+}
+
+/**
+ * 根据用户id获取用户基础信息    
+ * @param  {num}   idCode   用户唯一识别码          
+ * @param  {Function} callback 回调函数
+ * @return {null}
+ */
+exports.userBaseInfo = function(idCode, callback) {
+    mysql.query({
+        sql: "SELECT "+Mapping.mappingToStr(Mapping.userBaseInfo)+" FROM tbl_users WHERE idCode= :idCode",
+        params: {
+            "idCode": idCode
+        }
+    }, function(err, rows) {
+        if (err) {
+            callback(err, null);
+        }
+
+        if (rows && rows.length > 0) {
+            callback(null, rows[0]);
+        } else {
+            callback(null, null);
+        }
+    })
+}
+
+
+
+/**
+ * 添加用户基础信息    
+ * @param  {obj}   data   要添加的用户基本信息          
+ * @param  {Function} callback 回调函数
+ * @return {null}
+ */
+exports.addBaseInfo = function(data, callback) {
+    mysql.query({
+        sql: "INSERT INTO tbl_users VALUES ",
     }, function(err, rows) {
         if (err) {
             callback(err, null);
@@ -57,16 +109,16 @@ exports.userBaseInfo = function(id, callback) {
 
 /**
  * 根据用户id获取用户教育信息    
- * @param  {num}   id   用户id
+ * @param  {num}   idCode   用户唯一识别码 
  * @param  {num}   type   学校级别         
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.userSchoolInfo = function(userId, type, callback) {
+exports.userSchoolInfo = function(idCode, type, callback) {
     mysql.query({
-        sql: "SELECT "+Mapping.mappingToStr(Mapping.userSchool)+" FROM AmericaHotel.tbl_userschool WHERE userId= :userId AND type= :type",
+        sql: "SELECT "+Mapping.mappingToStr(Mapping.userSchool)+" FROM tbl_userschool WHERE userIdCode= :idCode AND type= :type",
         params: {
-            "userId": userId,
+            "idCode": idCode,
             "type": type
         }
     }, function(err, rows) {
@@ -77,7 +129,7 @@ exports.userSchoolInfo = function(userId, type, callback) {
         if (rows && rows.length > 0) {
             callback(null, rows);
         } else {
-            callback(null, []);
+            callback(null, null);
         }
     })
 }
@@ -85,15 +137,15 @@ exports.userSchoolInfo = function(userId, type, callback) {
 
 /**
  * 根据用户id获取用户工作经历信息    
- * @param  {num}   id   用户id        
+ * @param  {num}   idCode   用户唯一识别码         
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.userWorkInfo = function(userId, callback) {
+exports.userWorkInfo = function(idCode, callback) {
     mysql.query({
-        sql: "SELECT "+Mapping.mappingToStr(Mapping.userWork)+" FROM AmericaHotel.tbl_userworks WHERE userId= :userId",
+        sql: "SELECT "+Mapping.mappingToStr(Mapping.userWork)+" FROM tbl_userworks WHERE userIdCode= :idCode",
         params: {
-            "userId": userId
+            "idCode": idCode
         }
     }, function(err, rows) {
         if (err) {
@@ -103,22 +155,22 @@ exports.userWorkInfo = function(userId, callback) {
         if (rows && rows.length > 0) {
             callback(null, rows);
         } else {
-            callback(null, []);
+            callback(null, null);
         }
     })
 }
 
 /**
  * 根据用户id获取用户熟人信息    
- * @param  {num}   id   用户id        
+ * @param  {num}   userId   用户id        
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.userReferencesInfo = function(userId, callback) {
+exports.userReferencesInfo = function(idCode, callback) {
     mysql.query({
-        sql: "SELECT "+Mapping.mappingToStr(Mapping.userReferences)+" FROM AmericaHotel.tbl_userreferences WHERE userId= :userId",
+        sql: "SELECT "+Mapping.mappingToStr(Mapping.userReferences)+" FROM tbl_userreferences WHERE userIdCode= :idCode",
         params: {
-            "userId": userId
+            "idCode": idCode
         }
     }, function(err, rows) {
         if (err) {
@@ -128,7 +180,7 @@ exports.userReferencesInfo = function(userId, callback) {
         if (rows && rows.length > 0) {
             callback(null, rows);
         } else {
-            callback(null, []);
+            callback(null, null);
         }
     })
 }
@@ -136,7 +188,7 @@ exports.userReferencesInfo = function(userId, callback) {
 
 
 /**
- * 添加用户    
+ * 添加新用户    
  * @param  {obj}   data   用户信息         
  * @param  {Function} callback 回调函数
  * @return {null}
