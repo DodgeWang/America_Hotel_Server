@@ -27,7 +27,7 @@ CREATE TABLE `tbl_userreferences` (
   `content` varchar(255) DEFAULT NULL,
   `userIdCode` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +36,7 @@ CREATE TABLE `tbl_userreferences` (
 
 LOCK TABLES `tbl_userreferences` WRITE;
 /*!40000 ALTER TABLE `tbl_userreferences` DISABLE KEYS */;
-INSERT INTO `tbl_userreferences` VALUES (1,'熟人信息一','1'),(2,'熟人信息二','1');
+INSERT INTO `tbl_userreferences` VALUES (1,'熟人信息一','1'),(2,'熟人信息二','1'),(20,'陈俊宇  1234545454  好兄弟','6FE1873C262319A0');
 /*!40000 ALTER TABLE `tbl_userreferences` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-20 17:41:02
+-- Dump completed on 2017-09-21 18:15:50

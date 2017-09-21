@@ -45,6 +45,7 @@ exports.query = function (sqlReq, callback) {
               if (values.hasOwnProperty(key)) {
                 return this.escape(values[key]);
               }
+              console.log(txt)
               return txt;
             }.bind(this));
         };

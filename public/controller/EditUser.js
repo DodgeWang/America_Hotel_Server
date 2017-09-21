@@ -5,8 +5,8 @@ $(function() {
     $('#form_sublime').on('click',function(){
         //登陆信息
         var IdCode = $('input[name="IdCode"]').val();//用户名
-        var Username = $('input[name="Username"]').val();//用户名
-        var Password = $('input[name="Password"]').val();//密码
+        // var Username = $('input[name="Username"]').val();//用户名
+        // var Password = $('input[name="Password"]').val();//密码
 
         //基础信息
         var Name = $('input[name="Name"]').val();//姓名
@@ -107,8 +107,6 @@ $(function() {
 
         var param = {
           IdCode : IdCode,
-          Username : Username,
-          Password : Password,
           Name : Name,
           Social_security_Number : Social_security_Number,
           Mailing_Address : Mailing_Address,
@@ -116,7 +114,7 @@ $(function() {
           Telephone : Telephone,
           Age : Age,
           Email : Email,
-          Days_work : Days_work.join('_&_'),
+          Days_work : Days_work.join(','),
           Work_nature : Work_nature,
           Work_hours : Work_hours,
           Work_at_night : Work_at_night,
@@ -138,11 +136,18 @@ $(function() {
 
         console.log(param)
         $.ajax({      
-           url: '/Users/edit',  
+           url: '/api/users/edit',  
            data: param,      
            dataType: "json",      
            type: "POST",     
-           success: function (responseJSON) {   
+           success: function (obj) {  
+              console.log(obj)
+              if(obj.status.code === 0){
+                alert("修改成功")
+                $(window).attr('location','/users');
+              }else{
+                alert(obj.status.msg)
+              } 
            }      
         });  
 

@@ -32,7 +32,7 @@ CREATE TABLE `tbl_userschool` (
   `type` varchar(45) DEFAULT NULL,
   `userIdCode` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `tbl_userschool` (
 
 LOCK TABLES `tbl_userschool` WRITE;
 /*!40000 ALTER TABLE `tbl_userschool` DISABLE KEYS */;
-INSERT INTO `tbl_userschool` VALUES (1,'绵竹实验中学','绵竹滨河路东段','20-06-2009','无','初中','1','1'),(2,'绵竹中学','绵竹新城','20-06-2012','理科','高中','1','1'),(3,'四川文理学院','达州南坝街','20-06-2016','计算机科学与技术','本科','2','1'),(4,'清华大学','北京','20-06-2019','计算机','硕士','2','1'),(10,'wang','s','s','dd','ss','1','3'),(11,'wang','s','s','dd','ss','1','3');
+INSERT INTO `tbl_userschool` VALUES (1,'绵竹实验中学','绵竹滨河路东段','20-06-2009','无','初中','1','1'),(2,'绵竹中学','绵竹新城','20-06-2012','理科','高中','1','1'),(3,'四川文理学院','达州南坝街','20-06-2016','计算机科学与技术','本科','2','1'),(4,'清华大学','北京','20-06-2019','计算机','硕士','2','1'),(54,'绵竹实验中学','绵竹滨河路东段','20-06-2009','无','初中','1','6FE1873C262319A0'),(55,'mianzhu','fdfas','ddd','sss','fdsfsadf','1','6FE1873C262319A0'),(56,'四川文理学院','达州南坝街','20-06-2016','计算机科学与技术','本科','2','6FE1873C262319A0'),(57,'清华大学','北京','20-06-2019','计算机','硕士','2','6FE1873C262319A0');
 /*!40000 ALTER TABLE `tbl_userschool` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-20 17:41:02
+-- Dump completed on 2017-09-21 18:15:50

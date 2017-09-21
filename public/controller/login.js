@@ -7,10 +7,10 @@ $(function(){
 			password: password
 		}
 		console.log(param)
-		$.post("/System/login",param,function(obj){
+		$.post("/api/system/login",param,function(obj){
             console.log(obj)
             if(obj.status.code === 0){
-            	$(window).attr('location','/Users');
+            	$(window).attr('location','/users');
             }else{
             	alert(obj.status.msg)
             }

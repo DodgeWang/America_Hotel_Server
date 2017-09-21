@@ -117,7 +117,7 @@ $(function() {
           Telephone : Telephone,
           Age : Age,
           Email : Email,
-          Days_work : Days_work.join('_&_'),
+          Days_work : Days_work.join(','),
           Work_nature : Work_nature,
           Work_hours : Work_hours,
           Work_at_night : Work_at_night,
@@ -139,11 +139,18 @@ $(function() {
 
         console.log(param)
         $.ajax({      
-            url: '/Users/add',  
+           url: '/api/users/add',  
            data: param,      
            dataType: "json",      
            type: "POST",     
-           success: function (responseJSON) {   
+           success: function (obj) {   
+              console.log(obj)
+              if(obj.status.code === 0){
+                alert("添加成功")
+                $(window).attr('location','/users');
+              }else{
+                alert(obj.status.msg)
+              }
            }      
         });  
 

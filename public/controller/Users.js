@@ -16,7 +16,7 @@
 
 
     function userList(pageNum, sizeNum, type) {
-        $.get("/Users/list", { page: pageNum, size: sizeNum }, function(obj) {
+        $.get("/api/users/list", { page: pageNum, size: sizeNum }, function(obj) {
             console.log(obj)
             if (obj.status.code !== 0) {
                 alert(obj.status.msg);
@@ -28,9 +28,9 @@
                         var id = obj.data[i].id;
                         var idCode = obj.data[i].idCode;
                         var htmlStr = "<tr>\
-                                     <td>" + username + "</td>\
-                                        <td>Admin</td>\
-                                        <td>20-05-2012</td>\
+                                        <td>" + obj.data[i].name + "</td>\
+                                        <td>" + obj.data[i].username + "</td>\
+                                        <td>" + obj.data[i].createTime + "</td>\
                                         <td><span class='label label-success'>Active</span></td>\
                                         <td>\
                                           <div class='btn-group'>\
@@ -39,8 +39,9 @@
                                                <span class='caret'></span>\
                                             </a>\
                                             <ul class='dropdown-menu pull-right'>\
-                                              <li><a href='/EditUser?userIdCode="+idCode+"'><i class='icon-edit'></i> Edit</a></li>\
-                                              <li><a onclick='delUser("+idCode+")'><i class='icon-trash'></i> Delete</a></li>\
+                                              <li><a href='/edituser?userIdCode="+idCode+"'><i class='icon-edit'></i> Edit</a></li>\
+                                              <li><a style='cursor:pointer' onclick='passReset(\""+idCode+"\")'><i class='icon-lock'></i> Reset Password</a></li>\
+                                              <li><a style='cursor:pointer' onclick='delUser(\""+idCode+"\")'><i class='icon-trash'></i> Delete</a></li>\
                                             </ul>\
                                           </div>\
                                         </td>\
@@ -65,13 +66,28 @@
     }
 
 
-
+    //删除用户
     function delUser(idCode){
-        $.get("/Users/delete", { idCode: idCode }, function(obj) {
+        var r = confirm("Are you sure you want to delete this data?")
+        if (r == true) {
+            $.get("/api/users/delete", { idCode: idCode }, function(obj) {
+              if (obj.status.code !== 0) {
+                alert(obj.status.msg);
+              } else {
+                userList(page, size, 0)
+              }
+            })
+        }
+    }
+
+    //重置密码
+    function passReset(idCode){
+        $.get("/api/users/resetpass", { idCode: idCode }, function(obj) {
             if (obj.status.code !== 0) {
                 alert(obj.status.msg);
             } else {
                 userList(page, size, 0)
+                alert("Reset password successfully！")
             }
         })
     }
