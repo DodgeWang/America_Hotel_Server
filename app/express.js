@@ -37,36 +37,36 @@ module.exports = function() {
 
 
     app.use(function(req, res, next) {
-        // if(req.url == '/System/login' || req.url == '/login' ||  req.url == '/System/exit') return next();
-        // if(!req.session.administrator){
-        //    res.redirect('/login')
-        // }else{
-        //    next();
-        // }
-        next();
+        if(req.url == '/api/system/login' || req.url == '/login' ||  req.url == '/api/system/exit') return next();
+        if(!req.session.administrator){
+           res.redirect('/login')
+        }else{
+           next();
+        }
+        // next();
     })
 
     routers(app);
-    // app.use(function(req, res, next) {
-    //     res.status(404);
-    //     try {
-    //         return res.json('Not Found');
-    //     } catch (e) {
-    //         console.log('404 set header after sent');
-    //     }
-    // });
+    app.use(function(req, res, next) {
+        res.status(404);
+        try {
+            return res.json('Not Found');
+        } catch (e) {
+            console.log('404 set header after sent');
+        }
+    });
 
-    // app.use(function(err, req, res, next) {
-    //     if (!err) {
-    //         return next()
-    //     }
-    //     res.status(500);
-    //     try {
-    //         return res.json(err.message || 'server error')
-    //     } catch (e) {
-    //         console.log('500 set header after sent');
-    //     }
-    // });
-    // 
+    app.use(function(err, req, res, next) {
+        if (!err) {
+            return next()
+        }
+        res.status(500);
+        try {
+            return res.json(err.message || 'server error')
+        } catch (e) {
+            console.log('500 set header after sent');
+        }
+    });
+    
     return app;
 }

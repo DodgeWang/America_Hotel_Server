@@ -139,7 +139,7 @@ exports.userInfoById = function(req,res,next) {
         // if (err) {
         //     return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
         // }
-        var data = {}
+        // var data = {}
         if(obj != null){
           data = obj;
           data.Days_work = null ? [] : data.Days_work.split(",");

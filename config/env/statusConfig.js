@@ -32,11 +32,13 @@ module.exports = {
        },
        USER_ERROR: {
            code:1001,
-           msg: '登陆用户不存在'
+           // msg: '登陆用户不存在'
+           msg: "Login account does not exist"
        },
        PASSWORD_ERROR: {
            code:1002,
-           msg: '密码错误'
+           // msg: '密码错误'
+           msg: "Password error"
        },
        EXIT_SUCCESS:{
            code:0,

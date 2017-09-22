@@ -50,7 +50,7 @@ CREATE TABLE `tbl_users` (
   `militarySpecialty` varchar(45) DEFAULT NULL,
   `createTime` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -59,7 +59,7 @@ CREATE TABLE `tbl_users` (
 
 LOCK TABLES `tbl_users` WRITE;
 /*!40000 ALTER TABLE `tbl_users` DISABLE KEYS */;
-INSERT INTO `tbl_users` VALUES (1,'1','test1','670b14728ad9902aecba32e22fa4f6bd','wangdaiqiang','510622199308152716','四川省绵竹市','618200','18281865016','25','453831794@qq.com','1,2,3,0','0','13','0','19-9-2017','0','0','抢劫','0','9859598','华盛顿','0','0','狙击手','2017-09-20'),(26,'6FE1873C262319A0','001@qq.com&','789456','王代强&','510622199308152716&','四川省绵竹市天池乡楠木沟村一组&','618200&','18281865016&','25&','453831794@qq.com&','1,2,3,7','1','40&','0','21-9-2017&','1','1','无&','0','999666333&','中国&','1','1','狙击&','2017-09-21 13:12:50');
+INSERT INTO `tbl_users` VALUES (1,'1','test1','670b14728ad9902aecba32e22fa4f6bd','wangdaiqiang','510622199308152716','四川省绵竹市','618200','18281865016','25','453831794@qq.com','1,2,3,0','0','13','0','19-9-2017','0','0','抢劫','0','9859598','华盛顿','0','0','狙击手','2017-09-20'),(26,'6FE1873C262319A0','001@qq.com&','789456','王代强&','510622199308152716&','四川省绵竹市天池乡楠木沟村一组&','618200&','18281865016&','25&','453831794@qq.com&','1,2,3,7','1','40&','0','21-9-2017&','1','1','无','0','999666333&','中国&','1','1','狙击&','2017-09-21 13:12:50');
 /*!40000 ALTER TABLE `tbl_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -72,4 +72,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-21 18:15:50
+-- Dump completed on 2017-09-22 15:38:15
