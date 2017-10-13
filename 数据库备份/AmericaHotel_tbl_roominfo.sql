@@ -16,28 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tbl_userreferences`
+-- Table structure for table `tbl_roominfo`
 --
 
-DROP TABLE IF EXISTS `tbl_userreferences`;
+DROP TABLE IF EXISTS `tbl_roominfo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbl_userreferences` (
+CREATE TABLE `tbl_roominfo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `content` varchar(255) DEFAULT NULL,
-  `userIdCode` varchar(45) NOT NULL,
+  `number` varchar(45) DEFAULT NULL,
+  `typeId` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tbl_userreferences`
+-- Dumping data for table `tbl_roominfo`
 --
 
-LOCK TABLES `tbl_userreferences` WRITE;
-/*!40000 ALTER TABLE `tbl_userreferences` DISABLE KEYS */;
-INSERT INTO `tbl_userreferences` VALUES (24,'陈俊宇  1234545454  好兄弟','6FE1873C262319A0'),(28,'熟人信息一','1'),(29,'熟人信息二','1');
-/*!40000 ALTER TABLE `tbl_userreferences` ENABLE KEYS */;
+LOCK TABLES `tbl_roominfo` WRITE;
+/*!40000 ALTER TABLE `tbl_roominfo` DISABLE KEYS */;
+INSERT INTO `tbl_roominfo` VALUES (1,'101','1'),(2,'102','2'),(3,'103','3'),(4,'104','4');
+/*!40000 ALTER TABLE `tbl_roominfo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

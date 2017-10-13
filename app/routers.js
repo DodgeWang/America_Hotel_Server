@@ -65,5 +65,8 @@ module.exports = function(app) {
     app.get('/api/room/typedelete',Room.typeDelete);//删除房型
 
     app.post('/api/room/typeedit',Room.typeEdit);//修改房型
+
+    app.get('/api/room/list',Room.getList); //获取房间列表
+
     
 }

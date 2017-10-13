@@ -101,3 +101,24 @@ exports.typeEdit = function(req, res, next) {
         res.json(resUtil.generateRes(null, config.statusCode.STATUS_OK));
     })  
 }
+
+
+
+/**
+ * 获取房间列表
+ * @param  {object}   req  the request object
+ * @param  {object}   res  the response object
+ * @param  {Function} next the next func
+ * @return {null}     
+ */
+exports.getList = function(req, res, next) {
+    if (!req.query.page || !req.query.size) return res.json(resUtil.generateRes(null, config.statusCode.STATUS_INVAILD_PARAMS));
+    var page = Number(req.query.page);
+    var size = Number(req.query.size);
+    Room.getList(page, size, function(err,rows) {
+        if (err) {
+            return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+        }
+        res.json(resUtil.generateRes(rows, config.statusCode.STATUS_OK));       
+    })
+}

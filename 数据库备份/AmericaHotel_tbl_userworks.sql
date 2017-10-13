@@ -40,7 +40,7 @@ CREATE TABLE `tbl_userworks` (
   `couldContact` varchar(45) DEFAULT NULL,
   `userIdCode` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,7 +49,7 @@ CREATE TABLE `tbl_userworks` (
 
 LOCK TABLES `tbl_userworks` WRITE;
 /*!40000 ALTER TABLE `tbl_userworks` DISABLE KEYS */;
-INSERT INTO `tbl_userworks` VALUES (1,'四川有乐信息技术有限公司','张国良','成都市高新区益州大道移动互联创业大厦1011','658741','18281865044','8','前端工程师','01-12-2015','19-09-2017','3000','7000','技术提升不够','在公司学到了很多东西','0','1'),(20,'四川有乐信息技术有限公司','张国良','成都市高新区益州大道移动互联创业大厦1011','658741','18281865044','40','前端工程师','01-12-2015','19-09-2017','3000','7000','技术提升不够','在公司学到了很多东西','1','6FE1873C262319A0'),(21,'绵竹同城电子商务','郭康康','绵竹经济开发区','618200','13778287235','30','司机','01-12-2012','01-8-2013','1000','2000','工资太低','开车好耍','1','6FE1873C262319A0');
+INSERT INTO `tbl_userworks` VALUES (24,'四川有乐信息技术有限公司','张国良','成都市高新区益州大道移动互联创业大厦1011','658741','18281865044','40','前端工程师','01-12-2015','19-09-2017','3000','7000','技术提升不够','在公司学到了很多东西','1','6FE1873C262319A0'),(25,'绵竹同城电子商务','郭康康','绵竹经济开发区','618200','13778287235','30','司机','01-12-2012','01-8-2013','1000','2000','工资太低','开车好耍','1','6FE1873C262319A0'),(27,'四川有乐信息技术有限公司','张国良','成都市高新区益州大道移动互联创业大厦1011','658741','18281865044','8','前端工程师','01-12-2015','19-09-2017','3000','7000','技术提升不够','在公司学到了很多东西','0','1');
 /*!40000 ALTER TABLE `tbl_userworks` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -62,4 +62,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-22 15:38:15
+-- Dump completed on 2017-10-13 18:16:21
