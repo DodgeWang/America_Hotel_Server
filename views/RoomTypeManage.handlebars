@@ -1,0 +1,67 @@
+{{#section 'head'}}
+    
+{{/section}}
+
+
+<div class="main_container" id="users_page">
+
+        <div class="row-fluid">
+          <ul class="breadcrumb">
+            <li><a href="#">Home</a> <span class="divider">/</span></li>
+            <li class="active">房型管理</li>
+          </ul>
+          <h2 class="heading">
+              房型管理 
+          </h2>
+        </div> <!-- /row-fluid -->
+
+       
+
+        <div class="row-fluid">
+          <div class="widget widget-padding span12">
+            <div class="widget-header">
+              <i class="icon-group"></i>
+              <h5>房型管理</h5>
+              <div class="widget-buttons">
+                  <a href="/addroomtype"><i class="icon-plus"></i></a>
+              </div>
+            </div>  
+            <div class="widget-body">
+             
+              
+              <table id="users" class="table table-striped table-bordered dataTable">
+                <thead>
+                  <tr>
+                    <th>房型</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                </tbody>
+              </table>
+              <div class="row-fluid">
+                <div class="span5"></div>
+                  <div class="span6">
+                    <div class="dataTables_paginate paging_bootstrap pagination">
+                        <ul style="margin:0 auto;">
+                            <li class="prev" id="prev_btn"><a href="#">← Previous</a></li>
+                            <li class="next" id="next_btn"><a href="#">Next → </a></li>
+                        </ul>
+                    </div>
+                </div>
+              </div>
+
+
+            </div> <!-- /widget-body -->
+          </div> <!-- /widget -->
+        </div> <!-- /row-fluid -->
+
+      </div>
+
+
+
+
+{{#section 'script'}}
+    <script type="text/javascript" src="/controller/RoomTypeManage.js"></script>
+{{/section}}

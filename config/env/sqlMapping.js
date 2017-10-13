@@ -65,6 +65,12 @@ module.exports = {
 		Content: "content"
 	},
 
+  //房型信息表映射 tbl_usereferences
+  roomType: {
+    Id: "id",
+    Type: "type"
+  },
+
 	mappingToStr: function(obj){
 		var strList = [];
         for(var i in obj){
