@@ -1,23 +1,22 @@
     var page = 1;
     var size = 15;
 
-    userList(page, size, 0)
+    dataList(page, size, 0)
     //上一页
     $("#prev_btn").click(function() {
         if (page === 1) return alert("It’s the first page");
         page -= 1;
-        userList(page, size, 1);
+        dataList(page, size, 1);
     })
 
     //下一页
     $("#next_btn").click(function() {
-        userList(page + 1, size, 2);
+        dataList(page + 1, size, 2);
     })
 
 
-    function userList(pageNum, sizeNum, type) {
+    function dataList(pageNum, sizeNum, type) {
         $.get("/api/room/typelist", { page: pageNum, size: sizeNum }, function(obj) {
-            console.log(obj)
             if (obj.status.code !== 0) {
                 alert(obj.status.msg);
             } else {
@@ -69,7 +68,7 @@
               if (obj.status.code !== 0) {
                 alert(obj.status.msg);
               } else {
-                userList(page, size, 0)
+                dataList(page, size, 0)
               }
             })
         }

@@ -157,4 +157,102 @@ exports.getList = function(page, size, callback) {
 
 
 
+/**
+ * 添加房间 
+ * @param  {obj}   data   要添加的房型信息        
+ * @param  {Function} callback 回调函数
+ * @return {null}
+ */
+exports.add = function(data, callback) {
+    console.log(data)
+    mysql.query({
+        sql: "INSERT INTO tbl_roominfo SET number= :number,typeId = :typeId",
+        params: {  
+            "number": data.roomNum,
+            "typeId": data.roomType
+        }
+    }, function(err) {
+        if (err) {
+            callback(err);
+        }
+        callback(null);
+
+    })
+}
+
+
+
+/**
+ * 根据指定id删除房间  
+ * @param  {str}   id  房型id      
+ * @param  {Function} callback 回调函数
+ * @return {null}
+ */
+exports.delete = function(id, callback) {
+    mysql.query({
+        sql: "DELETE FROM tbl_roominfo WHERE id= :id",
+        params: {  
+            "id": id 
+        }
+    }, function(err) {
+        if (err) {
+            callback(err);
+        }
+        callback(null);
+
+    })
+}
+
+
+/**
+ * 根据Id获取房间信息    
+ * @param  {str}   id   房型Id      
+ * @param  {Function} callback 回调函数
+ * @return {null}
+ */
+exports.roomInfo = function(id, callback) {
+    mysql.query({
+        sql: "SELECT "+Mapping.mappingToStr(Mapping.room)+" FROM tbl_roominfo WHERE id= :id",
+        params: {
+            "id": id
+        }
+    }, function(err, rows) {
+        if (err) {
+            callback(err, null);
+        }
+
+        if (rows && rows.length > 0) {
+            callback(null, rows[0]);
+        } else {
+            callback(null, null);
+        }
+    })
+}
+
+
+
+/**
+ * 修改房间信息    
+ * @param  {str}   id   房间Id
+ * @param  {obj}   data   要修改的房间信息          
+ * @param  {Function} callback 回调函数
+ * @return {null}
+ */
+exports.edit = function(id, data, callback) {
+    console.log(data)
+    mysql.query({
+        sql: "UPDATE tbl_roominfo SET number=:number,typeId=:typeId WHERE id= :id",
+        params: {
+            "id": id,
+            "number": data.number,
+            "typeId": data.type
+        }
+    }, function(err) {
+        if (err) {
+            callback(err);
+        }
+        callback(null);
+
+    })
+}
 

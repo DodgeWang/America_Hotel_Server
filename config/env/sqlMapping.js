@@ -70,6 +70,14 @@ module.exports = {
     Id: "id",
     Type: "type"
   },
+  
+  //房间信息表映射 tbl_usereferences
+  room: {
+    Id: "id",
+    Number: "number",
+    TypeId: "typeId"
+  },
+
 
 	mappingToStr: function(obj){
 		var strList = [];

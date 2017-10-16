@@ -28,16 +28,26 @@ module.exports = function(app) {
     });
 
     app.get('/editroomtype',function(req, res) {
-        console.log(1)
        var id = req.query.id;
        Room.roomTypeInfo(id,function(data){
-        console.log(data)
           res.render('EditRoomType',{data:data,adminInfo:req.session.administrator});
        })
     });
 
     app.get('/room', function(req, res) {
        res.render('RoomManage',{adminInfo:req.session.administrator});
+    });
+
+    app.get('/addroom', function(req, res) {
+       res.render('AddRoom',{adminInfo:req.session.administrator});
+    });
+
+    app.get('/editroom',function(req, res) {
+       var id = req.query.id;
+       Room.roomInfo(id,function(data,typeList){
+        console.log(typeList)
+          res.render('EditRoom',{data:data,adminInfo:req.session.administrator,typeList:typeList});
+       })
     });
 
 
@@ -68,5 +78,9 @@ module.exports = function(app) {
 
     app.get('/api/room/list',Room.getList); //获取房间列表
 
-    
+    app.post('/api/room/add',Room.add);//添加房间 
+
+    app.get('/api/room/delete',Room.delete);//删除房间
+
+    app.post('/api/room/edit',Room.edit);//修改房间
 }

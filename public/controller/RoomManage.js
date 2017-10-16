@@ -1,23 +1,22 @@
     var page = 1;
     var size = 15;
 
-    userList(page, size, 0)
+    dataList(page, size, 0)
     //上一页
     $("#prev_btn").click(function() {
         if (page === 1) return alert("It’s the first page");
         page -= 1;
-        userList(page, size, 1);
+        dataList(page, size, 1);
     })
 
     //下一页
     $("#next_btn").click(function() {
-        userList(page + 1, size, 2);
+        dataList(page + 1, size, 2);
     })
 
 
-    function userList(pageNum, sizeNum, type) {
+    function dataList(pageNum, sizeNum, type) {
         $.get("/api/room/list", { page: pageNum, size: sizeNum }, function(obj) {
-            console.log(obj)
             if (obj.status.code !== 0) {
                 alert(obj.status.msg);
             } else {
@@ -35,8 +34,8 @@
                                                <span class='caret'></span>\
                                             </a>\
                                             <ul class='dropdown-menu pull-right'>\
-                                              <li><a href='/editroomtype?id="+id+"'><i class='icon-edit'></i> Edit</a></li>\
-                                              <li><a style='cursor:pointer' onclick='delType(\""+id+"\")'><i class='icon-trash'></i> Delete</a></li>\
+                                              <li><a href='/editroom?id="+id+"'><i class='icon-edit'></i> Edit</a></li>\
+                                              <li><a style='cursor:pointer' onclick='delRoom(\""+id+"\")'><i class='icon-trash'></i> Delete</a></li>\
                                             </ul>\
                                           </div>\
                                         </td>\
@@ -62,15 +61,15 @@
 
 
 
-    //删除房间类型
-    function delType(id){
+    //删除房间
+    function delRoom(id){
         var r = confirm("Are you sure you want to delete this data?")
         if (r == true) {
-            $.get("/api/room/typedelete", { id: id }, function(obj) {
+            $.get("/api/room/delete", { id: id }, function(obj) {
               if (obj.status.code !== 0) {
                 alert(obj.status.msg);
               } else {
-                userList(page, size, 0)
+                dataList(page, size, 0)
               }
             })
         }
