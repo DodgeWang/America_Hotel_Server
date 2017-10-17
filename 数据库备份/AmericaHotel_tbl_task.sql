@@ -16,28 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tbl_roominfo`
+-- Table structure for table `tbl_task`
 --
 
-DROP TABLE IF EXISTS `tbl_roominfo`;
+DROP TABLE IF EXISTS `tbl_task`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbl_roominfo` (
+CREATE TABLE `tbl_task` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `number` varchar(45) DEFAULT NULL,
-  `typeId` varchar(45) DEFAULT NULL,
+  `taskType` varchar(45) DEFAULT NULL,
+  `executor` varchar(45) DEFAULT NULL,
+  `roomNumber` varchar(45) DEFAULT NULL,
+  `content` varchar(255) DEFAULT NULL,
+  `state` varchar(45) DEFAULT NULL,
+  `createTime` varchar(45) DEFAULT NULL,
+  `completeTime` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tbl_roominfo`
+-- Dumping data for table `tbl_task`
 --
 
-LOCK TABLES `tbl_roominfo` WRITE;
-/*!40000 ALTER TABLE `tbl_roominfo` DISABLE KEYS */;
-INSERT INTO `tbl_roominfo` VALUES (1,'101','1'),(2,'102','2'),(3,'103','3'),(4,'104','3'),(7,'120','4');
-/*!40000 ALTER TABLE `tbl_roominfo` ENABLE KEYS */;
+LOCK TABLES `tbl_task` WRITE;
+/*!40000 ALTER TABLE `tbl_task` DISABLE KEYS */;
+INSERT INTO `tbl_task` VALUES (1,'1','6FE1873C262319A0','108','注意换被子','0','2017-10-17 15:02:50',NULL);
+/*!40000 ALTER TABLE `tbl_task` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

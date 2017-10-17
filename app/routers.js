@@ -1,6 +1,7 @@
 var Users = require('./controllers/Users.controller');
 var System = require('./controllers/System.controller');
 var Room = require('./controllers/Room.controller');
+var Task = require('./controllers/Task.controller');
 
 module.exports = function(app) {
 
@@ -49,6 +50,14 @@ module.exports = function(app) {
           res.render('EditRoom',{data:data,adminInfo:req.session.administrator,typeList:typeList});
        })
     });
+    
+    app.get('/task', function(req, res) {
+       res.render('TaskManage',{adminInfo:req.session.administrator});
+    });
+
+    app.get('/addtask', function(req, res) {
+       res.render('AddTask',{adminInfo:req.session.administrator});
+    });
 
 
     /**
@@ -83,4 +92,8 @@ module.exports = function(app) {
     app.get('/api/room/delete',Room.delete);//删除房间
 
     app.post('/api/room/edit',Room.edit);//修改房间
+
+    app.post('/api/task/add',Task.add);//创建任务
+
+    app.get('/api/task/list',Task.getList); //获取任务列表
 }

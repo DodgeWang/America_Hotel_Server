@@ -11,10 +11,17 @@ var UUID = require("../func/UUID");
  * @return {null}     
  */
 exports.getList = function(req, res, next) {
-    if (!req.query.page || !req.query.size) return res.json(resUtil.generateRes(null, config.statusCode.STATUS_INVAILD_PARAMS));
-    var page = Number(req.query.page);
-    var size = Number(req.query.size);
-    Users.getList(page, size, function(err,rows) {
+    // if (!req.query.page || !req.query.size) return res.json(resUtil.generateRes(null, config.statusCode.STATUS_INVAILD_PARAMS));
+    // var page = Number(req.query.page);
+    // var size = Number(req.query.size);
+    // Users.getList(page, size, function(err,rows) {
+    //     if (err) {
+    //         return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+    //     }
+    //     res.json(resUtil.generateRes(rows, config.statusCode.STATUS_OK));       
+    // })
+
+    Users.getList(req.query, function(err,rows) {
         if (err) {
             return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
         }

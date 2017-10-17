@@ -26,7 +26,7 @@ CREATE TABLE `tbl_roomtype` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,7 +35,7 @@ CREATE TABLE `tbl_roomtype` (
 
 LOCK TABLES `tbl_roomtype` WRITE;
 /*!40000 ALTER TABLE `tbl_roomtype` DISABLE KEYS */;
-INSERT INTO `tbl_roomtype` VALUES (1,'大床房'),(2,'双人间'),(3,'三人间'),(4,'总统套房');
+INSERT INTO `tbl_roomtype` VALUES (1,'大床房'),(2,'双人间'),(3,'三人间'),(4,'总统套房'),(5,'特价房');
 /*!40000 ALTER TABLE `tbl_roomtype` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-13 18:16:20
+-- Dump completed on 2017-10-17 18:14:40

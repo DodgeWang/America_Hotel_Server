@@ -8,15 +8,48 @@ var Mapping = require('../../config/env/sqlMapping');
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.getList = function(page, size, callback) {
-    var limit_Start = (page - 1) * size;
-    mysql.query({
-        sql: "SELECT * FROM tbl_users order by id desc limit :limit_Start,:size",
-        params: {
-            "limit_Start": limit_Start,
-            "size": size
+// exports.getList = function(page, size, callback) {
+//     var limit_Start = (page - 1) * size;
+//     mysql.query({
+//         sql: "SELECT * FROM tbl_users order by id desc limit :limit_Start,:size",
+//         params: {
+//             "limit_Start": limit_Start,
+//             "size": size
+//         }
+//     }, function(err, rows) {
+//         if (err) {
+//             callback(err, null);
+//         }
+
+//         if (rows && rows.length > 0) {
+//             callback(null, rows);
+//         } else {
+//             callback(null, []);
+//         }
+//     })
+// }
+// 
+// 
+// 
+exports.getList = function(param, callback) {
+    var sqlObj = {
+        sql: "SELECT * FROM tbl_users order by id desc"
+    };
+
+    if(param.page && param.size){
+        var page = Number(param.page);
+        var size = Number(param.size);
+        var limit_Start = (page - 1) * size;
+        sqlObj = {
+            sql: "SELECT * FROM tbl_users order by id desc limit :limit_Start,:size",
+            params: {
+              "limit_Start": limit_Start,
+              "size": size
+            }
         }
-    }, function(err, rows) {
+    }
+
+    mysql.query(sqlObj, function(err, rows) {
         if (err) {
             callback(err, null);
         }
@@ -28,6 +61,8 @@ exports.getList = function(page, size, callback) {
         }
     })
 }
+
+
 
 
 /**
