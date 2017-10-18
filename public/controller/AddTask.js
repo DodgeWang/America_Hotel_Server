@@ -32,7 +32,7 @@ $(function() {
            success: function (obj) { 
               if(obj.status.code === 0){
                 alert("添加成功")
-                $(window).attr('location','/addtask');
+                $(window).attr('location','/task');
               }else{
                 alert(obj.status.msg)
               }

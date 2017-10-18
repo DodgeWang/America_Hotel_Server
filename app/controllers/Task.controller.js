@@ -38,7 +38,7 @@ exports.getList = function(req, res, next) {
             return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
         }
         for(var i=0;i<rows.length;i++){
-        	if(rows[i].state == 0){
+        	if(rows[i].state == "0"){
         		rows[i].state = "未完成"
         	}else{
         		rows[i].state = "已完成"
@@ -46,10 +46,10 @@ exports.getList = function(req, res, next) {
 
         	switch(rows[i].taskType)
              {
-             case 1:
+             case "1":
                rows[i].taskType = "保洁"
                break;
-             case 2:
+             case "2":
                rows[i].taskType = "查房"
                break;
              default:
