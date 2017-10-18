@@ -157,11 +157,13 @@ exports.userBaseInfo = function(idCode, callback) {
  */
 exports.addBaseInfo = function(idCode, data, callback) {
     mysql.query({
-        sql: "INSERT INTO tbl_users SET idCode= :idCode, username=:username, password=:password, name=:name, SSN=:SSN, mailAddress=:mailAddress, zipCode=:zipCode, telephone=:telephone, age=:age, email=:email, daysWork=:daysWork, workNature=:workNature, workHours=:workHours, workAtNight=:workAtNight,workAvailableDate=:workAvailableDate, isLegalStatus=:isLegalStatus, haveCriminalRecord=:haveCriminalRecord,criminalRecord=:criminalRecord, haveDL=:haveDL, DLNumber=:DLNumber, DLIssuedState=:DLIssuedState, IsJionedArmy=:IsJionedArmy, isMemberNG=:isMemberNG, militarySpecialty=:militarySpecialty, createTime=now()",
+        sql: "INSERT INTO tbl_users SET idCode= :idCode, username=:username, password=:password, departmentId=:departmentId, roleId=:roleId, name=:name, SSN=:SSN, mailAddress=:mailAddress, zipCode=:zipCode, telephone=:telephone, age=:age, email=:email, daysWork=:daysWork, workNature=:workNature, workHours=:workHours, workAtNight=:workAtNight,workAvailableDate=:workAvailableDate, isLegalStatus=:isLegalStatus, haveCriminalRecord=:haveCriminalRecord,criminalRecord=:criminalRecord, haveDL=:haveDL, DLNumber=:DLNumber, DLIssuedState=:DLIssuedState, IsJionedArmy=:IsJionedArmy, isMemberNG=:isMemberNG, militarySpecialty=:militarySpecialty, createTime=now()",
         params: {
             "idCode": idCode,
             "username": data.Username,
             "password": data.Password,
+            "departmentId": data.DepartmentId,
+            "roleId": data.RoleId,
             "name": data.Name,
             "SSN": data.Social_security_Number,
             "mailAddress": data.Mailing_Address,
@@ -204,9 +206,11 @@ exports.addBaseInfo = function(idCode, data, callback) {
  */
 exports.editBaseInfo = function(idCode, data, callback) {
     mysql.query({
-        sql: "UPDATE tbl_users SET name=:name, SSN=:SSN, mailAddress=:mailAddress, zipCode=:zipCode, telephone=:telephone, age=:age, email=:email, daysWork=:daysWork, workNature=:workNature, workHours=:workHours, workAtNight=:workAtNight,workAvailableDate=:workAvailableDate, isLegalStatus=:isLegalStatus, haveCriminalRecord=:haveCriminalRecord,criminalRecord=:criminalRecord, haveDL=:haveDL, DLNumber=:DLNumber, DLIssuedState=:DLIssuedState, IsJionedArmy=:IsJionedArmy, isMemberNG=:isMemberNG, militarySpecialty=:militarySpecialty WHERE idCode= :idCode",
+        sql: "UPDATE tbl_users SET departmentId=:departmentId, roleId=:roleId, name=:name, SSN=:SSN, mailAddress=:mailAddress, zipCode=:zipCode, telephone=:telephone, age=:age, email=:email, daysWork=:daysWork, workNature=:workNature, workHours=:workHours, workAtNight=:workAtNight,workAvailableDate=:workAvailableDate, isLegalStatus=:isLegalStatus, haveCriminalRecord=:haveCriminalRecord,criminalRecord=:criminalRecord, haveDL=:haveDL, DLNumber=:DLNumber, DLIssuedState=:DLIssuedState, IsJionedArmy=:IsJionedArmy, isMemberNG=:isMemberNG, militarySpecialty=:militarySpecialty WHERE idCode= :idCode",
         params: {
             "idCode": idCode,
+            "departmentId": data.DepartmentId,
+            "roleId": data.RoleId,
             "name": data.Name,
             "SSN": data.Social_security_Number,
             "mailAddress": data.Mailing_Address,

@@ -39,7 +39,43 @@
               </div>
             </div>
           </div>
-        </div>  
+        </div> 
+
+        <!-- 部门职位 -->
+        <div class="row-fluid" id="loginInfoBox">
+          <div class="widget widget-padding span12">
+            <div class="widget-header">
+              <i class="icon-list-alt"></i><h5>部门职位</h5>
+            </div>
+            <div class="widget-body">
+              <div class="widget-forms clearfix">
+                <form class="form-horizontal">
+                 <div class="control-group">
+                    <label class="control-label">所属部门</label>
+                    <div class="controls">
+                        <select class="span7" id="DepartmentId">
+                           {{#each departmentList}}
+                              <option value="{{id}}" {{#if_eq id ../data.DepartmentId}}selected="selected"{{/if_eq}}>{{department}}</option>
+                           {{/each}}      
+                        </select>
+                     </div>
+                  </div>
+                 <div class="control-group">
+                    <label class="control-label">角色</label>
+                    <div class="controls">
+                        <select class="span7" id="RoleId">
+                           {{#each roleList}}
+                              <option value="{{id}}" {{#if_eq id ../data.RoleId}}selected="selected"{{/if_eq}}>{{role}}</option>
+                           {{/each}}     
+                        </select>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
 
         <!-- 基本信息 -->
         <div class="row-fluid">

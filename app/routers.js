@@ -2,6 +2,8 @@ var Users = require('./controllers/Users.controller');
 var System = require('./controllers/System.controller');
 var Room = require('./controllers/Room.controller');
 var Task = require('./controllers/Task.controller');
+var Role = require('./controllers/Role.controller');
+var Department = require('./controllers/Department.controller');
 
 module.exports = function(app) {
 
@@ -46,7 +48,6 @@ module.exports = function(app) {
     app.get('/editroom',function(req, res) {
        var id = req.query.id;
        Room.roomInfo(id,function(data,typeList){
-        console.log(typeList)
           res.render('EditRoom',{data:data,adminInfo:req.session.administrator,typeList:typeList});
        })
     });
@@ -96,4 +97,9 @@ module.exports = function(app) {
     app.post('/api/task/add',Task.add);//创建任务
 
     app.get('/api/task/list',Task.getList); //获取任务列表
+
+    app.get('/api/role/list',Role.getList); //获取角色列表
+
+    app.get('/api/department/list',Department.getList); //获取部门列表
+    
 }

@@ -7,6 +7,10 @@ $(function() {
         var IdCode = $('input[name="IdCode"]').val();//用户名
         // var Username = $('input[name="Username"]').val();//用户名
         // var Password = $('input[name="Password"]').val();//密码
+        // 
+        //部门角色
+        var DepartmentId = $("#DepartmentId").val();//所属部门ID
+        var RoleId = $("#RoleId").val();//员工角色ID
 
         //基础信息
         var Name = $('input[name="Name"]').val();//姓名
@@ -107,6 +111,8 @@ $(function() {
 
         var param = {
           IdCode : IdCode,
+          DepartmentId: DepartmentId,
+          RoleId: RoleId,
           Name : Name,
           Social_security_Number : Social_security_Number,
           Mailing_Address : Mailing_Address,

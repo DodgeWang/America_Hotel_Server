@@ -16,27 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tbl_roomtype`
+-- Table structure for table `tbl_userrole`
 --
 
-DROP TABLE IF EXISTS `tbl_roomtype`;
+DROP TABLE IF EXISTS `tbl_userrole`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbl_roomtype` (
+CREATE TABLE `tbl_userrole` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` varchar(100) NOT NULL,
+  `role` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tbl_roomtype`
+-- Dumping data for table `tbl_userrole`
 --
 
-LOCK TABLES `tbl_roomtype` WRITE;
-/*!40000 ALTER TABLE `tbl_roomtype` DISABLE KEYS */;
-INSERT INTO `tbl_roomtype` VALUES (1,'大床房'),(2,'双人间'),(3,'三人间'),(4,'总统套房'),(5,'特价房');
-/*!40000 ALTER TABLE `tbl_roomtype` ENABLE KEYS */;
+LOCK TABLES `tbl_userrole` WRITE;
+/*!40000 ALTER TABLE `tbl_userrole` DISABLE KEYS */;
+INSERT INTO `tbl_userrole` VALUES (1,'管理员'),(2,'部门经理'),(3,'前台'),(4,'保洁'),(5,'查房');
+/*!40000 ALTER TABLE `tbl_userrole` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

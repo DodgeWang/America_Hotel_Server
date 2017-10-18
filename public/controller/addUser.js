@@ -3,12 +3,46 @@ $(function() {
     var nowDate = new Date();
     var nowDate_Str = nowDate.getDate()+"-"+(nowDate.getMonth()+1)+"-"+nowDate.getFullYear()
     $('.date-box').attr("value",nowDate_Str);
+    
+
+    $.get("/api/department/list", {}, function(obj) {
+            if (obj.status.code !== 0) {
+                console.log(obj.status.msg);
+            } else {
+                var htmlDom = '';
+                if(obj.data.length > 0){
+                  for(var i = 0; i < obj.data.length; i++){
+                  htmlDom += "<option value='"+ obj.data[i].id +"'>"+ obj.data[i].department +"</option>";
+                  }
+                }
+                $("#DepartmentId").html(htmlDom);
+            }
+    })
+
+    $.get("/api/role/list", {}, function(obj) {
+            if (obj.status.code !== 0) {
+                console.log(obj.status.msg);
+            } else {
+                var htmlDom = '';
+                if(obj.data.length > 0){
+                  for(var i = 0; i < obj.data.length; i++){
+                  htmlDom += "<option value='"+ obj.data[i].id +"'>"+ obj.data[i].role +"</option>";
+                  }
+                }
+                $("#RoleId").html(htmlDom);
+            }
+    })
 
 
     $('#form_sublime').on('click',function(){
         //登陆信息
         var Username = $('input[name="Username"]').val();//用户名
         var Password = $('input[name="Password"]').val();//密码
+ 
+        //部门角色
+        var DepartmentId = $("#DepartmentId").val();//所属部门ID
+        var RoleId = $("#RoleId").val();//员工角色ID
+
 
         //基础信息
         var Name = $('input[name="Name"]').val();//姓名
@@ -110,6 +144,8 @@ $(function() {
         var param = {
           Username : Username,
           Password : Password,
+          DepartmentId: DepartmentId,
+          RoleId: RoleId,
           Name : Name,
           Social_security_Number : Social_security_Number,
           Mailing_Address : Mailing_Address,

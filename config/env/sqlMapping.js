@@ -5,6 +5,8 @@ module.exports = {
           UserId : "id",
           Username : "username",
           Password : "password",
+          DepartmentId : "departmentId",
+          RoleId: "roleId",
           Name : "name",
           Social_security_Number : "SSN",
           Mailing_Address : "mailAddress",

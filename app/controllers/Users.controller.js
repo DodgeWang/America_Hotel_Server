@@ -1,4 +1,6 @@
 var Users = require('../proxy/Users.proxy');
+var Department = require('../proxy/Department.proxy');
+var Role = require('../proxy/Role.proxy');
 var resUtil  = require("../libs/resUtil");
 var config = require('../../config/env/statusConfig');
 var encryption = require("../func/encryption");
@@ -85,6 +87,8 @@ exports.add = function(req, res, next) {
     var baseInfo = {
         Username: req.body.Username,
         Password: encryption.md5(req.body.Password,32),
+        DepartmentId: req.body.DepartmentId,
+        RoleId: req.body.RoleId,
         Name: req.body.Name,
         Social_security_Number: req.body.Social_security_Number,
         Mailing_Address: req.body.Mailing_Address,
@@ -142,6 +146,8 @@ exports.userInfoById = function(req,res,next) {
     if (!req.query.userIdCode) return res.json(resUtil.generateRes(null, config.statusCode.STATUS_INVAILD_PARAMS));
     var idCode = req.query.userIdCode;
     var data = {}
+    var departmentList = [];
+    var roleList = [];
     Users.userBaseInfo(idCode, function(err,obj) {
         // if (err) {
         //     return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
@@ -172,7 +178,14 @@ exports.userInfoById = function(req,res,next) {
                 //   return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
                 // }
                 data.References = obj;
-                res.render('EditUser',{data:data,adminInfo:req.session.administrator});
+                Department.getList(function(err,rows) {
+                   departmentList = rows;
+                   Role.getList(function(err,rows) {
+                      roleList = rows;
+                      res.render('EditUser',{data:data,adminInfo:req.session.administrator,departmentList:departmentList,roleList:roleList});
+                   })            
+                })
+                
               })
             }) 
           }) 
@@ -190,11 +203,11 @@ exports.userInfoById = function(req,res,next) {
  * @return {null}     
  */
 exports.edit = function(req, res, next) {
-    console.log(req.body)
-
     var idCode = req.body.IdCode; //获取用户唯一识别码
     var baseInfo = {
         Name: req.body.Name,
+        DepartmentId: req.body.DepartmentId,
+        RoleId: req.body.RoleId,
         Social_security_Number: req.body.Social_security_Number,
         Mailing_Address: req.body.Mailing_Address,
         city_state_Zip_Code: req.body.city_state_Zip_Code,
