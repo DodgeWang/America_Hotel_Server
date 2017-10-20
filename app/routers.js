@@ -4,6 +4,7 @@ var Room = require('./controllers/Room.controller');
 var Task = require('./controllers/Task.controller');
 var Role = require('./controllers/Role.controller');
 var Department = require('./controllers/Department.controller');
+var CheckIn = require('./controllers/CheckIn.controller');
 
 module.exports = function(app) {
 
@@ -60,6 +61,10 @@ module.exports = function(app) {
        res.render('AddTask',{adminInfo:req.session.administrator});
     });
 
+    app.get('/checkin', function(req, res) {
+       res.render('CheckInManage',{adminInfo:req.session.administrator});
+    });
+
 
     /**
      * api routers
@@ -101,5 +106,7 @@ module.exports = function(app) {
     app.get('/api/role/list',Role.getList); //获取角色列表
 
     app.get('/api/department/list',Department.getList); //获取部门列表
+
+    app.get('/api/checkin/list',CheckIn.getList); //获取入住信息列表
     
 }

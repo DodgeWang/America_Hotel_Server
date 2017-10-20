@@ -20,12 +20,17 @@ exports.login = function(req, res, next) {
         	//登陆账号不存在
         	return res.json(resUtil.generateRes(null, config.AdminStatus.USER_ERROR));
         }
-        var password = encryption.md5(req.body.password,32);
 
+        var password = encryption.md5(req.body.password,32);
         if(password == rows.password){
-        	//登陆账号密码都正确
-        	req.session.administrator = rows;
-        	res.json(resUtil.generateRes(rows, config.AdminStatus.SUCCESS));
+            //登陆账号密码都正确
+            //登陆权限判定
+            if(Number(rows.roleId) == 1 || Number(rows.roleId) == 3){
+                req.session.administrator = rows;
+                res.json(resUtil.generateRes(rows, config.AdminStatus.SUCCESS));   
+            }else{
+                return res.json(resUtil.generateRes(rows, config.AdminStatus.NO_PERMISSION));
+            }   	  	
         }else{
         	//登陆密码错误
             res.json(resUtil.generateRes(null, config.AdminStatus.PASSWORD_ERROR));

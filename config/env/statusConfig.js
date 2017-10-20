@@ -51,6 +51,10 @@ module.exports = {
        RESET_ERROR: {
            code:1003,
            msg: '密码不正确'
+       },
+       NO_PERMISSION: {
+           code:1004,
+           msg: '没有足够权限'
        }
     }
 }

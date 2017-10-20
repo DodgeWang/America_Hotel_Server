@@ -8,7 +8,7 @@ var mysql = require('../mysql');
  */
 exports.login = function(username,callback) {
    mysql.query({
-        sql: "SELECT * FROM tbl_administrators where username = :username",
+        sql: "SELECT * FROM tbl_users where username = :username",
         params  : {
            "username": username
         }

@@ -1,3 +1,4 @@
+
     var page = 1;
     var size = 15;
 
@@ -17,7 +18,6 @@
 
     function userList(pageNum, sizeNum, type) {
         $.get("/api/users/list", { page: pageNum, size: sizeNum }, function(obj) {
-            console.log(obj)
             if (obj.status.code !== 0) {
                 alert(obj.status.msg);
             } else {

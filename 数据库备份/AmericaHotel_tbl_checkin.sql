@@ -16,33 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tbl_task`
+-- Table structure for table `tbl_checkin`
 --
 
-DROP TABLE IF EXISTS `tbl_task`;
+DROP TABLE IF EXISTS `tbl_checkin`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbl_task` (
+CREATE TABLE `tbl_checkin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `taskType` varchar(45) DEFAULT NULL,
-  `executor` varchar(45) DEFAULT NULL,
-  `roomNumber` varchar(45) DEFAULT NULL,
-  `content` varchar(255) DEFAULT NULL,
-  `state` varchar(45) DEFAULT NULL,
-  `createTime` varchar(45) DEFAULT NULL,
-  `completeTime` varchar(45) DEFAULT NULL,
+  `roomId` int(11) DEFAULT NULL,
+  `checkInTime` varchar(100) DEFAULT NULL,
+  `checkOutTime` varchar(100) DEFAULT NULL,
+  `status` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tbl_task`
+-- Dumping data for table `tbl_checkin`
 --
 
-LOCK TABLES `tbl_task` WRITE;
-/*!40000 ALTER TABLE `tbl_task` DISABLE KEYS */;
-INSERT INTO `tbl_task` VALUES (1,'1','6FE1873C262319A0','108','注意换被子','0','2017-10-17 15:02:50',NULL),(2,'2','1','306','看看有没有什么损坏','0','2017-10-18 17:40:11',NULL);
-/*!40000 ALTER TABLE `tbl_task` ENABLE KEYS */;
+LOCK TABLES `tbl_checkin` WRITE;
+/*!40000 ALTER TABLE `tbl_checkin` DISABLE KEYS */;
+INSERT INTO `tbl_checkin` VALUES (1,1,'1508405088','1508472000','1');
+/*!40000 ALTER TABLE `tbl_checkin` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
