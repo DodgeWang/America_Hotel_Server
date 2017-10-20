@@ -18,7 +18,6 @@ exports.toStamp = function(timeStr) {
 //时间戳转字符串
 exports.toStr = function(nS) {
 	var d = new Date(parseInt(nS) * 1000);
-	console.log(d)
 	var year=d.getYear();     
     var month=d.getMonth()+1;     
     var date=d.getDate();     
