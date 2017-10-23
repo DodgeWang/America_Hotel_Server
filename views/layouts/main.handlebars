@@ -38,8 +38,16 @@
           </a>
 
           <div class="top-menu visible-desktop">
-            <ul class="pull-right">  
-              <li><a id="LogoutBtn" style="cursor:pointer;"><i class="icon-off"></i> Logout</a></li>
+            <ul class="pull-right">
+              <li>
+                 <div class="controls" style="margin-top:8px;">
+                     <select class="span2" id="taskType">
+                        <option value="1">英文</option>
+                        <option value="2">中文</option>
+                      </select>
+                  </div>
+              </li>  
+              <li><a id="LogoutBtn" style="cursor:pointer;"><i class="icon-off"></i> {{language.common.LogOut}}</a></li>
             </ul>
           </div>
 
@@ -60,23 +68,23 @@
         <div class="user_side clearfix">
           <img src="assets/img/odinn.jpg" alt="Odinn god of Thunder">
           <h5>{{adminInfo.username}}</h5>
-          <a href="#"><i class="icon-cog"></i> Settings</a>        
+          <a href="#"><i class="icon-cog"></i> {{language.common.Setting}}</a>        
         </div>
         <div class="accordion">
           <div class="accordion-group">
             <div class="accordion-heading">
-              <a class="accordion-toggle b_F5C294 active" href="/users"><i class="icon-user"></i> <span>员工管理</span></a>
+              <a class="accordion-toggle b_F5C294 active" href="/users"><i class="icon-user"></i> <span> {{language.menu.StaffMG}}</span></a>
             </div>
           </div>
 
           <div class="accordion-group">
             <div class="accordion-heading">
-              <a class="accordion-toggle b_C3F7A7 collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse1"><i class="icon-magic"></i> <span>客房管理</span></a>
+              <a class="accordion-toggle b_C3F7A7 collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse1"><i class="icon-magic"></i> <span>{{language.menu.RoomMG}}</span></a>
             </div>
             <div id="collapse1" class="accordion-body collapse">
               <div class="accordion-inner">
-                <a class="accordion-toggle" href="/roomtype"><i class="icon-star"></i>房型管理</a>
-                <a class="accordion-toggle" href="/room"><i class="icon-list-alt"></i> 房间管理</a>
+                <a class="accordion-toggle" href="/roomtype"><i class="icon-star"></i> {{language.menu.RoomTypeMG}}</a>
+                <a class="accordion-toggle" href="/room"><i class="icon-list-alt"></i> {{language.menu.RoomInfoMG}}</a>
               </div>
             </div>
           </div> 
@@ -84,22 +92,22 @@
 
           <div class="accordion-group">
             <div class="accordion-heading">
-              <a class="accordion-toggle b_C3F7A7 collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse2"><i class="icon-magic"></i> <span>任务管理</span></a>
+              <a class="accordion-toggle b_C3F7A7 collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse2"><i class="icon-magic"></i> <span> {{language.menu.TaskMG}}</span></a>
             </div>
             <div id="collapse2" class="accordion-body collapse">
               <div class="accordion-inner">
-                <a class="accordion-toggle" href="/task"><i class="icon-star"></i>任务跟踪</a>
+                <a class="accordion-toggle" href="/task"><i class="icon-star"></i> {{language.menu.TaskTrack}}</a>
               </div>
             </div>
           </div> 
 
           <div class="accordion-group">
             <div class="accordion-heading">
-              <a class="accordion-toggle b_C3F7A7 collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse3"><i class="icon-magic"></i> <span>入住登记</span></a>
+              <a class="accordion-toggle b_C3F7A7 collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse3"><i class="icon-magic"></i> <span> {{language.menu.CheckInMG}}</span></a>
             </div>
             <div id="collapse3" class="accordion-body collapse">
               <div class="accordion-inner">
-                <a class="accordion-toggle" href="/checkin"><i class="icon-star"></i>入住记录</a>
+                <a class="accordion-toggle" href="/checkin"><i class="icon-star"></i> {{language.menu.CheckInRecord}}</a>
               </div>
             </div>
           </div> 

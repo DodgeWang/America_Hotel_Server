@@ -5,6 +5,7 @@ var resUtil  = require("../libs/resUtil");
 var config = require('../../config/env/statusConfig');
 var encryption = require("../func/encryption");
 var UUID = require("../func/UUID");
+var language = require('../../config/language');
 /**
  * 获取用户列表
  * @param  {object}   req  the request object
@@ -144,6 +145,7 @@ exports.add = function(req, res, next) {
  */
 exports.userInfoById = function(req,res,next) {
     if (!req.query.userIdCode) return res.json(resUtil.generateRes(null, config.statusCode.STATUS_INVAILD_PARAMS));
+    var Language = language(req);
     var idCode = req.query.userIdCode;
     var data = {}
     var departmentList = [];
@@ -182,7 +184,7 @@ exports.userInfoById = function(req,res,next) {
                    departmentList = rows;
                    Role.getList(function(err,rows) {
                       roleList = rows;
-                      res.render('EditUser',{data:data,adminInfo:req.session.administrator,departmentList:departmentList,roleList:roleList});
+                      res.render('EditUser',{data:data,adminInfo:req.session.administrator,departmentList:departmentList,roleList:roleList,language:Language});
                    })            
                 })
                 

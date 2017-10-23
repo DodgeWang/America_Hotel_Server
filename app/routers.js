@@ -1,3 +1,4 @@
+var language = require('../config/language');
 var Users = require('./controllers/Users.controller');
 var System = require('./controllers/System.controller');
 var Room = require('./controllers/Room.controller');
@@ -6,63 +7,86 @@ var Role = require('./controllers/Role.controller');
 var Department = require('./controllers/Department.controller');
 var CheckIn = require('./controllers/CheckIn.controller');
 
-module.exports = function(app) {
 
+module.exports = function(app) {
     /**
      * html page routers
      */
     //登陆页面
     app.get('/login', function(req, res) {
-       res.render('login',{ layout: null});
+       var Language = language(req);
+       res.render('login',{layout: null,language:Language});
     });
-    app.get('/users', function(req, res) {
-       res.render('Users',{adminInfo:req.session.administrator});
+    app.get('/users', function(req, res) { 
+       var Language = language(req);
+       res.render('Users',{adminInfo:req.session.administrator,language:Language});
     });
     app.get('/adduser', function(req, res) {
-       res.render('AddUser',{adminInfo:req.session.administrator});
+       var Language = language(req);
+       res.render('AddUser',{adminInfo:req.session.administrator,language:Language});
     });
     app.get('/edituser', Users.userInfoById);
 
     app.get('/roomtype', function(req, res) {
-       res.render('RoomTypeManage',{adminInfo:req.session.administrator});
+       var Language = language(req);
+       res.render('RoomTypeManage',{adminInfo:req.session.administrator,language:Language});
     });
     
     app.get('/addroomtype', function(req, res) {
-       res.render('AddRoomType',{adminInfo:req.session.administrator});
+       var Language = language(req);
+       res.render('AddRoomType',{adminInfo:req.session.administrator,language:Language});
     });
 
     app.get('/editroomtype',function(req, res) {
        var id = req.query.id;
+        var Language = language(req);
        Room.roomTypeInfo(id,function(data){
-          res.render('EditRoomType',{data:data,adminInfo:req.session.administrator});
+          res.render('EditRoomType',{data:data,adminInfo:req.session.administrator,language:Language});
        })
     });
 
     app.get('/room', function(req, res) {
-       res.render('RoomManage',{adminInfo:req.session.administrator});
+       var Language = language(req);
+       res.render('RoomManage',{adminInfo:req.session.administrator,language:Language});
     });
 
     app.get('/addroom', function(req, res) {
-       res.render('AddRoom',{adminInfo:req.session.administrator});
+       var Language = language(req);
+       res.render('AddRoom',{adminInfo:req.session.administrator,language:Language});
     });
 
     app.get('/editroom',function(req, res) {
        var id = req.query.id;
+       var Language = language(req);
        Room.roomInfo(id,function(data,typeList){
-          res.render('EditRoom',{data:data,adminInfo:req.session.administrator,typeList:typeList});
+          res.render('EditRoom',
+            { data:data,
+              adminInfo:req.session.administrator,
+              typeList:typeList,
+              language:Language
+          });
        })
     });
     
     app.get('/task', function(req, res) {
-       res.render('TaskManage',{adminInfo:req.session.administrator});
+       var Language = language(req);
+       res.render('TaskManage',{adminInfo:req.session.administrator,language:Language});
     });
 
     app.get('/addtask', function(req, res) {
-       res.render('AddTask',{adminInfo:req.session.administrator});
+       var Language = language(req);
+       res.render('AddTask',{adminInfo:req.session.administrator,language:Language});
     });
 
     app.get('/checkin', function(req, res) {
-       res.render('CheckInManage',{adminInfo:req.session.administrator});
+       var Language = language(req);
+       res.render('CheckInManage',{adminInfo:req.session.administrator,language:Language});
+    });
+    
+
+    app.get('/addcheckin', function(req, res) {
+       var Language = language(req);
+       res.render('AddCheckIn',{adminInfo:req.session.administrator,language:Language});
     });
 
 
