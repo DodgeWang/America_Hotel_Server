@@ -27,9 +27,9 @@ CREATE TABLE `tbl_checkin` (
   `roomId` int(11) DEFAULT NULL,
   `checkInTime` varchar(100) DEFAULT NULL,
   `checkOutTime` varchar(100) DEFAULT NULL,
-  `status` varchar(45) DEFAULT NULL,
+  `guestName` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `tbl_checkin` (
 
 LOCK TABLES `tbl_checkin` WRITE;
 /*!40000 ALTER TABLE `tbl_checkin` DISABLE KEYS */;
-INSERT INTO `tbl_checkin` VALUES (1,1,'1508405088','1508472000','1');
+INSERT INTO `tbl_checkin` VALUES (1,1,'1508405088','1508472000','1'),(3,3,'1507629600','1507797900','王先生');
 /*!40000 ALTER TABLE `tbl_checkin` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-20 18:04:32
+-- Dump completed on 2017-10-24 17:28:24

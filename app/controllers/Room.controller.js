@@ -206,3 +206,23 @@ exports.edit = function(req, res, next) {
         res.json(resUtil.generateRes(null, config.statusCode.STATUS_OK));
     })  
 }
+
+
+
+/**
+ * 获取指定房型下所有未入住的房间
+ * @param  {object}   req  the request object
+ * @param  {object}   res  the response object
+ * @param  {Function} next the next func
+ * @return {null}     
+ */
+exports.noCheckIn = function(req, res, next) {
+    var roomTypeId = req.query.roomTypeId; //房间类型ID
+    Room.noCheckIn(roomTypeId, function(err,rows) {
+        if (err) {
+            return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+        }
+        res.json(resUtil.generateRes(rows, config.statusCode.STATUS_OK));       
+    })
+}
+

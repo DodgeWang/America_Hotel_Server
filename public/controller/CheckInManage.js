@@ -20,13 +20,14 @@
             if (obj.status.code !== 0) {
                 alert(obj.status.msg);
             } else {
+                console.log(obj)
                 if (obj.data.length > 0) {
                     var htmlDom = '';
                     for (var i = 0; i < obj.data.length; i++) {
                         var id = obj.data[i].id;
                         var htmlStr = "<tr>\
                                         <td>" + obj.data[i].roomNumber + "</td>\
-                                        <td>" + obj.data[i].statusStr + "</td>\
+                                        <td>" + obj.data[i].guestName + "</td>\
                                         <td>" + obj.data[i].checkInTime + "</td>\
                                         <td>" + obj.data[i].checkOutTime + "</td>\
                                         <td></td>\

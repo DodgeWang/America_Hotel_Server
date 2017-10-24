@@ -19,12 +19,40 @@ exports.getList = function(req, res, next) {
         for(var i=0;i<rows.length;i++){
         	rows[i].checkInTime = timeFunc.toStr(rows[i].checkInTime);
             rows[i].checkOutTime = timeFunc.toStr(rows[i].checkOutTime);
-            if(parseInt(rows[i].status) == 1){
-                rows[i].statusStr = "入住中"
-            }else{
-                rows[i].statusStr = "已退房"
-            }
+            // if(parseInt(rows[i].status) == 1){
+            //     rows[i].statusStr = "入住中"
+            // }else{
+            //     rows[i].statusStr = "已退房"
+            // }
         }
         res.json(resUtil.generateRes(rows, config.statusCode.STATUS_OK));       
+    })
+}
+
+/**
+ * 添加入住信息
+ * @param  {object}   req  the request object
+ * @param  {object}   res  the response object
+ * @param  {Function} next the next func
+ * @return {null}     
+ */
+exports.add = function(req, res, next) {
+    var data = {
+        roomId: req.body.roomId,
+        guestName: req.body.guestName,
+        checkInTime: req.body.checkInTime,
+        checkOutTime: req.body.checkOutTime,
+    } 
+    console.log(data)
+    CheckIn.add(data, function(err){
+        if (err) {
+            return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+        }
+        CheckIn.editCheckInStatus(data.roomId,1, function(err){
+           if (err) {
+              return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+            }
+           res.json(resUtil.generateRes(null, config.statusCode.STATUS_OK));
+        })
     })
 }

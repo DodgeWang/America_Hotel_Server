@@ -39,6 +39,8 @@ module.exports = {
     userInfo: {
         Username: "Username",
         Password: "Password",
+        Department: "Department",
+        Role: "Role",
         Name: "Name",
         SSN: "Social security Number",
         MailAddress: "Mailing Address",
@@ -57,9 +59,63 @@ module.exports = {
         HaveDL: "Do you have a driver's license?",
         DLNumber: "Driver's license number",
         DLIssuedState: "Issued in what state?",
-
         IsJionedArmy: "Have you even been in the Armed Forces?",
         IsMemberNG: "Are you now a member of the National Guard?",
-        militarySpecialty: "Specialty"
-    }
+        MilitarySpecialty: "Specialty",
+        SchoolName: "School",
+        SchoolAddress: "Mailing Address",
+        YearCompleted: "Years Completed",
+        Major: "Major",
+        DegreeDiploma: "Degree or Diploma",
+
+        CompanyName: "Company",
+        CompanySupervisor: "Name of last supervisor",
+        CompanyHours: "Hrs/week",
+        CompanyAddress: "Address",
+        CompanyZipCode: "City,State,and Zip Code",
+        CompanyPhone: "Phone number",
+        CompanyJobTitle: "Your last job title",
+        CompanyStartDate: "Start Date",
+        CompanyEndDate: "End Date",
+        CompanyStartSalary: "Starting Salary",
+        CompanyEndSalary: "Final Salary",
+        CompanyReasonLeaving: "Reason for leaving(be specific)",
+        CompanySelfSummary: "List the jobs you held,duties performed,skills used or learned,advancements or promotions while you worked at this company.",
+        CompanyCouldContact: "May we contact this employer?",
+
+        LoginInformation: "Login Information",
+        DepartAndRole: "Department And Role",
+        BaseInfo: "Basic Information",
+        JobInfo: "Job Type",
+        AdditionalInfo: "Additional Information",
+        HighSchoolInfo: "Education（High School）",
+        CollegeInfo: "Education（College or Business/Trade School）",
+        MilitaryInfo: "Military",
+        WorkExperience: "Work Experience",
+        References: "References",
+
+        AgePrompt: "If under 18,please list age.",
+        ReferencesPrompt: "Please include name,phone number,and cirumstances of your acquaintance,Exclude relatives and former employers.",
+
+        FullTimeJob: "Full-time job",
+        PartTimeJob: "Part-time job",
+        FullOrPart: "Full- or Part-time",
+        Mon: "Mon",
+        Tues: "Tues",
+        Wed: "Wed",
+        Thurs: "Thurs",
+        Fri: "Fri",
+        Sat: "Sat",
+        Sun: "Sun",
+        NoPreference: "NoPreference"
+    },
+    //添加房间页面
+    addCheckIn: {
+        GuestName: "Guest's name",
+        RoomNumber: "Room Number",
+        CheckInTime: "Check-in time",
+        CheckOutTime: "Check-out time",
+        RoomType: "Room type"
+    }   
+
 }

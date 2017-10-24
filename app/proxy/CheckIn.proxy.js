@@ -39,3 +39,54 @@ exports.getList = function(param, callback) {
         }
     })
 }
+
+
+/**
+ * 添加入住信息 
+ * @param  {obj}   data   要添加的入住信息        
+ * @param  {Function} callback 回调函数
+ * @return {null}
+ */
+exports.add = function(data, callback) {
+    console.log(data)
+    mysql.query({
+        sql: "INSERT INTO tbl_checkin SET roomId= :roomId,checkInTime = :checkInTime,checkOutTime = :checkOutTime,guestName = :guestName",
+        params: {  
+            "roomId": data.roomId,
+            "checkInTime": data.checkInTime,
+            "checkOutTime": data.checkOutTime,
+            "guestName": data.guestName
+        }
+    }, function(err) {
+        if (err) {
+            callback(err);
+        }
+        callback(null);
+
+    })
+}
+
+
+
+/**
+ * 修改房间入住状态    
+ * @param  {str}   roomId   房间Id
+ * @param  {obj}   status   要修改的房间入住状态  0代表没人住   1代表有人住          
+ * @param  {Function} callback 回调函数
+ * @return {null}
+ */
+exports.editCheckInStatus = function(roomId,status, callback) {
+    mysql.query({
+        sql: "UPDATE tbl_roominfo SET checkInStatus=:checkInStatus WHERE id= :id",
+        params: {
+            "id": roomId,
+            "checkInStatus": status
+        }
+    }, function(err) {
+        if (err) {
+            callback(err);
+        }
+        callback(null);
+
+    })
+}

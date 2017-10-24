@@ -12,7 +12,7 @@ module.exports = function(req){
 	    break;
 
 	    default:
-        var la = require('./language/zh-CN.language.js');
+        var la = require('./language/en-US.language.js');
     }
 
     return la;

@@ -239,7 +239,6 @@ exports.roomInfo = function(id, callback) {
  * @return {null}
  */
 exports.edit = function(id, data, callback) {
-    console.log(data)
     mysql.query({
         sql: "UPDATE tbl_roominfo SET number=:number,typeId=:typeId WHERE id= :id",
         params: {
@@ -253,6 +252,34 @@ exports.edit = function(id, data, callback) {
         }
         callback(null);
 
+    })
+}
+
+
+
+
+/**
+ * 获取指定房型下所有未入住的房间        
+ * @param  {Function} callback 回调函数
+ * @return {null}
+ */
+exports.noCheckIn = function(typeId, callback) {
+    console.log(typeId)
+    mysql.query({
+        sql: "SELECT * FROM tbl_roominfo WHERE typeId=:typeId AND checkInStatus=0",
+        params: {
+            "typeId": typeId
+        }
+    }, function(err, rows) {
+        if (err) {
+            callback(err, null);
+        }
+
+        if (rows && rows.length > 0) {
+            callback(null, rows);
+        } else {
+            callback(null, []);
+        }
     })
 }
 

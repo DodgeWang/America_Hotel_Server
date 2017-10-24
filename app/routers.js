@@ -132,5 +132,9 @@ module.exports = function(app) {
     app.get('/api/department/list',Department.getList); //获取部门列表
 
     app.get('/api/checkin/list',CheckIn.getList); //获取入住信息列表
+
+    app.post('/api/checkin/add',CheckIn.add); //添加入住信息
+
+    app.get('/api/room/nocheckin',Room.noCheckIn);//获取指定房型下没入住的房间
     
 }
