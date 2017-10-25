@@ -2,7 +2,7 @@ var mysql = require('../mysql');
 var Mapping = require('../../config/env/sqlMapping');
 
 /**
- * 获取房型列表
+ * 按页数获取房型列表
  * @param  {number}   page   查询页数     
  * @param  {number}   size   查询条数         
  * @param  {Function} callback 回调函数
@@ -16,6 +16,29 @@ exports.getTypeList = function(page, size, callback) {
             "limit_Start": limit_Start,
             "size": size
         }
+    }, function(err, rows) {
+        if (err) {
+            callback(err, null);
+        }
+
+        if (rows && rows.length > 0) {
+            callback(null, rows);
+        } else {
+            callback(null, []);
+        }
+    })
+}
+
+
+/**
+ * 获取所有房型列表         
+ * @param  {Function} callback 回调函数
+ * @return {null}
+ */
+exports.getAllTypeList = function(callback) {
+    mysql.query({
+        sql: "SELECT * FROM tbl_roomtype order by id desc",
+        params: {}
     }, function(err, rows) {
         if (err) {
             callback(err, null);
@@ -164,7 +187,6 @@ exports.getList = function(page, size, callback) {
  * @return {null}
  */
 exports.add = function(data, callback) {
-    console.log(data)
     mysql.query({
         sql: "INSERT INTO tbl_roominfo SET number= :number,typeId = :typeId",
         params: {  
@@ -282,4 +304,75 @@ exports.noCheckIn = function(typeId, callback) {
         }
     })
 }
+
+
+
+
+
+
+/**
+ * 获取房间列表
+ * @param  {number}   page   查询页数     
+ * @param  {number}   size   查询条数         
+ * @param  {Function} callback 回调函数
+ * @return {null}
+ */
+exports.getListTwo = function(param,callback) {
+
+    var limit_Start = (param.page - 1) * param.size;
+    var sqlObj = {
+        sql: "SELECT a.id, a.number, b.type FROM tbl_roominfo AS a LEFT JOIN tbl_roomtype AS b ON a.typeId = b.id order by a.id desc limit :limit_Start,:size",
+        params: {
+            "limit_Start": limit_Start,
+            "size": param.size
+        }
+    }
+
+    if(param.typeId != null){
+        var typeId = param.typeId;
+        sqlObj = {
+        sql: "SELECT a.id, a.number, b.type FROM tbl_roominfo AS a LEFT JOIN tbl_roomtype AS b ON a.typeId = b.id WHERE a.typeId = :typeId order by a.id desc limit :limit_Start,:size",
+        params: {
+            "limit_Start": limit_Start,
+            "size": param.size,
+            "typeId": typeId
+           }
+        } 
+    }
+
+    
+    mysql.query(sqlObj, function(err, rows) {
+        if (err) {
+            callback(err, null);
+        }
+
+        if (rows && rows.length > 0) {
+            callback(null, rows);
+        } else {
+            callback(null, []);
+        }
+    })
+}
+
+
+
+/**
+ * 获取指定数据表数据总数
+ * @param  {String} tblName 数据表名        
+ * @param  {Function} callback 回调函数
+ * @return {null}
+ */
+exports.totleNum = function(tblName, callback) {
+    mysql.query({
+        sql: "SELECT COUNT(*) AS totle FROM "+tblName,
+        params: {}
+    }, function(err, rows) {
+        if (err) {
+            callback(err, null);
+        }
+        callback(null, rows);
+        
+    })
+}
+
 

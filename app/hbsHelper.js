@@ -23,6 +23,28 @@ var helper = {
         },
         numAdd: function(num) {
             return num + 1;
+        },
+        operation: function() {
+            var exps = [];
+            var arg_len = arguments.length;
+            var len = arg_len-1;
+            for(var j = 0;j<len;j++){
+              exps.push(arguments[j]);
+            }
+            var result = eval(exps.join(' '));
+            return result;
+        },
+        listEq: function(a,b,c){
+           var e = ""
+           for(var i = 0; i<b.length; i++){
+              if(a == b[i].id){
+                e = b[i].type;
+                return e;
+              }
+           }
+           if(e == ""){
+               return c;
+           }
         }
     }
 

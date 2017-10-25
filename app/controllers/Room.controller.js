@@ -1,6 +1,7 @@
 var Room = require('../proxy/Room.proxy');
 var resUtil  = require("../libs/resUtil");
 var config = require('../../config/env/statusConfig');
+var async = require('async');
 /**
  * 获取房型列表
  * @param  {object}   req  the request object
@@ -69,6 +70,7 @@ exports.typeAdd = function(req, res, next) {
  */
 exports.roomTypeInfo = function(id,cb) {  
     var data = {}
+
     Room.roomTypeInfo(id, function(err,obj) {
     	if(obj != null){
           data = obj;
@@ -173,16 +175,44 @@ exports.delete = function(req, res, next) {
  * @param  {Function} next the next func
  * @return {null}     
  */
-exports.roomInfo = function(id,cb) {  
-    var data = {}
-    Room.roomInfo(id, function(err,obj) {
-        if(obj != null){
-          data = obj;
-        }
-        Room.getTypeList(1,100,function(err,typeList){
-            cb(data,typeList);
-        })
-    })
+exports.roomInfoPage = function(id,cb) {  
+    async.series({
+       roomInfo: function(cb){
+          Room.roomInfo(id, function(err,obj) {
+             var data = {}
+             if(obj != null){
+               data = obj;
+             }
+             cb(err,data)
+          })
+       },
+       typeList: function(cb){
+          Room.getAllTypeList(function(err,rows) {
+             cb(err,rows)
+          })
+       }
+    },function(err, results) {
+        cb(err,results)   
+    });
+}
+
+
+exports.roomListPage = function(req, cb) {
+    async.series({
+       roomList: function(cb){
+          Room.getListTwo(req, function(err,rows) {
+             cb(err,rows)
+          })
+       },
+       typeList: function(cb){
+          Room.getAllTypeList(function(err,rows) {
+             cb(err,rows)
+          })
+       }
+    },function(err, results) {
+        cb(err,results)   
+    });
+    
 }
 
 
@@ -225,4 +255,73 @@ exports.noCheckIn = function(req, res, next) {
         res.json(resUtil.generateRes(rows, config.statusCode.STATUS_OK));       
     })
 }
+
+
+
+/**
+ * 进入房间列表页
+ * @param  {object}   req  the request object
+ * @param  {object}   res  the response object
+ * @param  {Function} next the next func
+ * @return {null}     
+ */
+exports.roomListPage = function(param,cb) {
+    async.series({
+       roomList: function(cb){
+          Room.getListTwo(param,function(err,rows) {
+             cb(err,rows)
+          })
+       },
+       typeList: function(cb){
+          Room.getAllTypeList(function(err,rows) {
+             cb(err,rows)
+          })
+       },
+       pageInfo: function(cb){
+          var str = 'tbl_roominfo';
+          if(param.typeId){
+              str = 'tbl_roominfo where typeId='+param.typeId;
+          }
+          Room.totleNum(str,function(err,rows) {
+             cb(err,rows[0])
+          })
+       }
+    },function(err, results) {
+        cb(err,results)   
+    });  
+}
+
+
+/**
+ * 进入房间类型列表页
+ * @param  {object}   req  the request object
+ * @param  {object}   res  the response object
+ * @param  {Function} next the next func
+ * @return {null}     
+ */
+exports.typeListPage = function(param,cb) {
+    async.series({
+       typeList: function(cb){
+          Room.getTypeList(param.page,param.size,function(err,rows) {
+             cb(err,rows)
+          })
+       },
+       pageInfo: function(cb){
+          var str = 'tbl_roomtype';
+          Room.totleNum(str,function(err,rows) {
+             cb(err,rows[0])
+          })
+       }
+    },function(err, results) {
+        console.log(results)
+        cb(err,results)   
+    });  
+}
+
+
+
+
+
+
+
 

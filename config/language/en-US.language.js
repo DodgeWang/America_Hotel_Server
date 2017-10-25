@@ -22,7 +22,11 @@ module.exports = {
        LogOut: "Logout",
        Setting: "settings",
        Previous: "Previous",
-       Next: "Next"
+       Next: "Next",
+       Edit: "Edit",
+       Delete: "Delete",
+       Action: "Action",
+       All: "All"
     },
     //员工列表页
     usersTable: {
@@ -115,6 +119,17 @@ module.exports = {
         RoomNumber: "Room Number",
         CheckInTime: "Check-in time",
         CheckOutTime: "Check-out time",
+        RoomType: "Room type"
+    },
+    //房间列表页面
+    roomListPage: {
+        RoomManage: "RoomManage",
+        RoomNumber: "Room Number",
+        RoomType: "Room type"
+    },
+    //房间列表页面
+    roomTypePage: {
+        typeManage: "RoomTypeManage",
         RoomType: "Room type"
     }   
 

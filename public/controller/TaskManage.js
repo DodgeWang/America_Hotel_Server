@@ -28,7 +28,7 @@
                         var htmlStr = "<tr>\
                                         <td>" + obj.data[i].roomNumber + "</td>\
                                         <td>" + obj.data[i].taskType + "</td>\
-                                        <td>" + obj.data[i].executor + "</td>\
+                                        <td>" + obj.data[i].executorName + "</td>\
                                         <td>" + obj.data[i].createTime + "</td>\
                                         <td>" + obj.data[i].state + "</td>";
 

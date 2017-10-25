@@ -25,10 +25,10 @@ DROP TABLE IF EXISTS `tbl_roominfo`;
 CREATE TABLE `tbl_roominfo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `number` varchar(45) DEFAULT NULL,
-  `typeId` varchar(45) DEFAULT NULL,
+  `typeId` int(11) DEFAULT NULL,
   `checkInStatus` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `tbl_roominfo` (
 
 LOCK TABLES `tbl_roominfo` WRITE;
 /*!40000 ALTER TABLE `tbl_roominfo` DISABLE KEYS */;
-INSERT INTO `tbl_roominfo` VALUES (1,'101','1',0),(2,'102','2',0),(3,'103','5',1),(4,'104','5',0),(7,'120','4',0);
+INSERT INTO `tbl_roominfo` VALUES (2,'102',2,0),(3,'103',5,1),(7,'120',4,0),(9,'195',5,NULL),(10,'8888',3,NULL);
 /*!40000 ALTER TABLE `tbl_roominfo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-24 17:28:24
+-- Dump completed on 2017-10-25 18:30:05

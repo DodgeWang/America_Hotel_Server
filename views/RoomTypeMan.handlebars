@@ -1,0 +1,103 @@
+
+<div class="main_container" id="users_page">
+
+        <div class="row-fluid">
+          <ul class="breadcrumb">
+            <li><a href="#">Home</a> <span class="divider">/</span></li>
+            <li class="active">{{language.roomTypePage.typeManage}}</li>
+          </ul>
+        </div> <!-- /row-fluid -->
+
+       
+
+        <div class="row-fluid">
+          <div class="widget widget-padding span12">
+            <div class="widget-header">
+              <i class="icon-group"></i>
+              <h5>{{language.roomTypePage.typeManage}}</h5>
+              <div class="widget-buttons">
+                  <a href="/addroomtype"><i class="icon-plus"></i></a>
+              </div>
+            </div>  
+            <div class="widget-body">
+             
+              
+              <table id="users" class="table table-striped table-bordered dataTable">
+                <thead>
+                  <tr>
+                    <th>{{language.roomTypePage.RoomType}}</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                   {{#each typeList}}
+                   <tr>
+                     <td>{{type}}</td>
+                     <td>
+                       <div class='btn-group'>
+                         <a class='btn btn-small dropdown-toggle' data-toggle='dropdown' href='#'>
+                         {{../language.common.Action}}
+                            <span class='caret'></span>
+                         </a>
+                         <ul class='dropdown-menu pull-right'>
+                           <li><a href='/editroomtype?id={{id}}'><i class='icon-edit'></i> {{../language.common.Edit}}</a></li>
+                           <li><a style='cursor:pointer' onclick='delType({{id}})'><i class='icon-trash'></i> {{../language.common.Delete}}</a></li>
+                         </ul>
+                       </div>
+                     </td>
+                   </tr>
+                   {{/each}}
+                </tbody>
+              </table>
+              <div class="row-fluid">
+                <div class="span5"></div>
+                  <div class="span6">
+                    <div class="dataTables_paginate paging_bootstrap pagination">
+                        <ul style="margin:0 auto;">
+                            <li class="prev" id="prev_btn"><a href="#">← {{language.common.Previous}}</a></li>
+                            <li class="next" id="next_btn"><a href="#">{{language.common.Next}} → </a></li>
+                        </ul>
+                    </div>
+                </div>
+              </div>
+
+
+            </div> <!-- /widget-body -->
+          </div> <!-- /widget -->
+        </div> <!-- /row-fluid -->
+      </div>
+
+{{#section 'script'}}
+     <script>
+        if({{pageInfo.page}} <= 1){
+           $("#prev_btn").addClass("disabled");
+        }else{
+           var url = "/roomtype?page="+({{pageInfo.page}}-1);
+           $("#prev_btn a").attr("href",url);
+        }
+
+
+         
+        if({{pageInfo.page}} >= {{pageInfo.pageTotle}}){
+           $("#next_btn").addClass("disabled");
+        }else{
+           var next_url = "/roomtype?page="+({{pageInfo.page}}+1);
+           $("#next_btn a").attr("href",next_url);
+        }
+
+
+        //删除房间类型
+        function delType(id){
+           var r = confirm("Are you sure you want to delete this data?")
+            if (r == true) {
+               $.get("/api/room/typedelete", { id: id }, function(obj) {
+                 if (obj.status.code !== 0) {
+                   alert(obj.status.msg);
+                 } else {
+                    window.location.reload();
+                 }
+               })
+            }
+        }
+    </script>
+{{/section}}

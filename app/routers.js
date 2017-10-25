@@ -27,10 +27,31 @@ module.exports = function(app) {
     });
     app.get('/edituser', Users.userInfoById);
 
+    // app.get('/roomtype', function(req, res) {
+    //    var Language = language(req);
+    //    res.render('RoomTypeManage',{adminInfo:req.session.administrator,language:Language});
+    // });
+    
     app.get('/roomtype', function(req, res) {
        var Language = language(req);
-       res.render('RoomTypeManage',{adminInfo:req.session.administrator,language:Language});
+       var param = {
+          size: 15,
+          page: req.query.page?req.query.page : 1,
+       }
+       Room.typeListPage(param,function(err,data){
+          data.pageInfo.page = param.page;
+          data.pageInfo.pageTotle = Math.ceil(data.pageInfo.totle/param.size);
+
+          res.render('RoomTypeMan',
+            { 
+              adminInfo:req.session.administrator,
+              language:Language,
+              typeList:data.typeList,
+              pageInfo:data.pageInfo
+            });
+       })
     });
+
     
     app.get('/addroomtype', function(req, res) {
        var Language = language(req);
@@ -45,24 +66,49 @@ module.exports = function(app) {
        })
     });
 
+    // app.get('/room', function(req, res) {
+    //    var Language = language(req);
+    //    res.render('RoomManage',{adminInfo:req.session.administrator,language:Language});
+    // });
+    
     app.get('/room', function(req, res) {
        var Language = language(req);
-       res.render('RoomManage',{adminInfo:req.session.administrator,language:Language});
+       var param = {
+          size: 15,
+          page: req.query.page?req.query.page : 1,
+          typeId: req.query.typeId ? req.query.typeId : null
+       }
+       Room.roomListPage(param,function(err,data){
+          data.pageInfo.page = param.page;
+          data.pageInfo.typeId = req.query.typeId ? req.query.typeId : -1;
+          data.pageInfo.pageTotle = Math.ceil(data.pageInfo.totle/param.size);
+
+          res.render('RoomMan',
+            { 
+              adminInfo:req.session.administrator,
+              language:Language,
+              roomList:data.roomList,
+              typeList:data.typeList,
+              pageInfo:data.pageInfo
+            });
+       })
     });
+
 
     app.get('/addroom', function(req, res) {
        var Language = language(req);
        res.render('AddRoom',{adminInfo:req.session.administrator,language:Language});
     });
 
+
     app.get('/editroom',function(req, res) {
        var id = req.query.id;
        var Language = language(req);
-       Room.roomInfo(id,function(data,typeList){
+       Room.roomInfoPage(id,function(err,data){
           res.render('EditRoom',
-            { data:data,
+            { data:data.roomInfo,
               adminInfo:req.session.administrator,
-              typeList:typeList,
+              typeList:data.typeList,
               language:Language
           });
        })

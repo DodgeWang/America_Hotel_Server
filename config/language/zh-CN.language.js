@@ -22,7 +22,11 @@ module.exports = {
        LogOut: "退出后台",
        Setting: "设置",
        Previous: "上一页",
-       Next: "下一页"
+       Next: "下一页",
+       Edit: "修改",
+       Delete: "删除",
+       Action: "操作",
+       All: "全部"
     },
     //员工列表页
     usersTable: {
@@ -115,6 +119,17 @@ module.exports = {
         CheckInTime: "入住时间",
         CheckOutTime: "退房时间",
         RoomType: "房型"
-    } 
+    },
+    //房间列表页面
+    roomListPage: {
+        RoomManage: "房间管理",
+        RoomNumber: "房间号",
+        RoomType: "房型"
+    },
+    //房间列表页面
+    roomTypePage: {
+        typeManage: "房间类型管理",
+        RoomType: "房型"
+    }     
 
 }
