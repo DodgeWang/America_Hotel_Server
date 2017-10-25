@@ -7,30 +7,26 @@
         <div class="row-fluid">
           <ul class="breadcrumb">
             <li><a href="#">Home</a> <span class="divider">/</span></li>
-            <li><a href="users.html">Users</a> <span class="divider">/</span></li>
-            <li class="active">Add User</li>
+            <li class="active">{{language.TaskInfoPage.AddTask}}</li>
           </ul>
-          <h2 class="heading">
-                创建任务
-          </h2>
         </div>
         <!-- 信息 -->
         <div class="row-fluid" id="loginInfoBox">
           <div class="widget widget-padding span12">
             <div class="widget-header">
-              <i class="icon-list-alt"></i><h5>Information</h5>
+              <i class="icon-list-alt"></i><h5>{{language.TaskInfoPage.AddTask}}</h5>
             </div>
             <div class="widget-body">
               <div class="widget-forms clearfix">
                 <form class="form-horizontal">
                  <div class="control-group">
-                    <label class="control-label">房间号</label>
+                    <label class="control-label">{{language.TaskInfoPage.RoomNumber}}</label>
                     <div class="controls">
                         <input class="span7" type="text" name="roomNumber">
                      </div>
                   </div>
                   <div class="control-group">
-                    <label class="control-label">任务类型</label>
+                    <label class="control-label">{{language.TaskInfoPage.TaskType}}</label>
                     <div class="controls">
                         <select class="span7" id="taskType">
                              <option value="1">保洁</option>
@@ -40,13 +36,13 @@
                      </div>
                   </div>
                   <div class="control-group">
-                    <label class="control-label">任务执行人</label>
+                    <label class="control-label">{{language.TaskInfoPage.Executor}}</label>
                     <div class="controls">
                         <select id="userList" class="span7" name="executor"></select>
                      </div>
                   </div>
                   <div class="control-group">
-                    <label class="control-label">任务说明</label>
+                    <label class="control-label">{{language.TaskInfoPage.TaskCont}}</label>
                     <div class="controls">
                         <textarea class="span7" rows="5" style="height:100px;" name="taskContent"></textarea>
                       </div>

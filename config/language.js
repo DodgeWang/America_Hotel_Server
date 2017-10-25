@@ -3,11 +3,11 @@ module.exports = function(req){
 	var languageType = req.session.languageType;
     switch (languageType)
     {
-	    case "1":
+	    case 1:
 	    var la = require('./language/en-US.language.js');
 	    break;
 
-	    case "2":
+	    case 2:
 	    var la = require('./language/zh-CN.language.js');
 	    break;
 

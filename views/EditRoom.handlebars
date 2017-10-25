@@ -7,18 +7,14 @@
         <div class="row-fluid">
           <ul class="breadcrumb">
             <li><a href="#">Home</a> <span class="divider">/</span></li>
-            <li><a href="users.html">Users</a> <span class="divider">/</span></li>
-            <li class="active">Add User</li>
+            <li class="active">{{language.RoomInfoPage.EditRoom}}</li>
           </ul>
-          <h2 class="heading">
-                编辑房间
-          </h2>
         </div>
         <!-- 信息 -->
         <div class="row-fluid" id="loginInfoBox">
           <div class="widget widget-padding span12">
             <div class="widget-header">
-              <i class="icon-list-alt"></i><h5>Information</h5>
+              <i class="icon-list-alt"></i><h5>{{language.RoomInfoPage.EditRoom}}</h5>
             </div>
             <div class="widget-body">
               <div class="widget-forms clearfix">
@@ -30,13 +26,13 @@
                     </div>
                   </div>
                  <div class="control-group">
-                    <label class="control-label">房间号</label>
+                    <label class="control-label">{{language.RoomInfoPage.RoomNumber}}</label>
                     <div class="controls">
                       <input class="span7" type="text" name="roomNum" value={{data.Number}}>
                     </div>
                   </div>
                   <div class="control-group">
-                    <label class="control-label">房型</label>
+                    <label class="control-label">{{language.RoomInfoPage.RoomType}}</label>
                     <div class="controls">
                         <select id="roomType" class="span7"> 
                             {{#each typeList}}

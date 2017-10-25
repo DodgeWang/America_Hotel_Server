@@ -1,4 +1,5 @@
 var Room = require('../proxy/Room.proxy');
+var Common = require('../proxy/Common.proxy');
 var resUtil  = require("../libs/resUtil");
 var config = require('../../config/env/statusConfig');
 var async = require('async');
@@ -282,7 +283,7 @@ exports.roomListPage = function(param,cb) {
           if(param.typeId){
               str = 'tbl_roominfo where typeId='+param.typeId;
           }
-          Room.totleNum(str,function(err,rows) {
+          Common.totleNum(str,function(err,rows) {
              cb(err,rows[0])
           })
        }
@@ -308,7 +309,7 @@ exports.typeListPage = function(param,cb) {
        },
        pageInfo: function(cb){
           var str = 'tbl_roomtype';
-          Room.totleNum(str,function(err,rows) {
+          Common.totleNum(str,function(err,rows) {
              cb(err,rows[0])
           })
        }

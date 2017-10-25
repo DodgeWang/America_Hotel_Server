@@ -12,26 +12,53 @@ module.exports = function(app) {
     /**
      * html page routers
      */
+
+
     //登陆页面
     app.get('/login', function(req, res) {
        var Language = language(req);
        res.render('login',{layout: null,language:Language});
     });
+
+
+
+    //员工列表管理页面
     app.get('/users', function(req, res) { 
        var Language = language(req);
-       res.render('Users',{adminInfo:req.session.administrator,language:Language});
+       var param = {
+          size: 15,
+          page: req.query.page?req.query.page : 1,
+       }
+       Users.usersListPage(param,function(err,data){
+          data.pageInfo.page = param.page;
+          data.pageInfo.pageTotle = Math.ceil(data.pageInfo.totle/param.size);
+
+          res.render('UsersManage',
+            { 
+              adminInfo:req.session.administrator,
+              language:Language,
+              userList:data.userList,
+              pageInfo:data.pageInfo
+            });
+       })
     });
+
+
+
+    //添加员工信息页面
     app.get('/adduser', function(req, res) {
        var Language = language(req);
        res.render('AddUser',{adminInfo:req.session.administrator,language:Language});
     });
+
+
+
+    //修改员工信息页面
     app.get('/edituser', Users.userInfoById);
 
-    // app.get('/roomtype', function(req, res) {
-    //    var Language = language(req);
-    //    res.render('RoomTypeManage',{adminInfo:req.session.administrator,language:Language});
-    // });
-    
+
+
+    //房间类型管理页面
     app.get('/roomtype', function(req, res) {
        var Language = language(req);
        var param = {
@@ -42,7 +69,7 @@ module.exports = function(app) {
           data.pageInfo.page = param.page;
           data.pageInfo.pageTotle = Math.ceil(data.pageInfo.totle/param.size);
 
-          res.render('RoomTypeMan',
+          res.render('RoomTypeManage',
             { 
               adminInfo:req.session.administrator,
               language:Language,
@@ -52,25 +79,32 @@ module.exports = function(app) {
        })
     });
 
-    
+
+
+    //添加房间类型页面    
     app.get('/addroomtype', function(req, res) {
        var Language = language(req);
        res.render('AddRoomType',{adminInfo:req.session.administrator,language:Language});
     });
 
+
+
+
+    //修改房间类型页面
     app.get('/editroomtype',function(req, res) {
        var id = req.query.id;
-        var Language = language(req);
+       var Language = language(req);
        Room.roomTypeInfo(id,function(data){
           res.render('EditRoomType',{data:data,adminInfo:req.session.administrator,language:Language});
        })
     });
 
-    // app.get('/room', function(req, res) {
-    //    var Language = language(req);
-    //    res.render('RoomManage',{adminInfo:req.session.administrator,language:Language});
-    // });
-    
+ 
+
+
+
+
+    //房间管理页面
     app.get('/room', function(req, res) {
        var Language = language(req);
        var param = {
@@ -83,7 +117,7 @@ module.exports = function(app) {
           data.pageInfo.typeId = req.query.typeId ? req.query.typeId : -1;
           data.pageInfo.pageTotle = Math.ceil(data.pageInfo.totle/param.size);
 
-          res.render('RoomMan',
+          res.render('RoomManage',
             { 
               adminInfo:req.session.administrator,
               language:Language,
@@ -95,12 +129,19 @@ module.exports = function(app) {
     });
 
 
+
+
+
+    //添加房间详情页面
     app.get('/addroom', function(req, res) {
        var Language = language(req);
        res.render('AddRoom',{adminInfo:req.session.administrator,language:Language});
     });
 
 
+
+
+    //修改房间详情页面
     app.get('/editroom',function(req, res) {
        var id = req.query.id;
        var Language = language(req);
@@ -114,22 +155,66 @@ module.exports = function(app) {
        })
     });
     
+
+
+    //任务列表管理页面
     app.get('/task', function(req, res) {
        var Language = language(req);
-       res.render('TaskManage',{adminInfo:req.session.administrator,language:Language});
+       var param = {
+          size: 15,
+          page: req.query.page?req.query.page : 1,
+       }
+       Task.taskListPage(param,function(err,data){
+          data.pageInfo.page = param.page;
+          data.pageInfo.pageTotle = Math.ceil(data.pageInfo.totle/param.size);
+
+          res.render('TaskManage',
+            { 
+              adminInfo:req.session.administrator,
+              language:Language,
+              taskList:data.taskList,
+              pageInfo:data.pageInfo
+            });
+       })
     });
 
+
+    
+    //添加任务页面
     app.get('/addtask', function(req, res) {
        var Language = language(req);
        res.render('AddTask',{adminInfo:req.session.administrator,language:Language});
     });
 
+
+
+    //入住登记页面
+    // app.get('/checkin', function(req, res) {
+    //    var Language = language(req);
+    //    res.render('CheckInManage',{adminInfo:req.session.administrator,language:Language});
+    // });
     app.get('/checkin', function(req, res) {
        var Language = language(req);
-       res.render('CheckInManage',{adminInfo:req.session.administrator,language:Language});
+       var param = {
+          size: 15,
+          page: req.query.page?req.query.page : 1,
+       }
+       CheckIn.checkInListPage(param,function(err,data){
+          data.pageInfo.page = param.page;
+          data.pageInfo.pageTotle = Math.ceil(data.pageInfo.totle/param.size);
+
+          res.render('CheckInManage',
+            { 
+              adminInfo:req.session.administrator,
+              language:Language,
+              checkInList:data.checkInList,
+              pageInfo:data.pageInfo
+            });
+       })
     });
     
 
+    //添加入住登记页面
     app.get('/addcheckin', function(req, res) {
        var Language = language(req);
        res.render('AddCheckIn',{adminInfo:req.session.administrator,language:Language});
@@ -182,5 +267,8 @@ module.exports = function(app) {
     app.post('/api/checkin/add',CheckIn.add); //添加入住信息
 
     app.get('/api/room/nocheckin',Room.noCheckIn);//获取指定房型下没入住的房间
+    
+    //切换语言
+    app.get('/api/language',System.language);
     
 }

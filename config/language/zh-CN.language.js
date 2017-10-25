@@ -26,7 +26,8 @@ module.exports = {
        Edit: "修改",
        Delete: "删除",
        Action: "操作",
-       All: "全部"
+       All: "全部",
+       ResetPass: "重置密码"
     },
     //员工列表页
     usersTable: {
@@ -37,7 +38,8 @@ module.exports = {
         Action: "操作",
         Edit: "编辑",
         ResetPassword: "重置密码",
-        Delete: "删除"
+        Delete: "删除",
+        StaffManage: "员工管理"
     },
     //员工信息页面
     userInfo: {
@@ -114,6 +116,8 @@ module.exports = {
     },
     //添加房间页面
     addCheckIn: {
+        AddCheckIn: "添加入住信息",
+        EditCheckIn: "编辑入住信息",
         GuestName: "客人姓名",
         RoomNumber: "房间号",
         CheckInTime: "入住时间",
@@ -130,6 +134,47 @@ module.exports = {
     roomTypePage: {
         typeManage: "房间类型管理",
         RoomType: "房型"
-    }     
+    },
+    //任务管理列表页面
+    TaskListPage: {
+        TaskManage: "任务管理",
+        RoomNumber: "房间号",
+        TaskType: "任务类型",
+        executor: "执行者",
+        ReleaseTime: "发布时间",
+        Status: "状态"
+    },
+    //入住循序管理页面
+    checkInPage: {
+        CheckInManage: "入住登记管理",
+        RoomNumber: "房间号",
+        GuestName: "客人姓名",
+        CheckInTime: "入住时间",
+        CheckOutTime: "退房时间",
+        TaskStatus: "任务状态",
+        TaskRecord: "任务记录"
+    },
+    //房间类型详情页面
+    RoomTypeInfoPage: {
+        AddRoomType: "添加房间类型",
+        EditRoomType: "编辑房间类型",
+        RoomTypeName: "房型名称"
+    },
+    //房间详情页面
+    RoomInfoPage: {
+        AddRoom: "添加房间",
+        EditRoom: "编辑房间",
+        RoomNumber: "房间号",
+        RoomType: "房间类型",
+    },
+    //任务详情页面
+    TaskInfoPage: {
+        AddTask: "添加任务",
+        EditTask: "编辑任务",
+        RoomNumber: "房间号",
+        TaskType: "任务类型",
+        Executor: "执行者",
+        TaskCont: "任务内容"
+    }                 
 
 }

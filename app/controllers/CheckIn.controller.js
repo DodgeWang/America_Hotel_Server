@@ -2,6 +2,8 @@ var CheckIn = require('../proxy/CheckIn.proxy');
 var resUtil  = require("../libs/resUtil");
 var config = require('../../config/env/statusConfig');
 var timeFunc  = require("../func/timeFunc");
+var Common = require('../proxy/Common.proxy');
+var async = require('async');
 
 
 /**
@@ -55,4 +57,36 @@ exports.add = function(req, res, next) {
            res.json(resUtil.generateRes(null, config.statusCode.STATUS_OK));
         })
     })
+}
+
+
+
+/**
+ * 入住列表管理页
+ * @param  {object}   req  the request object
+ * @param  {object}   res  the response object
+ * @param  {Function} next the next func
+ * @return {null}     
+ */
+exports.checkInListPage = function(param,cb) {
+    async.series({
+       checkInList: function(cb){
+          CheckIn.getList(param,function(err,rows) {
+             for(var i=0;i<rows.length;i++){
+               rows[i].checkInTime = timeFunc.toStr(rows[i].checkInTime);
+               rows[i].checkOutTime = timeFunc.toStr(rows[i].checkOutTime);
+             }
+             cb(err,rows)
+          })
+       },
+       pageInfo: function(cb){
+          var str = 'tbl_checkin';
+          Common.totleNum(str,function(err,rows) {
+             cb(err,rows[0])
+          })
+       }
+    },function(err, results) {
+        console.log(results)
+        cb(err,results)   
+    });  
 }

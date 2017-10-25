@@ -1,4 +1,5 @@
 var Users = require('../proxy/Users.proxy');
+var Common = require('../proxy/Common.proxy');
 var Department = require('../proxy/Department.proxy');
 var Role = require('../proxy/Role.proxy');
 var resUtil  = require("../libs/resUtil");
@@ -6,6 +7,7 @@ var config = require('../../config/env/statusConfig');
 var encryption = require("../func/encryption");
 var UUID = require("../func/UUID");
 var language = require('../../config/language');
+var async = require('async');
 /**
  * 获取用户列表
  * @param  {object}   req  the request object
@@ -252,6 +254,37 @@ exports.edit = function(req, res, next) {
         })
     })  
 }
+
+
+
+
+
+/**
+ * 进入员工列表页
+ * @param  {object}   req  the request object
+ * @param  {object}   res  the response object
+ * @param  {Function} next the next func
+ * @return {null}     
+ */
+exports.usersListPage = function(param,cb) {
+    async.series({
+       userList: function(cb){
+          Users.getList(param,function(err,rows) {
+             cb(err,rows)
+          })
+       },
+       pageInfo: function(cb){
+          var str = 'tbl_users';
+          Common.totleNum(str,function(err,rows) {
+             cb(err,rows[0])
+          })
+       }
+    },function(err, results) {
+        console.log(results)
+        cb(err,results)   
+    });  
+}
+
 
 
 

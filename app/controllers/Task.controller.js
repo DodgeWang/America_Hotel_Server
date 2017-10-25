@@ -1,6 +1,8 @@
 var Task = require('../proxy/Task.proxy');
 var resUtil  = require("../libs/resUtil");
 var config = require('../../config/env/statusConfig');
+var Common = require('../proxy/Common.proxy');
+var async = require('async');
 
 /**
  * 创建任务
@@ -58,4 +60,31 @@ exports.getList = function(req, res, next) {
         }
         res.json(resUtil.generateRes(rows, config.statusCode.STATUS_OK));       
     })
+}
+
+
+/**
+ * 进入任务列表页
+ * @param  {object}   req  the request object
+ * @param  {object}   res  the response object
+ * @param  {Function} next the next func
+ * @return {null}     
+ */
+exports.taskListPage = function(param,cb) {
+    async.series({
+       taskList: function(cb){
+          Task.getList(param,function(err,rows) {
+             cb(err,rows)
+          })
+       },
+       pageInfo: function(cb){
+          var str = 'tbl_task';
+          Common.totleNum(str,function(err,rows) {
+             cb(err,rows[0])
+          })
+       }
+    },function(err, results) {
+        console.log(results)
+        cb(err,results)   
+    });  
 }
