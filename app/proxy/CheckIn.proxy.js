@@ -19,7 +19,7 @@ exports.getList = function(param, callback) {
         var size = Number(param.size);
         var limit_Start = (page - 1) * size;
         sqlObj = {
-            sql: "SELECT a.*,b.number AS roomNumber FROM tbl_checkin AS a LEFT JOIN tbl_roominfo AS b ON a.roomId=b.id ORDER BY id desc limit :limit_Start,:size",
+            sql: "SELECT c.* FROM (SELECT a.*,b.number AS roomNumber,b.checkInStatus FROM tbl_checkin AS a LEFT JOIN tbl_roominfo AS b ON a.roomId=b.id) AS c WHERE c.checkInStatus=1 ORDER BY c.id desc limit :limit_Start,:size",
             params: {
               "limit_Start": limit_Start,
               "size": size
@@ -76,6 +76,8 @@ exports.add = function(data, callback) {
  * @return {null}
  */
 exports.editCheckInStatus = function(roomId,status, callback) {
+    console.log(roomId)
+    console.log(status)
     mysql.query({
         sql: "UPDATE tbl_roominfo SET checkInStatus=:checkInStatus WHERE id= :id",
         params: {

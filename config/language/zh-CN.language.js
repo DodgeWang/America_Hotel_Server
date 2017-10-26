@@ -144,7 +144,7 @@ module.exports = {
         ReleaseTime: "发布时间",
         Status: "状态"
     },
-    //入住循序管理页面
+    //入住登记管理页面
     checkInPage: {
         CheckInManage: "入住登记管理",
         RoomNumber: "房间号",
@@ -152,7 +152,8 @@ module.exports = {
         CheckInTime: "入住时间",
         CheckOutTime: "退房时间",
         TaskStatus: "任务状态",
-        TaskRecord: "任务记录"
+        TaskRecord: "任务记录",
+        CheckOut: "退房"
     },
     //房间类型详情页面
     RoomTypeInfoPage: {

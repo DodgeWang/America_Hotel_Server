@@ -13,7 +13,7 @@ var async = require('async');
  */
 exports.add = function(req, res, next) {
     var data = {
-        roomNumber : req.body.roomNumber,
+        roomId : req.body.roomId,
         taskType : req.body.taskType,
         executor: req.body.executor,
         content: req.body.taskContent
@@ -74,6 +74,25 @@ exports.taskListPage = function(param,cb) {
     async.series({
        taskList: function(cb){
           Task.getList(param,function(err,rows) {
+            for(var i=0;i<rows.length;i++){
+               if(rows[i].state == "0"){
+                 rows[i].state = "未完成"
+               }else{
+                 rows[i].state = "已完成"
+               }
+
+               switch(rows[i].taskType)
+                 {
+                 case "1":
+                   rows[i].taskType = "保洁"
+                   break;
+                 case "2":
+                   rows[i].taskType = "查房"
+                   break;
+                 default:
+                   rows[i].taskType = "报修"
+                 }
+             }
              cb(err,rows)
           })
        },

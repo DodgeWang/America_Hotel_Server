@@ -180,6 +180,31 @@ exports.getList = function(page, size, callback) {
 
 
 
+
+/**
+ * 获取全部房间列表         
+ * @param  {Function} callback 回调函数
+ * @return {null}
+ */
+exports.getAllList = function(callback) {
+    mysql.query({
+        sql: "SELECT a.id, a.number FROM tbl_roominfo as a order by a.id desc",
+        params: {}
+    }, function(err, rows) {
+        if (err) {
+            callback(err, null);
+        }
+
+        if (rows && rows.length > 0) {
+            callback(null, rows);
+        } else {
+            callback(null, []);
+        }
+    })
+}
+
+
+
 /**
  * 添加房间 
  * @param  {obj}   data   要添加的房型信息        

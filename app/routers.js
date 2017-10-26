@@ -246,7 +246,9 @@ module.exports = function(app) {
 
     app.post('/api/room/typeedit',Room.typeEdit);//修改房型
 
-    app.get('/api/room/list',Room.getList); //获取房间列表
+    app.get('/api/room/list',Room.getList); //按页获取房间列表
+
+    app.get('/api/room/alllist',Room.getAllList); //获取全部房间列表
 
     app.post('/api/room/add',Room.add);//添加房间 
 
@@ -266,9 +268,12 @@ module.exports = function(app) {
 
     app.post('/api/checkin/add',CheckIn.add); //添加入住信息
 
+    app.get('/api/checkin/checkout',CheckIn.checkout);//退房
+
     app.get('/api/room/nocheckin',Room.noCheckIn);//获取指定房型下没入住的房间
     
-    //切换语言
-    app.get('/api/language',System.language);
+    app.get('/api/language',System.language);//切换语言
+
+
     
 }

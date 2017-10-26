@@ -1,7 +1,7 @@
 $(function() {
     $.get("/api/users/list", {}, function(obj) {
             if (obj.status.code !== 0) {
-                alert(obj.status.msg);
+                console.log(obj.status.msg);
             } else {
                 var htmlDom = '';
                 if(obj.data.length > 0){
@@ -13,13 +13,27 @@ $(function() {
             }
     })
 
+    $.get("/api/room/alllist", {}, function(obj) {
+            if (obj.status.code !== 0) {
+                console.log(obj.status.msg);
+            } else {
+                var htmlDom = '';
+                if(obj.data.length > 0){
+                  for(var i = 0; i < obj.data.length; i++){
+                    htmlDom += "<option value='"+ obj.data[i].id +"'>"+ obj.data[i].number +"</option>";
+                  }
+                }
+                $("#roomList").html(htmlDom);
+            }
+    })
+
     $('#form_sublime').on('click',function(){
-        var roomNumber = $('input[name="roomNumber"]').val();//房间号
+      var roomId = $('select[name="roomId"]').val();//房间Id
     	var taskType = $("#taskType").val();//任务类型
     	var executor = $('select[name="executor"]').val();//执行人员
     	var taskContent = $('textarea[name="taskContent"]').val();//任务内容
         var param = {
-          roomNumber : roomNumber,
+          roomId : roomId,
           taskType : taskType,
           executor: executor,
           taskContent: taskContent

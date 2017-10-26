@@ -10,10 +10,10 @@ var Mapping = require('../../config/env/sqlMapping');
 exports.add = function(data, callback) {
 	console.log(data)
     mysql.query({
-        sql: "INSERT INTO tbl_task SET executor= :executor, roomNumber=:roomNumber, content=:content, taskType=:taskType, state=:state, createTime=now()",
+        sql: "INSERT INTO tbl_task SET executor= :executor, roomId=:roomId, content=:content, taskType=:taskType, state=:state, createTime=now()",
         params: {  
         	"executor": data.executor,
-            "roomNumber" : data.roomNumber,
+            "roomId" : data.roomId,
             "taskType" : data.taskType,
             "content": data.content,
             "state": 0
@@ -45,7 +45,7 @@ exports.getList = function(param, callback) {
         var size = Number(param.size);
         var limit_Start = (page - 1) * size;
         sqlObj = {
-            sql: "SELECT a.*,b.name AS executorName FROM tbl_task AS a LEFT JOIN tbl_users AS b ON b.idCode = a.executor order by a.id desc limit :limit_Start,:size",
+            sql: "SELECT a.*,b.name AS executorName,c.number AS roomNumber FROM tbl_task AS a LEFT JOIN tbl_users AS b ON b.idCode = a.executor LEFT JOIN tbl_roominfo AS c ON c.id=a.roomId order by a.id desc limit :limit_Start,:size",
             params: {
               "limit_Start": limit_Start,
               "size": size

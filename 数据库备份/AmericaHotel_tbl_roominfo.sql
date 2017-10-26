@@ -37,7 +37,7 @@ CREATE TABLE `tbl_roominfo` (
 
 LOCK TABLES `tbl_roominfo` WRITE;
 /*!40000 ALTER TABLE `tbl_roominfo` DISABLE KEYS */;
-INSERT INTO `tbl_roominfo` VALUES (2,'102',2,0),(3,'103',5,1),(7,'120',4,0),(9,'195',5,NULL),(10,'8888',3,NULL);
+INSERT INTO `tbl_roominfo` VALUES (2,'102',2,0),(3,'103',5,0),(7,'120',4,1),(9,'195',5,0),(10,'8888',3,0);
 /*!40000 ALTER TABLE `tbl_roominfo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-25 18:30:05
+-- Dump completed on 2017-10-26 17:59:20

@@ -26,13 +26,13 @@ CREATE TABLE `tbl_task` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `taskType` varchar(45) DEFAULT NULL,
   `executor` varchar(45) DEFAULT NULL,
-  `roomNumber` varchar(45) DEFAULT NULL,
+  `roomId` int(11) DEFAULT NULL,
   `content` varchar(255) DEFAULT NULL,
   `state` varchar(45) DEFAULT NULL,
   `createTime` varchar(45) DEFAULT NULL,
   `completeTime` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `tbl_task` (
 
 LOCK TABLES `tbl_task` WRITE;
 /*!40000 ALTER TABLE `tbl_task` DISABLE KEYS */;
-INSERT INTO `tbl_task` VALUES (1,'1','6FE1873C262319A0','108','注意换被子','0','2017-10-17 15:02:50',NULL),(2,'2','1','306','看看有没有什么损坏','0','2017-10-18 17:40:11',NULL);
+INSERT INTO `tbl_task` VALUES (1,'1','6FE1873C262319A0',108,'注意换被子','0','2017-10-17 15:02:50',NULL),(2,'2','1',306,'看看有没有什么损坏','0','2017-10-18 17:40:11',NULL),(3,'1','6FE1873C262319A0',NULL,'124','0','2017-10-26 10:38:00',NULL),(4,'2','1',9,'34333','0','2017-10-26 10:41:52',NULL);
 /*!40000 ALTER TABLE `tbl_task` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-25 18:30:04
+-- Dump completed on 2017-10-26 17:59:19

@@ -45,7 +45,6 @@ exports.add = function(req, res, next) {
         checkInTime: req.body.checkInTime,
         checkOutTime: req.body.checkOutTime,
     } 
-    console.log(data)
     CheckIn.add(data, function(err){
         if (err) {
             return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
@@ -86,7 +85,28 @@ exports.checkInListPage = function(param,cb) {
           })
        }
     },function(err, results) {
-        console.log(results)
         cb(err,results)   
     });  
+}
+
+
+
+
+/**
+ * 退房
+ * @param  {object}   req  the request object
+ * @param  {object}   res  the response object
+ * @param  {Function} next the next func
+ * @return {null}     
+ */
+exports.checkout = function(req, res, next) {
+    var data = {
+        roomId: req.query.roomId
+    } 
+    CheckIn.editCheckInStatus(data.roomId,0, function(err){
+           if (err) {
+              return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+            }
+           res.json(resUtil.generateRes(null, config.statusCode.STATUS_OK));
+    })
 }

@@ -54,7 +54,7 @@
                         </a>
                         <ul class='dropdown-menu pull-right'>
                           <li><a href='/editroom?id={{id}}'><i class='icon-edit'></i> {{../language.common.Edit}}</a></li>
-                          <li><a style='cursor:pointer' onclick='delRoom({{id}})'><i class='icon-trash'></i> {{../language.common.Delete}}</a></li>
+                          <li><a style='cursor:pointer' onclick='checkOut({{roomId}})'><i class='icon-trash'></i> {{../language.checkInPage.CheckOut}}</a></li>
                         </ul>
                       </div>
                     </td>
@@ -100,6 +100,21 @@
         }else{
            var next_url = "/checkin?page="+({{pageInfo.page}}+1);
            $("#next_btn a").attr("href",next_url);
+        }
+
+
+
+        function checkOut(id){
+           var r = confirm("Are you sure you want to delete this data?")
+            if (r == true) {
+               $.get("/api/checkin/checkout", { roomId: id }, function(obj) {
+                 if (obj.status.code !== 0) {
+                   alert(obj.status.msg);
+                 } else {
+                    window.location.reload();
+                 }
+               })
+            }
         }
     </script>
 {{/section}}
