@@ -115,7 +115,7 @@ module.exports = {
         Sun: "Sun",
         NoPreference: "NoPreference"
     },
-    //添加房间页面
+    //入住信息页面
     addCheckIn: {
         AddCheckIn: "Add Check-in",
         EditCheckIn: "Edit Check-in",

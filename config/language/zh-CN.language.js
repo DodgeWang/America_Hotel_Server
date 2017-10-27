@@ -114,7 +114,7 @@ module.exports = {
         Sun: "周日",
         NoPreference: "没有要求"
     },
-    //添加房间页面
+    //入住信息页面
     addCheckIn: {
         AddCheckIn: "添加入住信息",
         EditCheckIn: "编辑入住信息",

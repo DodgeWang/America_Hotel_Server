@@ -73,9 +73,9 @@ $(function() {
        date = date.split("-");
        time = time.split(":");
        var d = new Date();
-       d.setFullYear(parseInt(date[2]));
+       d.setFullYear(parseInt(date[0]));
        d.setMonth(parseInt(date[1])-1);
-       d.setDate(parseInt(date[0]));
+       d.setDate(parseInt(date[2]));
        d.setHours(parseInt(time[0]));
        d.setMinutes(parseInt(time[1]));
        d.setSeconds(0);

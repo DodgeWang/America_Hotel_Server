@@ -19,10 +19,10 @@ exports.toStamp = function(timeStr) {
 exports.toStr = function(nS) {
 	var d = new Date(parseInt(nS) * 1000);
 	var year=d.getFullYear();     
-    var month=d.getMonth()+1;     
-    var date=d.getDate();     
-    var hour=d.getHours();     
-    var minute=d.getMinutes();     
-    var second=d.getSeconds();     
+    var month=d.getMonth()+1 < 10 ? "0"+(d.getMonth()+1) : d.getMonth()+1;     
+    var date=d.getDate() < 10 ?  "0"+d.getDate() : d.getDate();     
+    var hour=d.getHours() < 10 ?  "0"+d.getHours() : d.getHours();     
+    var minute=d.getMinutes() < 10 ?  "0"+d.getMinutes() : d.getMinutes();     
+    var second=d.getSeconds() < 10 ?  "0"+d.getSeconds() : d.getSeconds();     
     return year+"-"+month+"-"+date+" "+hour+":"+minute+":"+second;
 }

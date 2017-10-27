@@ -9,35 +9,41 @@
         <div class="row-fluid">
           <ul class="breadcrumb">
             <li><a href="#">Home</a> <span class="divider">/</span></li>
-            <li class="active">{{language.addCheckIn.AddCheckIn}}</li>
+            <li class="active">{{language.addCheckIn.EditCheckIn}}</li>
           </ul>
         </div>
         <!-- 信息 -->
         <div class="row-fluid" id="loginInfoBox">
           <div class="widget widget-padding span12">
             <div class="widget-header">
-              <i class="icon-list-alt"></i><h5>{{language.addCheckIn.AddCheckIn}}</h5>
+              <i class="icon-list-alt"></i><h5>{{language.addCheckIn.EditCheckIn}}</h5>
             </div>
             <div class="widget-body">
               <div class="widget-forms clearfix">
                 <form class="form-horizontal">
+                  <div class="control-group" style="display:none;">
+                    <label class="control-label">ID</label>
+                    <div class="controls">
+                        <input class="span7" type="text" name="id" value={{data.id}} disabled>
+                     </div>
+                  </div>
                   <div class="control-group">
                     <label class="control-label">{{language.addCheckIn.RoomType}}</label>
                     <div class="controls">
-                        <select id="roomType" class="span7"></select>
+                        <input class="span7" type="text" value={{data.type}} disabled>
                      </div>
                   </div>
                   <div class="control-group">
                     <label class="control-label">{{language.addCheckIn.RoomNumber}}</label>
                     <div class="controls">
-                        <select id="roomChoice" class="span7"></select>
+                        <input class="span7" type="text" value={{data.number}} disabled>
                      </div>
                   </div>
 
                   <div class="control-group">
                     <label class="control-label">{{language.addCheckIn.GuestName}}</label>
                     <div class="controls">
-                        <input class="span7" type="text" name="guestName">
+                        <input class="span7" type="text" name="guestName" value={{data.guestName}} disabled>
                      </div>
                   </div>
 
@@ -45,11 +51,11 @@
                     <label class="control-label">{{language.addCheckIn.CheckInTime}}</label>
                     <div class="controls">
                         <div class="input-append date datepicker datepicker-basic" data-date="" data-date-format="yyyy-mm-dd">
-                          <input class="date-box" size="16" type="text" style="width:120px;" name="checkInDate">
+                          <input class="date-box" size="16" type="text" style="width:120px;" name="checkInDate" value="{{data.checkInDateStr}}">
                           <span class="add-on"><i class="icon-th"></i></span>
                         </div>
                         <div class="input-append bootstrap-timepicker-component">
-                          <input type="text" class="input-small timepicker-24hrs"  name="checkInTime">
+                          <input type="text" class="input-small timepicker-24hrs"  name="checkInTime" value="{{data.checkInTimeStr}}">
                           <span class="add-on">
                             <i class="icon-time"></i>
                           </span>
@@ -61,11 +67,11 @@
                     <label class="control-label">{{language.addCheckIn.CheckOutTime}}</label>
                     <div class="controls">
                         <div class="input-append date datepicker datepicker-basic" data-date="" data-date-format="yyyy-mm-dd">
-                          <input class="date-box" size="16" type="text" style="width:120px;" name="checkOutDate">
+                          <input class="date-box" size="16" type="text" style="width:120px;" name="checkOutDate" value="{{data.checkOutDateStr}}">
                           <span class="add-on"><i class="icon-th"></i></span>
                         </div>
                         <div class="input-append bootstrap-timepicker-component">
-                          <input type="text" class="input-small timepicker-24hrs"  name="checkOutTime">
+                          <input type="text" class="input-small timepicker-24hrs" name="checkOutTime" value="{{data.checkOutTimeStr}}">
                           <span class="add-on">
                             <i class="icon-time"></i>
                           </span>
@@ -96,5 +102,6 @@
     <script type="text/javascript" src="assets/js/bootstrap-datepicker.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap-timepicker.js"></script>  
     <script type="text/javascript" src="controller/userinfoDom.js"></script>
-    <script type="text/javascript" src="controller/AddCheckIn.js"></script>
+    <script type="text/javascript" src="controller/EditCheckIn.js"></script>
+    
 {{/section}}

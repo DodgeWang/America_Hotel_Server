@@ -48,7 +48,6 @@ exports.getList = function(param, callback) {
  * @return {null}
  */
 exports.add = function(data, callback) {
-    console.log(data)
     mysql.query({
         sql: "INSERT INTO tbl_checkin SET roomId= :roomId,checkInTime = :checkInTime,checkOutTime = :checkOutTime,guestName = :guestName",
         params: {  
@@ -67,6 +66,29 @@ exports.add = function(data, callback) {
 }
 
 
+/**
+ * 修改入住信息 
+ * @param  {obj}   data   要添加的入住信息        
+ * @param  {Function} callback 回调函数
+ * @return {null}
+ */
+exports.edit = function(data, callback) {
+    mysql.query({
+        sql: "UPDATE tbl_checkin SET checkInTime = :checkInTime,checkOutTime = :checkOutTime WHERE id= :id",
+        params: {  
+            "id": data.id,
+            "checkInTime": data.checkInTime,
+            "checkOutTime": data.checkOutTime
+        }
+    }, function(err) {
+        if (err) {
+            callback(err);
+        }
+        callback(null);
+
+    })
+}
+
 
 /**
  * 修改房间入住状态    
@@ -76,8 +98,6 @@ exports.add = function(data, callback) {
  * @return {null}
  */
 exports.editCheckInStatus = function(roomId,status, callback) {
-    console.log(roomId)
-    console.log(status)
     mysql.query({
         sql: "UPDATE tbl_roominfo SET checkInStatus=:checkInStatus WHERE id= :id",
         params: {
@@ -90,5 +110,32 @@ exports.editCheckInStatus = function(roomId,status, callback) {
         }
         callback(null);
 
+    })
+}
+
+
+
+/**
+ * 根据Id获取入住信息 
+ * @param  {number}   id   入住信息Id       
+ * @param  {Function} callback 回调函数
+ * @return {null}
+ */
+exports.getInfoById = function(id, callback) {
+    mysql.query({
+        sql: "SELECT a.*,b.number,c.type FROM tbl_checkin AS a LEFT JOIN tbl_roominfo AS b ON a.roomId=b.id LEFT JOIN tbl_roomtype AS c ON b.typeId = c.id WHERE a.id=:id ORDER BY a.id desc",
+        params: {  
+            "id": id
+        }
+    }, function(err,rows) {
+        if (err) {
+            callback(err, null);
+        }
+
+        if (rows && rows.length > 0) {
+            callback(null, rows[0]);
+        } else {
+            callback(null, null);
+        }
     })
 }

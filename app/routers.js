@@ -189,10 +189,6 @@ module.exports = function(app) {
 
 
     //入住登记页面
-    // app.get('/checkin', function(req, res) {
-    //    var Language = language(req);
-    //    res.render('CheckInManage',{adminInfo:req.session.administrator,language:Language});
-    // });
     app.get('/checkin', function(req, res) {
        var Language = language(req);
        var param = {
@@ -218,6 +214,23 @@ module.exports = function(app) {
     app.get('/addcheckin', function(req, res) {
        var Language = language(req);
        res.render('AddCheckIn',{adminInfo:req.session.administrator,language:Language});
+    });
+    
+
+    //修改入住登记页面
+    app.get('/editcheckin',function(req, res) {
+       var id = req.query.id;
+       var Language = language(req);
+       var param = {
+         id: id
+       }
+       CheckIn.editCheckInPage(param,function(err,data){
+          res.render('EditCheckIn',
+            { data:data.dataInfo,
+              adminInfo:req.session.administrator,
+              language:Language
+          });
+       })
     });
 
 
@@ -267,6 +280,8 @@ module.exports = function(app) {
     app.get('/api/checkin/list',CheckIn.getList); //获取入住信息列表
 
     app.post('/api/checkin/add',CheckIn.add); //添加入住信息
+
+    app.post('/api/checkin/edit',CheckIn.edit); //修改入住信息
 
     app.get('/api/checkin/checkout',CheckIn.checkout);//退房
 

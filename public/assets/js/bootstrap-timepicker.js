@@ -377,7 +377,12 @@
         }
 
         , setDefaultTime: function(defaultTime){
-            if (defaultTime) {
+            console.log("haha")
+            console.log(this.$element.prop('value'))
+            if(this.$element.prop('value')){
+                
+            }else{
+              if (defaultTime) {
                 if (defaultTime === 'current') {
                     var dTime = new Date();
                     var hours = dTime.getHours();
@@ -408,11 +413,13 @@
                 if ( this.$element.val() != '' )
                     this.updateElement();
                 this.updateWidget();
-            } else {
+              } else {
                 this.hour = 0;
                 this.minute = 0;
                 this.second = 0;
+              }
             }
+            
         }
 
         , formatTime: function(hour, minute, second, meridian) {
@@ -787,9 +794,10 @@
     }
 
     $.fn.timepicker.defaults = {
-      minuteStep: 15
-    , secondStep: 15
+      minuteStep: 5
+    , secondStep: 5
     , disableFocus: false
+    // , defaultTime: 'current'
     , defaultTime: 'current'
     , showSeconds: false
     , showInputs: true

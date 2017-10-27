@@ -3,6 +3,7 @@ var resUtil  = require("../libs/resUtil");
 var config = require('../../config/env/statusConfig');
 var Common = require('../proxy/Common.proxy');
 var async = require('async');
+var timeFunc = require('../func/timeFunc');
 
 /**
  * 创建任务
@@ -39,6 +40,7 @@ exports.getList = function(req, res, next) {
         if (err) {
             return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
         }
+        
         for(var i=0;i<rows.length;i++){
         	if(rows[i].state == "0"){
         		rows[i].state = "未完成"
@@ -92,6 +94,7 @@ exports.taskListPage = function(param,cb) {
                  default:
                    rows[i].taskType = "报修"
                  }
+              rows[i].createTimeStr = timeFunc.toStr(rows[i].createTime);
              }
              cb(err,rows)
           })
@@ -103,7 +106,6 @@ exports.taskListPage = function(param,cb) {
           })
        }
     },function(err, results) {
-        console.log(results)
         cb(err,results)   
     });  
 }
