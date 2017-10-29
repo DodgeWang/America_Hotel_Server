@@ -69,14 +69,16 @@
         <div class="user_side clearfix">
           <img src="assets/img/odinn.jpg" alt="Odinn god of Thunder">
           <h5>{{adminInfo.username}}</h5>
-          <a href="#"><i class="icon-cog"></i> {{language.common.Setting}}</a>        
+          <a href="#"><i class="icon-cog"></i> {{language.common.Setting}}</a>       
         </div>
         <div class="accordion">
+          {{#menu_show adminInfo.roleId "1"}}
           <div class="accordion-group">
             <div class="accordion-heading">
               <a class="accordion-toggle b_F5C294 active" href="/users"><i class="icon-user"></i> <span> {{language.menu.StaffMG}}</span></a>
             </div>
           </div>
+
 
           <div class="accordion-group">
             <div class="accordion-heading">
@@ -89,8 +91,9 @@
               </div>
             </div>
           </div> 
+          {{/menu_show}}
 
-
+          {{#menu_show adminInfo.roleId "1,3"}}
           <div class="accordion-group">
             <div class="accordion-heading">
               <a class="accordion-toggle b_C3F7A7 collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse2"><i class="icon-magic"></i> <span> {{language.menu.TaskMG}}</span></a>
@@ -112,6 +115,7 @@
               </div>
             </div>
           </div> 
+          {{/menu_show}}
 
         </div>
       </div>

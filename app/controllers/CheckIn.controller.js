@@ -101,8 +101,6 @@ exports.checkInListPage = function(param,cb) {
           //    cb(err,rows)
           // })
           
-
-
           CheckIn.getList(param,function(err,rows) {
             if (rows.length > 0) {
                 var i = 0;
@@ -125,8 +123,9 @@ exports.checkInListPage = function(param,cb) {
           })
        }
     },function(err, results) {
-        console.log(results.checkInList[0].todayTask)
-        console.log(results.checkInList[0].beforeTask)
+        console.log("today",results.checkInList[0].todayTask)
+        console.log("beforeTask",results.checkInList[0].beforeTask)
+        console.log("results",results)
         cb(err,results)   
     });  
 }
@@ -136,8 +135,24 @@ exports.checkInListPage = function(param,cb) {
 function getRoomTask(obj,a,b,cb){
     async.series({
        todayTask: function(cb){
-          Task.todayRoomTask(obj[a].roomId,function(err,rows) {     
-             cb(err,rows)
+          Task.todayRoomTask(obj[a].roomId,function(err,rows) {
+             var o = {
+                clean:[],
+                inspect:[],
+                repair:[]
+             }
+             for (var value of rows) {
+                if(value.taskType == 1){
+                  o.clean.push(value)
+                }
+                if(value.taskType == 2){
+                  o.inspect.push(value)
+                }
+                if(value.taskType == 3){
+                  o.repair.push(value)
+                }
+             }    
+             cb(err,o)
           })
        },
        beforeTask: function(cb){

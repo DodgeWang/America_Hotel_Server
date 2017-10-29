@@ -25,6 +25,7 @@ module.exports = {
        Next: "Next",
        Edit: "Edit",
        Delete: "Delete",
+       AddTask: "Add Task",
        Action: "Action",
        All: "All",
        ResetPass: "Reset Password"
@@ -33,6 +34,8 @@ module.exports = {
     usersTable: {
         User: "User",
         Username: "Username",
+        Role: "Role",
+        Department: "Department",
         Registered: "Registered",
         Status: "Status",
         Action: "Action",

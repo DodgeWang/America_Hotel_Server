@@ -24,6 +24,7 @@ module.exports = function(app) {
 
     //员工列表管理页面
     app.get('/users', function(req, res) { 
+      console.log(req.session.administrator)
        var Language = language(req);
        var param = {
           size: 15,
@@ -183,7 +184,20 @@ module.exports = function(app) {
     //添加任务页面
     app.get('/addtask', function(req, res) {
        var Language = language(req);
-       res.render('AddTask',{adminInfo:req.session.administrator,language:Language});
+       var roomId = -1;
+       if(req.query.roomid){
+          var roomId = parseInt(req.query.roomid)
+       }
+       Room.getAllListTwo(function(data){
+          res.render('AddTask',
+               {
+                adminInfo:req.session.administrator,
+                language:Language,
+                roomId:roomId,
+                roomList:data
+               });
+       })
+       
     });
 
 

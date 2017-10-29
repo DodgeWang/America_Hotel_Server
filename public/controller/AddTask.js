@@ -13,19 +13,19 @@ $(function() {
             }
     })
 
-    $.get("/api/room/alllist", {}, function(obj) {
-            if (obj.status.code !== 0) {
-                console.log(obj.status.msg);
-            } else {
-                var htmlDom = '';
-                if(obj.data.length > 0){
-                  for(var i = 0; i < obj.data.length; i++){
-                    htmlDom += "<option value='"+ obj.data[i].id +"'>"+ obj.data[i].number +"</option>";
-                  }
-                }
-                $("#roomList").html(htmlDom);
-            }
-    })
+    // $.get("/api/room/alllist", {}, function(obj) {
+    //         if (obj.status.code !== 0) {
+    //             console.log(obj.status.msg);
+    //         } else {
+    //             var htmlDom = '';
+    //             if(obj.data.length > 0){
+    //               for(var i = 0; i < obj.data.length; i++){
+    //                 htmlDom += "<option value='"+ obj.data[i].id +"'>"+ obj.data[i].number +"</option>";
+    //               }
+    //             }
+    //             $("#roomList").html(htmlDom);
+    //         }
+    // })
 
     $('#form_sublime').on('click',function(){
       var roomId = $('select[name="roomId"]').val();//房间Id

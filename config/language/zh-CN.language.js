@@ -25,6 +25,7 @@ module.exports = {
        Next: "下一页",
        Edit: "修改",
        Delete: "删除",
+       AddTask: "添加任务",
        Action: "操作",
        All: "全部",
        ResetPass: "重置密码"
@@ -33,6 +34,8 @@ module.exports = {
     usersTable: {
         User: "姓名",
         Username: "用户名",
+        Role: "角色",
+        Department: "部门",
         Registered: "注册时间",
         Status: "状态",
         Action: "操作",

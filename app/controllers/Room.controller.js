@@ -143,6 +143,21 @@ exports.getAllList = function(req, res, next) {
 
 
 
+/**
+ * 获取全部房间列表2
+ * @param  {object}   req  the request object
+ * @param  {object}   res  the response object
+ * @param  {Function} next the next func
+ * @return {null}     
+ */
+exports.getAllListTwo = function(cb) {
+    Room.getAllList(function(err,rows) {
+        cb(rows)       
+    })
+}
+
+
+
 
 
 /**
@@ -333,7 +348,6 @@ exports.typeListPage = function(param,cb) {
           })
        }
     },function(err, results) {
-        console.log(results)
         cb(err,results)   
     });  
 }

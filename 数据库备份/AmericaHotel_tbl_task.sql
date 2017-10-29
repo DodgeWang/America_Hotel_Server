@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: AmericaHotel
+-- Host: 127.0.0.1    Database: americahotel
 -- ------------------------------------------------------
--- Server version	5.7.18
+-- Server version	5.7.18-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -24,15 +24,15 @@ DROP TABLE IF EXISTS `tbl_task`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_task` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `taskType` varchar(45) DEFAULT NULL,
+  `taskType` int(11) DEFAULT NULL,
   `executor` varchar(45) DEFAULT NULL,
   `roomId` int(11) DEFAULT NULL,
   `content` varchar(255) DEFAULT NULL,
-  `state` varchar(45) DEFAULT NULL,
+  `state` int(11) DEFAULT NULL,
   `createTime` varchar(45) DEFAULT NULL,
   `completeTime` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `tbl_task` (
 
 LOCK TABLES `tbl_task` WRITE;
 /*!40000 ALTER TABLE `tbl_task` DISABLE KEYS */;
-INSERT INTO `tbl_task` VALUES (1,'1','6FE1873C262319A0',108,'注意换被子','0','1509091805',NULL),(2,'2','1',7,'看看有没有什么损坏','0','1508997600',NULL),(3,'1','6FE1873C262319A0',NULL,'124','0','1509091805',NULL),(4,'2','1',7,'34333','0','1509091805',NULL),(5,'1','6FE1873C262319A0',7,'dsfsdfa ','0','1509091805',NULL);
+INSERT INTO `tbl_task` VALUES (1,1,'6FE1873C262319A0',108,'注意换被子',0,'1509091805',NULL),(2,2,'1',7,'看看有没有什么损坏',0,'1508997600',NULL),(3,1,'6FE1873C262319A0',NULL,'124',0,'1509091805',NULL),(4,2,'1',7,'34333',0,'1509091805',NULL),(5,3,'6FE1873C262319A0',7,'dsfsdfa ',0,'1509091805',NULL),(6,1,'6FE1873C262319A0',7,'保洁任务',1,'1509299344',NULL);
 /*!40000 ALTER TABLE `tbl_task` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-27 18:09:07
+-- Dump completed on 2017-10-30  3:34:31

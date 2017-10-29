@@ -32,7 +32,7 @@
                     <th>{{language.checkInPage.CheckInTime}}</th>
                     <th>{{language.checkInPage.CheckOutTime}}</th>
                     <th>{{language.checkInPage.TaskStatus}}</th>
-                    <th>{{language.checkInPage.TaskRecord}}</th>
+                    {{!--<th>{{language.checkInPage.TaskRecord}}</th>--}}
                     <th></th>
                   </tr>
                 </thead>
@@ -43,8 +43,60 @@
                     <td>{{guestName}}</td>
                     <td>{{checkInTime}}</td>
                     <td>{{checkOutTime}}</td>
-                    <td></td>
-                    <td></td>
+                    <td class="statusImg">
+                      {{#each beforeTask}}
+                        {{#if_eq taskType 1}}
+                          <img src="assets/img/clean_yellow.png">
+                        {{/if_eq}}
+                        {{#if_eq taskType 2}}
+                          <img src="assets/img/inspect_yellow.png">
+                        {{/if_eq}}
+                        {{#if_eq taskType 3}}
+                          <img src="assets/img/repair_yellow.png">
+                        {{/if_eq}}
+                      {{/each}}
+
+                      <span> || </span>
+
+                      {{#if_todayTask todayTask.clean}}
+                         {{#each todayTask.clean}}
+                           {{#if_eq state 0}}
+                             <img src="assets/img/clean_yellow.png">
+                           {{/if_eq}}
+                           {{#if_eq state 1}}
+                             <img src="assets/img/clean_green.png">
+                           {{/if_eq}}
+                         {{/each}}
+                      {{else}}
+                          <img src="assets/img/clean_gray.png">
+                      {{/if_todayTask}}
+
+                      {{#if_todayTask todayTask.inspect}}
+                         {{#each todayTask.inspect}}
+                           {{#if_eq state 0}}
+                             <img src="assets/img/inspect_yellow.png">
+                           {{/if_eq}}
+                           {{#if_eq state 1}}
+                             <img src="assets/img/inspect_green.png">
+                           {{/if_eq}}
+                         {{/each}}
+                      {{else}}
+                          <img src="assets/img/inspect_gray.png">
+                      {{/if_todayTask}}
+
+                      {{#if_todayTask todayTask.repair}}
+                         {{#each todayTask.repair}}
+                           {{#if_eq state 0}}
+                             <img src="assets/img/repair_yellow.png">
+                           {{/if_eq}}
+                           {{#if_eq state 1}}
+                             <img src="assets/img/repair_green.png">
+                           {{/if_eq}}
+                         {{/each}}
+                      {{else}}
+                          <img src="assets/img/repair_gray.png">
+                      {{/if_todayTask}}
+                    </td>
                     <td>
                       <div class='btn-group'>
                         <a class='btn btn-small dropdown-toggle'
@@ -54,6 +106,7 @@
                         </a>
                         <ul class='dropdown-menu pull-right'>
                           <li><a href='/editcheckin?id={{id}}'><i class='icon-edit'></i> {{../language.common.Edit}}</a></li>
+                          <li><a href='/addtask?roomid={{roomId}}'><i class='icon-edit'></i> {{../language.common.AddTask}}</a></li>
                           <li><a style='cursor:pointer' onclick='checkOut({{roomId}})'><i class='icon-trash'></i> {{../language.checkInPage.CheckOut}}</a></li>
                         </ul>
                       </div>

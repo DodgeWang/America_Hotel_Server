@@ -45,6 +45,26 @@ var helper = {
            if(e == ""){
                return c;
            }
+        },
+        if_todayTask: function(list,options){
+           if(list.length>0){
+              return options.fn(this); 
+           }else{
+              return options.inverse(this);
+           }
+        },
+        menu_show: function(id,list,options){
+           var show = false;
+           list = list.split(',');
+           for(var i = 0; i<list.length; i++){
+              if(parseInt(list[i])==parseInt(id)) show = true;
+           }
+           if(show === true){
+              return options.fn(this); 
+           }else{
+              return options.inverse(this);
+           }
+           
         }
     }
 

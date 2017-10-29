@@ -280,7 +280,6 @@ exports.usersListPage = function(param,cb) {
           })
        }
     },function(err, results) {
-        console.log(results)
         cb(err,results)   
     });  
 }

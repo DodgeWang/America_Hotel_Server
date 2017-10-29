@@ -42,7 +42,7 @@ exports.getList = function(req, res, next) {
         }
         
         for(var i=0;i<rows.length;i++){
-        	if(rows[i].state == "0"){
+        	if(rows[i].state == 0){
         		rows[i].state = "未完成"
         	}else{
         		rows[i].state = "已完成"
@@ -50,14 +50,17 @@ exports.getList = function(req, res, next) {
 
         	switch(rows[i].taskType)
              {
-             case "1":
+             case 1:
                rows[i].taskType = "保洁"
                break;
-             case "2":
+             case 2:
                rows[i].taskType = "查房"
                break;
-             default:
+             case 3:
                rows[i].taskType = "报修"
+               break;
+             default:
+               rows[i].taskType = "其他"
              }
         }
         res.json(resUtil.generateRes(rows, config.statusCode.STATUS_OK));       
@@ -77,7 +80,7 @@ exports.taskListPage = function(param,cb) {
        taskList: function(cb){
           Task.getList(param,function(err,rows) {
             for(var i=0;i<rows.length;i++){
-               if(rows[i].state == "0"){
+               if(rows[i].state == 0){
                  rows[i].state = "未完成"
                }else{
                  rows[i].state = "已完成"
@@ -85,15 +88,18 @@ exports.taskListPage = function(param,cb) {
 
                switch(rows[i].taskType)
                  {
-                 case "1":
-                   rows[i].taskType = "保洁"
-                   break;
-                 case "2":
+                 case 1:
+                  rows[i].taskType = "保洁"
+                  break;
+                 case 2:
                    rows[i].taskType = "查房"
                    break;
-                 default:
+                 case 3:
                    rows[i].taskType = "报修"
-                 }
+                   break;
+                 default:
+                   rows[i].taskType = "其他"
+                }
               rows[i].createTimeStr = timeFunc.toStr(rows[i].createTime);
              }
              cb(err,rows)

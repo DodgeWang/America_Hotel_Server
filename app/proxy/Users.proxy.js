@@ -41,7 +41,7 @@ exports.getList = function(param, callback) {
         var size = Number(param.size);
         var limit_Start = (page - 1) * size;
         sqlObj = {
-            sql: "SELECT * FROM tbl_users order by id desc limit :limit_Start,:size",
+            sql: "SELECT a.*,b.role,c.department FROM tbl_users as a left join tbl_userrole as b on a.roleId=b.id left join tbl_department as c on a.departmentId=c.id order by a.id desc limit :limit_Start,:size",
             params: {
               "limit_Start": limit_Start,
               "size": size

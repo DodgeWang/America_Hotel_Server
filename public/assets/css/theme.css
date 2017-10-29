@@ -1450,3 +1450,7 @@ table.table thead .sorting_desc_disabled { background: url('../img/sort_desc_dis
       margin-right:25px;
     }
 }
+
+.statusImg img{
+  height: 20px;
+}

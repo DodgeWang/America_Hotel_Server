@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: AmericaHotel
+-- Host: 127.0.0.1    Database: americahotel
 -- ------------------------------------------------------
--- Server version	5.7.18
+-- Server version	5.7.18-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -27,8 +27,8 @@ CREATE TABLE `tbl_users` (
   `idCode` varchar(45) NOT NULL,
   `username` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
-  `departmentId` varchar(45) DEFAULT NULL,
-  `roleId` varchar(45) DEFAULT NULL,
+  `departmentId` int(11) DEFAULT NULL,
+  `roleId` int(11) DEFAULT NULL,
   `name` varchar(45) DEFAULT NULL,
   `SSN` varchar(100) DEFAULT NULL,
   `mailAddress` varchar(255) DEFAULT NULL,
@@ -61,7 +61,7 @@ CREATE TABLE `tbl_users` (
 
 LOCK TABLES `tbl_users` WRITE;
 /*!40000 ALTER TABLE `tbl_users` DISABLE KEYS */;
-INSERT INTO `tbl_users` VALUES (1,'1','test1','670b14728ad9902aecba32e22fa4f6bd','2','1','wangdaiqiang','510622199308152716','四川省绵竹市','618200','18281865016','25','453831794@qq.com','1,2,3,0','0','13','0','19-9-2017','0','0','抢劫','0','9859598','华盛顿','0','0','狙击手','2017-09-20'),(26,'6FE1873C262319A0','001@qq.com','670b14728ad9902aecba32e22fa4f6bd','3','5','王代强','510622199308152716','四川省绵竹市天池乡楠木沟村一组','618200&','18281865016&','25&','453831794@qq.com&','1,2,3,4,5,6,7','1','40&','1','21-9-2017','1','0','无','0','999666333&','中国&','1','1','狙击&','2017-09-21 13:12:50');
+INSERT INTO `tbl_users` VALUES (1,'1','test1','670b14728ad9902aecba32e22fa4f6bd',2,1,'wangdaiqiang','510622199308152716','四川省绵竹市','618200','18281865016','25','453831794@qq.com','1,2,3,0','0','13','0','19-9-2017','0','0','抢劫','0','9859598','华盛顿','0','0','狙击手','2017-09-20'),(26,'6FE1873C262319A0','test2','670b14728ad9902aecba32e22fa4f6bd',3,4,'王代强','510622199308152716','四川省绵竹市天池乡楠木沟村一组','618200&','18281865016&','25&','453831794@qq.com&','1,2,3,4,5,6,7','1','40&','1','21-9-2017','1','0','无','0','999666333&','中国&','1','1','狙击&','2017-09-21 13:12:50');
 /*!40000 ALTER TABLE `tbl_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -74,4 +74,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-27 18:09:08
+-- Dump completed on 2017-10-30  3:34:31
