@@ -1,17 +1,16 @@
-var mysql = require('../mysql');
-var Mapping = require('../../config/env/sqlMapping');
+const mysql = require('../mysql');
 
 /**
  * 获取角色列表        
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.getList = function(callback) {
+exports.getList = callback => {
     mysql.query({
         sql: "SELECT * FROM tbl_userrole order by id",
         params: {
         }
-    }, function(err, rows) {
+    }, (err, rows) => {
         if (err) {
             callback(err, null);
         }

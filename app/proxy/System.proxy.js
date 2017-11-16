@@ -1,4 +1,4 @@
-var mysql = require('../mysql');
+const mysql = require('../mysql');
 
 /**
  * 后台管理员登陆
@@ -6,13 +6,13 @@ var mysql = require('../mysql');
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.login = function(username,callback) {
+exports.login = (username,callback) => {
    mysql.query({
         sql: "SELECT * FROM tbl_users where username = :username",
         params  : {
            "username": username
         }
-    }, function(err, rows) {
+    }, (err, rows) => {
         if (err) {
             callback(err, null);
         }

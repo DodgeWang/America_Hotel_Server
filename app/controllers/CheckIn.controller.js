@@ -1,10 +1,10 @@
-var CheckIn = require('../proxy/CheckIn.proxy');
-var resUtil  = require("../libs/resUtil");
-var config = require('../../config/env/statusConfig');
-var timeFunc  = require("../func/timeFunc");
-var Common = require('../proxy/Common.proxy');
-var async = require('async');
-var Task = require('../proxy/Task.proxy');
+const CheckIn = require('../proxy/CheckIn.proxy');
+const resUtil  = require("../libs/resUtil");
+const timeFunc  = require("../func/timeFunc");
+const Common = require('../proxy/Common.proxy');
+const async = require('async');
+const Task = require('../proxy/Task.proxy');
+const Status = require('../../config/status_config');
 
 
 /**
@@ -14,12 +14,12 @@ var Task = require('../proxy/Task.proxy');
  * @param  {Function} next the next func
  * @return {null}     
  */
-exports.getList = function(req, res, next) {
-    CheckIn.getList(req.query, function(err,rows) {
+exports.getList = (req, res, next) => {
+    CheckIn.getList(req.query, (err,rows) => {
         if (err) {
-            return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+            return res.json(resUtil.generateRes(err, Status.ERROR));
         }
-        for(var i=0;i<rows.length;i++){
+        for(let i=0;i<rows.length;i++){
         	rows[i].checkInTime = timeFunc.toStr(rows[i].checkInTime);
             rows[i].checkOutTime = timeFunc.toStr(rows[i].checkOutTime);
             // if(parseInt(rows[i].status) == 1){
@@ -28,7 +28,7 @@ exports.getList = function(req, res, next) {
             //     rows[i].statusStr = "已退房"
             // }
         }
-        res.json(resUtil.generateRes(rows, config.statusCode.STATUS_OK));       
+        res.json(resUtil.generateRes(rows, Status.SUCCESS));       
     })
 }
 
@@ -39,22 +39,22 @@ exports.getList = function(req, res, next) {
  * @param  {Function} next the next func
  * @return {null}     
  */
-exports.add = function(req, res, next) {
-    var data = {
+exports.add = (req, res, next) => {
+    let data = {
         roomId: req.body.roomId,
         guestName: req.body.guestName,
         checkInTime: req.body.checkInTime,
         checkOutTime: req.body.checkOutTime,
     } 
-    CheckIn.add(data, function(err){
+    CheckIn.add(data, err => {
         if (err) {
-            return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+            return res.json(resUtil.generateRes(err, Status.ERROR));
         }
-        CheckIn.editCheckInStatus(data.roomId,1, function(err){
+        CheckIn.editCheckInStatus(data.roomId,1, err => {
            if (err) {
-              return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+              return res.json(resUtil.generateRes(err, Status.ERROR));
             }
-           res.json(resUtil.generateRes(null, config.statusCode.STATUS_OK));
+           res.json(resUtil.generateRes(null, Status.SUCCESS));
         })
     })
 }
@@ -68,17 +68,17 @@ exports.add = function(req, res, next) {
  * @param  {Function} next the next func
  * @return {null}     
  */
-exports.edit = function(req, res, next) {
-    var data = {
+exports.edit = (req, res, next) => {
+    let data = {
         id: req.body.id,
         checkInTime: req.body.checkInTime,
         checkOutTime: req.body.checkOutTime,
     } 
-    CheckIn.edit(data, function(err){
+    CheckIn.edit(data, err => {
         if (err) {
-            return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+            return res.json(resUtil.generateRes(err, Status.ERROR));
         }
-        res.json(resUtil.generateRes(null, config.statusCode.STATUS_OK));
+        res.json(resUtil.generateRes(null, Status.SUCCESS));
     })
 }
 
@@ -90,9 +90,9 @@ exports.edit = function(req, res, next) {
  * @param  {Function} next the next func
  * @return {null}     
  */
-exports.checkInListPage = function(param,cb) {
+exports.checkInListPage = (param,cb) => {
     async.series({
-       checkInList: function(cb){
+       checkInList: cb => {
           // CheckIn.getList(param,function(err,rows) {
           //    for(var i=0;i<rows.length;i++){
           //      rows[i].checkInTime = timeFunc.toStr(rows[i].checkInTime);
@@ -101,11 +101,11 @@ exports.checkInListPage = function(param,cb) {
           //    cb(err,rows)
           // })
           
-          CheckIn.getList(param,function(err,rows) {
+          CheckIn.getList(param, (err,rows) => {
             if (rows.length > 0) {
-                var i = 0;
-                getRoomTask(rows, i, rows.length,function(obj){
-                  for (var i = 0; i < rows.length; i++) {
+                let i = 0;
+                getRoomTask(rows, i, rows.length, obj => {
+                  for (let i = 0; i < rows.length; i++) {
                     rows[i].checkInTime = timeFunc.toStr(rows[i].checkInTime);
                     rows[i].checkOutTime = timeFunc.toStr(rows[i].checkOutTime);
                   }
@@ -116,16 +116,16 @@ exports.checkInListPage = function(param,cb) {
             }      
           })
        },
-       pageInfo: function(cb){
-          var str = 'tbl_checkin';
-          Common.totleNum(str,function(err,rows) {
+       pageInfo: cb => {
+          let str = 'tbl_checkin';
+          Common.totleNum(str,(err,rows) => {
              cb(err,rows[0])
           })
        }
-    },function(err, results) {
-        console.log("today",results.checkInList[0].todayTask)
-        console.log("beforeTask",results.checkInList[0].beforeTask)
-        console.log("results",results)
+    },(err, results) => {
+        // console.log("today",results.checkInList[0].todayTask)
+        // console.log("beforeTask",results.checkInList[0].beforeTask)
+        // console.log("results",results)
         cb(err,results)   
     });  
 }
@@ -134,14 +134,14 @@ exports.checkInListPage = function(param,cb) {
 
 function getRoomTask(obj,a,b,cb){
     async.series({
-       todayTask: function(cb){
-          Task.todayRoomTask(obj[a].roomId,function(err,rows) {
-             var o = {
+       todayTask: cb => {
+          Task.todayRoomTask(obj[a].roomId, (err,rows) => {
+             let o = {
                 clean:[],
                 inspect:[],
                 repair:[]
              }
-             for (var value of rows) {
+             for (let value of rows) {
                 if(value.taskType == 1){
                   o.clean.push(value)
                 }
@@ -155,12 +155,12 @@ function getRoomTask(obj,a,b,cb){
              cb(err,o)
           })
        },
-       beforeTask: function(cb){
-          Task.beforeRoomTask(obj[a].roomId,function(err,rows) {     
+       beforeTask: cb => {
+          Task.beforeRoomTask(obj[a].roomId, (err,rows) => {     
              cb(err,rows)
           })
        }
-    },function(err, results) {
+    }, (err, results) => {
         obj[a].todayTask = results.todayTask;
         obj[a].beforeTask = results.beforeTask;
         if(a < b-1){
@@ -182,15 +182,15 @@ function getRoomTask(obj,a,b,cb){
  * @param  {Function} next the next func
  * @return {null}     
  */
-exports.checkout = function(req, res, next) {
-    var data = {
+exports.checkout = (req, res, next) => {
+    let data = {
         roomId: req.query.roomId
     } 
-    CheckIn.editCheckInStatus(data.roomId,0, function(err){
+    CheckIn.editCheckInStatus(data.roomId,0, err => {
            if (err) {
-              return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+              return res.json(resUtil.generateRes(err, Status.ERROR));
             }
-           res.json(resUtil.generateRes(null, config.statusCode.STATUS_OK));
+           res.json(resUtil.generateRes(null, Status.SUCCESS));
     })
 }
 
@@ -202,10 +202,10 @@ exports.checkout = function(req, res, next) {
  * @param  {Function} next the next func
  * @return {null}     
  */
-exports.editCheckInPage = function(param,cb) {
+exports.editCheckInPage = (param,cb) => {
     async.series({
-       dataInfo: function(cb){
-          CheckIn.getInfoById(param.id,function(err,obj) {
+       dataInfo: cb => {
+          CheckIn.getInfoById(param.id,(err,obj) => {
              obj.checkInDateStr = dateTime(obj.checkInTime,1);
              obj.checkInTimeStr = dateTime(obj.checkInTime,2);
              obj.checkOutDateStr = dateTime(obj.checkOutTime,1);
@@ -214,8 +214,8 @@ exports.editCheckInPage = function(param,cb) {
           })
        }
        
-    },function(err, results) {
-      console.log(results)
+    },(err, results) => {
+      // console.log(results)
         cb(err,results)   
     });  
 }
@@ -227,15 +227,15 @@ exports.editCheckInPage = function(param,cb) {
 
 
 function dateTime(timeStamp,type){
-       var datetime = new Date(parseInt(timeStamp) * 1000);
+       let datetime = new Date(parseInt(timeStamp) * 1000);
        if(type == 1){
-        var year = datetime.getFullYear();
-        var month = (datetime.getMonth()+1) < 10 ? "0"+(datetime.getMonth()+1) : datetime.getMonth()+1;
-        var date = datetime.getDate() < 10 ? "0"+datetime.getDate() : datetime.getDate();
+        let year = datetime.getFullYear();
+        let month = (datetime.getMonth()+1) < 10 ? "0"+(datetime.getMonth()+1) : datetime.getMonth()+1;
+        let date = datetime.getDate() < 10 ? "0"+datetime.getDate() : datetime.getDate();
         return year+"-"+month+"-"+date;
        }else{
-        var hours = datetime.getHours() < 10 ? "0"+datetime.getHours() : datetime.getHours();
-        var minutes = datetime.getMinutes() < 10 ? "0"+datetime.getMinutes() : datetime.getMinutes();
+        let hours = datetime.getHours() < 10 ? "0"+datetime.getHours() : datetime.getHours();
+        let minutes = datetime.getMinutes() < 10 ? "0"+datetime.getMinutes() : datetime.getMinutes();
         return hours+":"+minutes;
        }     
 }

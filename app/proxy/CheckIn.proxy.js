@@ -1,5 +1,4 @@
-var mysql = require('../mysql');
-var Mapping = require('../../config/env/sqlMapping');
+const mysql = require('../mysql');
 
 
 
@@ -9,15 +8,15 @@ var Mapping = require('../../config/env/sqlMapping');
  * @param  {Function} callback 回调函数
  * @return {null}
  */ 
-exports.getList = function(param, callback) {
-    var sqlObj = {
+exports.getList = (param, callback) => {
+    let sqlObj = {
         sql: "SELECT * FROM tbl_checkin order by id desc"
     };
 
     if(param.page && param.size){
-        var page = Number(param.page);
-        var size = Number(param.size);
-        var limit_Start = (page - 1) * size;
+        let page = parseInt(param.page);
+        let size = parseInt(param.size);
+        let limit_Start = (page - 1) * size;
         sqlObj = {
             sql: "SELECT c.* FROM (SELECT a.*,b.number AS roomNumber,b.checkInStatus FROM tbl_checkin AS a LEFT JOIN tbl_roominfo AS b ON a.roomId=b.id) AS c WHERE c.checkInStatus=1 ORDER BY c.id desc limit :limit_Start,:size",
             params: {
@@ -27,7 +26,7 @@ exports.getList = function(param, callback) {
         }
     }
 
-    mysql.query(sqlObj, function(err, rows) {
+    mysql.query(sqlObj, (err, rows) => {
         if (err) {
             callback(err, null);
         }
@@ -47,7 +46,7 @@ exports.getList = function(param, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.add = function(data, callback) {
+exports.add = (data, callback) => {
     mysql.query({
         sql: "INSERT INTO tbl_checkin SET roomId= :roomId,checkInTime = :checkInTime,checkOutTime = :checkOutTime,guestName = :guestName",
         params: {  
@@ -56,7 +55,7 @@ exports.add = function(data, callback) {
             "checkOutTime": data.checkOutTime,
             "guestName": data.guestName
         }
-    }, function(err) {
+    }, err => {
         if (err) {
             callback(err);
         }
@@ -72,7 +71,7 @@ exports.add = function(data, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.edit = function(data, callback) {
+exports.edit = (data, callback) => {
     mysql.query({
         sql: "UPDATE tbl_checkin SET checkInTime = :checkInTime,checkOutTime = :checkOutTime WHERE id= :id",
         params: {  
@@ -80,7 +79,7 @@ exports.edit = function(data, callback) {
             "checkInTime": data.checkInTime,
             "checkOutTime": data.checkOutTime
         }
-    }, function(err) {
+    }, err => {
         if (err) {
             callback(err);
         }
@@ -97,14 +96,14 @@ exports.edit = function(data, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.editCheckInStatus = function(roomId,status, callback) {
+exports.editCheckInStatus = (roomId,status, callback) => {
     mysql.query({
         sql: "UPDATE tbl_roominfo SET checkInStatus=:checkInStatus WHERE id= :id",
         params: {
             "id": roomId,
             "checkInStatus": status
         }
-    }, function(err) {
+    }, err => {
         if (err) {
             callback(err);
         }
@@ -121,13 +120,13 @@ exports.editCheckInStatus = function(roomId,status, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.getInfoById = function(id, callback) {
+exports.getInfoById = (id, callback) => {
     mysql.query({
         sql: "SELECT a.*,b.number,c.type FROM tbl_checkin AS a LEFT JOIN tbl_roominfo AS b ON a.roomId=b.id LEFT JOIN tbl_roomtype AS c ON b.typeId = c.id WHERE a.id=:id ORDER BY a.id desc",
         params: {  
             "id": id
         }
-    }, function(err,rows) {
+    }, (err,rows) => {
         if (err) {
             callback(err, null);
         }

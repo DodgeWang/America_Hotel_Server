@@ -1,9 +1,9 @@
-var Task = require('../proxy/Task.proxy');
-var resUtil  = require("../libs/resUtil");
-var config = require('../../config/env/statusConfig');
-var Common = require('../proxy/Common.proxy');
-var async = require('async');
-var timeFunc = require('../func/timeFunc');
+const Task = require('../proxy/Task.proxy');
+const resUtil  = require("../libs/resUtil");
+const Common = require('../proxy/Common.proxy');
+const async = require('async');
+const timeFunc = require('../func/timeFunc');
+const Status = require('../../config/status_config');
 
 /**
  * 创建任务
@@ -12,18 +12,18 @@ var timeFunc = require('../func/timeFunc');
  * @param  {Function} next the next func
  * @return {null}     
  */
-exports.add = function(req, res, next) {
-    var data = {
+exports.add = (req, res, next) => {
+    let data = {
         roomId : req.body.roomId,
         taskType : req.body.taskType,
         executor: req.body.executor,
         content: req.body.taskContent
     } 
-    Task.add(data, function(err){
+    Task.add(data, err => {
     	if (err) {
-            return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+            return res.json(resUtil.generateRes(err, Status.ERROR));
         }
-        res.json(resUtil.generateRes(null, config.statusCode.STATUS_OK));
+        res.json(resUtil.generateRes(null, Status.SUCCESS));
     })
 }
 
@@ -35,35 +35,38 @@ exports.add = function(req, res, next) {
  * @param  {Function} next the next func
  * @return {null}     
  */
-exports.getList = function(req, res, next) {
-    Task.getList(req.query, function(err,rows) {
+exports.getList = (req, res, next) => {
+    Task.getList(req.query, (err,rows) => {
         if (err) {
-            return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+            return res.json(resUtil.generateRes(err, Status.ERROR));
         }
-        
-        for(var i=0;i<rows.length;i++){
-        	if(rows[i].state == 0){
-        		rows[i].state = "未完成"
-        	}else{
-        		rows[i].state = "已完成"
-        	}
 
-        	switch(rows[i].taskType)
-             {
+        rows.map( item => {
+           if(item.state == 0){
+              item.state = "未完成"
+           }else{
+              item.state = "已完成"
+           }
+
+           switch(item.taskType)
+            {
              case 1:
-               rows[i].taskType = "保洁"
+               item.taskType = "保洁"
                break;
              case 2:
-               rows[i].taskType = "查房"
+               item.taskType = "查房"
                break;
              case 3:
-               rows[i].taskType = "报修"
+               item.taskType = "报修"
                break;
              default:
-               rows[i].taskType = "其他"
-             }
-        }
-        res.json(resUtil.generateRes(rows, config.statusCode.STATUS_OK));       
+               item.taskType = "其他"
+            }
+           
+        })
+        
+        
+        res.json(resUtil.generateRes(rows, Status.SUCCESS));       
     })
 }
 
@@ -75,43 +78,45 @@ exports.getList = function(req, res, next) {
  * @param  {Function} next the next func
  * @return {null}     
  */
-exports.taskListPage = function(param,cb) {
+exports.taskListPage = (param,cb) => {
     async.series({
-       taskList: function(cb){
-          Task.getList(param,function(err,rows) {
-            for(var i=0;i<rows.length;i++){
-               if(rows[i].state == 0){
-                 rows[i].state = "未完成"
-               }else{
-                 rows[i].state = "已完成"
-               }
+       taskList: cb => {
+          Task.getList(param, (err,rows) => {
+            rows.map( item => {
+                 if(item.state == 0){
+                    item.state = "未完成"
+                 }else{
+                    item.state = "已完成"
+                 }
 
-               switch(rows[i].taskType)
-                 {
-                 case 1:
-                  rows[i].taskType = "保洁"
-                  break;
-                 case 2:
-                   rows[i].taskType = "查房"
-                   break;
-                 case 3:
-                   rows[i].taskType = "报修"
-                   break;
-                 default:
-                   rows[i].taskType = "其他"
-                }
-              rows[i].createTimeStr = timeFunc.toStr(rows[i].createTime);
-             }
+                 switch(item.taskType)
+                  {
+                   case 1:
+                     item.taskType = "保洁"
+                     break;
+                   case 2:
+                     item.taskType = "查房"
+                     break;
+                   case 3:
+                     item.taskType = "报修"
+                     break;
+                   default:
+                     item.taskType = "其他"
+                  }
+                  item.createTimeStr = timeFunc.toStr(item.createTime);
+           
+            })      
+           
              cb(err,rows)
           })
        },
-       pageInfo: function(cb){
-          var str = 'tbl_task';
-          Common.totleNum(str,function(err,rows) {
+       pageInfo: cb => {
+          let str = 'tbl_task';
+          Common.totleNum(str, (err,rows) => {
              cb(err,rows[0])
           })
        }
-    },function(err, results) {
+    }, (err, results) => {
         cb(err,results)   
     });  
 }

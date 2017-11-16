@@ -1,5 +1,4 @@
-var mysql = require('../mysql');
-var Mapping = require('../../config/env/sqlMapping');
+const mysql = require('../mysql');
 
 /**
  * 创建任务 
@@ -7,9 +6,8 @@ var Mapping = require('../../config/env/sqlMapping');
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.add = function(data, callback) {
-	console.log(data)
-    var nowDate = Date.parse(new Date())/1000;  
+exports.add = (data, callback) => {
+    let nowDate = Date.parse(new Date())/1000;  
     mysql.query({
         sql: "INSERT INTO tbl_task SET executor= :executor, roomId=:roomId, content=:content, taskType=:taskType, state=:state, createTime=:createTime",
         params: {  
@@ -20,7 +18,7 @@ exports.add = function(data, callback) {
             "state": 0,
             "createTime": nowDate
         }
-    }, function(err) {
+    }, err => {
         if (err) {
             callback(err);
         }
@@ -37,15 +35,15 @@ exports.add = function(data, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */ 
-exports.getList = function(param, callback) {
-    var sqlObj = {
+exports.getList = (param, callback) => {
+    let sqlObj = {
         sql: "SELECT * FROM tbl_task order by id desc"
     };
 
     if(param.page && param.size){
-        var page = Number(param.page);
-        var size = Number(param.size);
-        var limit_Start = (page - 1) * size;
+        let page = parseInt(param.page);
+        let size = parseInt(param.size);
+        let limit_Start = (page - 1) * size;
         sqlObj = {
             sql: "SELECT a.*,b.name AS executorName,c.number AS roomNumber FROM tbl_task AS a LEFT JOIN tbl_users AS b ON b.idCode = a.executor LEFT JOIN tbl_roominfo AS c ON c.id=a.roomId order by a.id desc limit :limit_Start,:size",
             params: {
@@ -55,7 +53,7 @@ exports.getList = function(param, callback) {
         }
     }
 
-    mysql.query(sqlObj, function(err, rows) {
+    mysql.query(sqlObj, (err, rows) => {
         if (err) {
             callback(err, null);
         }
@@ -77,12 +75,12 @@ exports.getList = function(param, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.todayRoomTask = function(roomId, callback) {
-    var todayStart = new Date();
+exports.todayRoomTask = (roomId, callback) => {
+    let todayStart = new Date();
     todayStart.setHours(0);
     todayStart.setMinutes(0);
     todayStart.setSeconds(0);
-    var todayEnd = new Date();
+    let todayEnd = new Date();
     todayEnd.setHours(23);
     todayEnd.setMinutes(59);
     todayEnd.setSeconds(59);
@@ -97,7 +95,7 @@ exports.todayRoomTask = function(roomId, callback) {
             "todayStart": todayStart,
             "todayEnd": todayEnd
         }
-    }, function(err,rows) {
+    }, (err,rows) => {
         if (err) {
             callback(err, null);
         }
@@ -117,8 +115,8 @@ exports.todayRoomTask = function(roomId, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.beforeRoomTask = function(roomId, callback) {
-    var todayStart = new Date();
+exports.beforeRoomTask = (roomId, callback) => {
+    let todayStart = new Date();
     todayStart.setHours(0);
     todayStart.setMinutes(0);
     todayStart.setSeconds(0);
@@ -132,7 +130,7 @@ exports.beforeRoomTask = function(roomId, callback) {
             "roomId": roomId,
             "todayStart": todayStart
         }
-    }, function(err,rows) {
+    }, (err,rows) => {
         if (err) {
             callback(err, null);
         }

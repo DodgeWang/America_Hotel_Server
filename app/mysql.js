@@ -1,6 +1,6 @@
-var mysql = require('mysql');
-var config = require('../config/config');
-var mysqlPool = null;
+const mysql = require('mysql');
+const envConfig = require('../config/env_config');
+let mysqlPool = null;
 
 
 /**
@@ -8,7 +8,7 @@ var mysqlPool = null;
  * @return {null} 
  */
 function initMysqlPool () {
-    mysqlPool = mysql.createPool(config.database);
+    mysqlPool = mysql.createPool(envConfig.database);
 }
 
 
@@ -18,6 +18,7 @@ function initMysqlPool () {
  * @param  {Function} callback the callback func
  * @return {null}            
  */
+
 exports.query = function (sqlReq, callback) {
     //sql, params
     if (!mysqlPool) {

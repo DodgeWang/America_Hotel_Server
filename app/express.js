@@ -1,15 +1,15 @@
-var express = require('express');
-var routers = require('./routers');
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
-var hbsHelper = require('./hbsHelper');
+const express = require('express');
+const routers = require('./routers');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const hbsHelper = require('./hbsHelper');
 
 
-module.exports = function() {
+module.exports = () => {
     console.log('int express...');
-    var app = express();
-    var handlebars = require('express3-handlebars').create({ 
+    let app = express();
+    let handlebars = require('express3-handlebars').create({ 
                     defaultLayout:'main' ,
                     helpers: hbsHelper
                  });
@@ -33,7 +33,7 @@ module.exports = function() {
     }));
 
 
-    app.use(function(req, res, next) {
+    app.use((req, res, next) => {
         if(req.url == '/api/system/login' || req.url == '/login' ||  req.url == '/api/system/exit') return next();
         if(!req.session.administrator){
            res.redirect('/login')
@@ -44,7 +44,8 @@ module.exports = function() {
     })
 
     routers(app);
-    app.use(function(req, res, next) {
+
+    app.use((req, res, next) => {
         res.status(404);
         try {
             return res.json('Not Found');
@@ -52,8 +53,9 @@ module.exports = function() {
             console.log('404 set header after sent');
         }
     });
+    
 
-    app.use(function(err, req, res, next) {
+    app.use((err, req, res, next) => {
         if (!err) {
             return next()
         }

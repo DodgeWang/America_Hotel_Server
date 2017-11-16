@@ -1,13 +1,45 @@
-var Users = require('../proxy/Users.proxy');
-var Common = require('../proxy/Common.proxy');
-var Department = require('../proxy/Department.proxy');
-var Role = require('../proxy/Role.proxy');
-var resUtil  = require("../libs/resUtil");
-var config = require('../../config/env/statusConfig');
-var encryption = require("../func/encryption");
-var UUID = require("../func/UUID");
-var language = require('../../config/language');
-var async = require('async');
+const Users = require('../proxy/Users.proxy');
+const Common = require('../proxy/Common.proxy');
+const Department = require('../proxy/Department.proxy');
+const Role = require('../proxy/Role.proxy');
+const resUtil  = require("../libs/resUtil");
+const encryption = require("../func/encryption");
+const UUID = require("../func/UUID");
+const language = require('../../config/language_config');
+const async = require('async');
+const Status = require('../../config/status_config');
+
+
+
+/**
+ * 进入员工列表页
+ * @param  {object}   req  the request object
+ * @param  {object}   res  the response object
+ * @param  {Function} next the next func
+ * @return {null}     
+ */
+exports.usersListPage = (param,cb) => {
+    async.series({
+       userList: cb => {
+          Users.getList(param,(err,rows) => {
+             cb(err,rows)
+          })
+       },
+       pageInfo: cb => {
+          let str = 'tbl_users';
+          Common.totleNum(str, (err,rows) => {
+             cb(err,rows[0])
+          })
+       }
+    }, (err, results) => {
+        cb(err,results)   
+    });  
+}
+
+
+
+
+
 /**
  * 获取用户列表
  * @param  {object}   req  the request object
@@ -15,22 +47,12 @@ var async = require('async');
  * @param  {Function} next the next func
  * @return {null}     
  */
-exports.getList = function(req, res, next) {
-    // if (!req.query.page || !req.query.size) return res.json(resUtil.generateRes(null, config.statusCode.STATUS_INVAILD_PARAMS));
-    // var page = Number(req.query.page);
-    // var size = Number(req.query.size);
-    // Users.getList(page, size, function(err,rows) {
-    //     if (err) {
-    //         return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
-    //     }
-    //     res.json(resUtil.generateRes(rows, config.statusCode.STATUS_OK));       
-    // })
-
-    Users.getList(req.query, function(err,rows) {
+exports.getList = (req, res, next) => {
+    Users.getList(req.query, (err,rows) => {
         if (err) {
-            return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+            return res.json(resUtil.generateRes(err, Status.ERROR));
         }
-        res.json(resUtil.generateRes(rows, config.statusCode.STATUS_OK));       
+        res.json(resUtil.generateRes(rows, Status.SUCCESS));       
     })
 }
 
@@ -42,14 +64,14 @@ exports.getList = function(req, res, next) {
  * @param  {Function} next the next func
  * @return {null}     
  */
-exports.delete = function(req, res, next) {
-    if (!req.query.idCode) return res.json(resUtil.generateRes(null, config.statusCode.STATUS_INVAILD_PARAMS));
-    var idCode = req.query.idCode;
-    Users.delete(idCode, function(err,rows) {
+exports.delete = (req, res, next) => {
+    if (!req.query.idCode) return res.json(resUtil.generateRes(null, Status.INVAILD_PARAMS));
+    let idCode = req.query.idCode;
+    Users.delete(idCode, err => {
         if (err) {
-            return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+            return res.json(resUtil.generateRes(err, Status.ERROR));
         }
-        res.json(resUtil.generateRes(rows, config.statusCode.STATUS_OK));       
+        res.json(resUtil.generateRes(null, Status.SUCCESS));       
     })
 }
 
@@ -62,15 +84,15 @@ exports.delete = function(req, res, next) {
  * @param  {Function} next the next func
  * @return {null}     
  */
-exports.resetpass = function(req, res, next) {
-    if (!req.query.idCode) return res.json(resUtil.generateRes(null, config.statusCode.STATUS_INVAILD_PARAMS));
-    var idCode = req.query.idCode;
-    var password = encryption.md5("000000",32);
-    Users.editPassword(idCode, password, function(err,rows) {
+exports.resetpass = (req, res, next) => {
+    if (!req.query.idCode) return res.json(resUtil.generateRes(null, Status.INVAILD_PARAMS));
+    let idCode = req.query.idCode;
+    let password = encryption.md5("000000",32);
+    Users.editPassword(idCode, password, err => {
         if (err) {
-            return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+            return res.json(resUtil.generateRes(err, Status.ERROR));
         }
-        res.json(resUtil.generateRes(rows, config.statusCode.STATUS_OK));       
+        res.json(resUtil.generateRes(null, Status.SUCCESS));       
     })
 }
 
@@ -83,11 +105,11 @@ exports.resetpass = function(req, res, next) {
  * @param  {Function} next the next func
  * @return {null}     
  */
-exports.add = function(req, res, next) {
+exports.add = (req, res, next) => {
     console.log(req.body)
 
-    var idCode = UUID.uuid(16, 16); //随机生成UUID唯一识别码
-    var baseInfo = {
+    let idCode = UUID.uuid(16, 16); //随机生成UUID唯一识别码
+    let baseInfo = {
         Username: req.body.Username,
         Password: encryption.md5(req.body.Password,32),
         DepartmentId: req.body.DepartmentId,
@@ -116,10 +138,12 @@ exports.add = function(req, res, next) {
     }
         
 
-    Users.addBaseInfo(idCode, baseInfo, function(err){
+    Users.addBaseInfo(idCode, baseInfo, err => {
     	if (err) {
-            return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+            return res.json(resUtil.generateRes(err, Status.ERROR));
         }
+
+
         
         //添加高中教育信息
         addSchool(0,idCode,strTo(req.body.High_School), 1, res, function(){
@@ -129,7 +153,7 @@ exports.add = function(req, res, next) {
              addWork(0,idCode,strTo(req.body.Work_Experience), res, function(){
                 //添加熟人信息
                 addReferences(0,idCode,strTo(req.body.References), res,function(){
-                  res.json(resUtil.generateRes(null, config.statusCode.STATUS_OK));
+                  res.json(resUtil.generateRes(null, Status.SUCCESS));
                 })  
              })
           })
@@ -145,8 +169,8 @@ exports.add = function(req, res, next) {
  * @param  {Function} next the next func
  * @return {null}     
  */
-exports.userInfoById = function(req,res,next) {
-    if (!req.query.userIdCode) return res.json(resUtil.generateRes(null, config.statusCode.STATUS_INVAILD_PARAMS));
+exports.userInfoById = (req,res,next) => {
+    if (!req.query.userIdCode) return res.json(resUtil.generateRes(null, Status.INVAILD_PARAMS));
     var Language = language(req);
     var idCode = req.query.userIdCode;
     var data = {}
@@ -206,7 +230,7 @@ exports.userInfoById = function(req,res,next) {
  * @param  {Function} next the next func
  * @return {null}     
  */
-exports.edit = function(req, res, next) {
+exports.edit = (req, res, next) => {
     var idCode = req.body.IdCode; //获取用户唯一识别码
     var baseInfo = {
         Name: req.body.Name,
@@ -237,7 +261,7 @@ exports.edit = function(req, res, next) {
 
     Users.editBaseInfo(idCode, baseInfo, function(err){
       if (err) {
-            return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+            return res.json(resUtil.generateRes(err, Status.ERROR));
         }
         //添加高中教育信息
         editSchool(0,idCode,strTo(req.body.High_School), 1, res, function(){
@@ -247,7 +271,7 @@ exports.edit = function(req, res, next) {
              editWork(0,idCode,strTo(req.body.Work_Experience), res, function(){
                 //添加熟人信息
                 editReferences(0,idCode,strTo(req.body.References), res, function(){
-                  res.json(resUtil.generateRes(null, config.statusCode.STATUS_OK));
+                  res.json(resUtil.generateRes(null, Status.SUCCESS));
                 })  
              })
           })
@@ -259,30 +283,6 @@ exports.edit = function(req, res, next) {
 
 
 
-/**
- * 进入员工列表页
- * @param  {object}   req  the request object
- * @param  {object}   res  the response object
- * @param  {Function} next the next func
- * @return {null}     
- */
-exports.usersListPage = function(param,cb) {
-    async.series({
-       userList: function(cb){
-          Users.getList(param,function(err,rows) {
-             cb(err,rows)
-          })
-       },
-       pageInfo: function(cb){
-          var str = 'tbl_users';
-          Common.totleNum(str,function(err,rows) {
-             cb(err,rows[0])
-          })
-       }
-    },function(err, results) {
-        cb(err,results)   
-    });  
-}
 
 
 
@@ -308,11 +308,11 @@ function strTo(str){
 function editSchool(i,idCode,list, type, res, cb) {
       Users.delSchool(idCode, type, function(err) {
           if (err) {
-            return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+            return res.json(resUtil.generateRes(err, Status.ERROR));
           }
           Users.addSchool(idCode, list[i], type, function(err) {
             if (err) {
-              return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+              return res.json(resUtil.generateRes(err, Status.ERROR));
             }
              if(i < list.length-1){
                 i += 1;
@@ -327,11 +327,11 @@ function editSchool(i,idCode,list, type, res, cb) {
     function editWork(i,idCode,list, res, cb) {
       Users.delWork(idCode, function(err) {
           if (err) {
-            return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+            return res.json(resUtil.generateRes(err, Status.ERROR));
           }
           Users.addWork(idCode, list[i], function(err) {
             if (err) {
-              return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+              return res.json(resUtil.generateRes(err, Status.ERROR));
             }
              if(i < list.length-1){
                 i += 1;
@@ -347,11 +347,11 @@ function editSchool(i,idCode,list, type, res, cb) {
     function editReferences(i,idCode,list, res, cb) {
       Users.delReferences(idCode, function(err) {
           if (err) {
-            return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+            return res.json(resUtil.generateRes(err, Status.ERROR));
           }
           Users.addReferences(idCode, list[i], function(err) {
             if (err) {
-              return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+              return res.json(resUtil.generateRes(err, Status.ERROR));
             }
              if(i < list.length-1){
                 i+= 1;
@@ -366,7 +366,7 @@ function editSchool(i,idCode,list, type, res, cb) {
     function addSchool(i,idCode,list, type, res, cb) {
         Users.addSchool(idCode, list[i], type, function(err) {
           if (err) {
-            return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+            return res.json(resUtil.generateRes(err, Status.ERROR));
           }
            if(i < list.length-1){
               i += 1;
@@ -380,7 +380,7 @@ function editSchool(i,idCode,list, type, res, cb) {
     function addWork(i,idCode,list, res, cb) {
         Users.addWork(idCode, list[i], function(err) {
           if (err) {
-            return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+            return res.json(resUtil.generateRes(err, Status.ERROR));
           }
            if(i < list.length-1){
               i += 1;
@@ -394,7 +394,7 @@ function editSchool(i,idCode,list, type, res, cb) {
     function addReferences(i,idCode,list, res, cb) {
         Users.addReferences(idCode, list[i], function(err) {
           if (err) {
-            return res.json(resUtil.generateRes(null, config.statusCode.SERVER_ERROR));
+            return res.json(resUtil.generateRes(err, Status.ERROR));
           }
            if(i < list.length-1){
               i += 1;

@@ -1,36 +1,31 @@
-var language = require('../config/language');
-var Users = require('./controllers/Users.controller');
-var System = require('./controllers/System.controller');
-var Room = require('./controllers/Room.controller');
-var Task = require('./controllers/Task.controller');
-var Role = require('./controllers/Role.controller');
-var Department = require('./controllers/Department.controller');
-var CheckIn = require('./controllers/CheckIn.controller');
+const language = require('../config/language_config');
+const Users = require('./controllers/Users.controller');
+const System = require('./controllers/System.controller');
+const Room = require('./controllers/Room.controller');
+const Task = require('./controllers/Task.controller');
+const Role = require('./controllers/Role.controller');
+const Department = require('./controllers/Department.controller');
+const CheckIn = require('./controllers/CheckIn.controller');
 
 
-module.exports = function(app) {
+module.exports = app => {
     /**
      * html page routers
      */
-
-
     //登陆页面
-    app.get('/login', function(req, res) {
-       var Language = language(req);
-       res.render('login',{layout: null,language:Language});
+    app.get('/login',(req,res) => {
+      let Language = language(req);
+      res.render('login',{layout: null,language:Language});
     });
 
-
-
     //员工列表管理页面
-    app.get('/users', function(req, res) { 
-      console.log(req.session.administrator)
-       var Language = language(req);
-       var param = {
+    app.get('/users', (req, res) => { 
+       let Language = language(req);
+       let param = {
           size: 15,
           page: req.query.page?req.query.page : 1,
        }
-       Users.usersListPage(param,function(err,data){
+       Users.usersListPage(param, (err,data) => {
           data.pageInfo.page = param.page;
           data.pageInfo.pageTotle = Math.ceil(data.pageInfo.totle/param.size);
 
@@ -45,10 +40,9 @@ module.exports = function(app) {
     });
 
 
-
     //添加员工信息页面
-    app.get('/adduser', function(req, res) {
-       var Language = language(req);
+    app.get('/adduser', (req, res) => {
+       let Language = language(req);
        res.render('AddUser',{adminInfo:req.session.administrator,language:Language});
     });
 
@@ -60,13 +54,13 @@ module.exports = function(app) {
 
 
     //房间类型管理页面
-    app.get('/roomtype', function(req, res) {
-       var Language = language(req);
-       var param = {
+    app.get('/roomtype', (req, res) => {
+       let Language = language(req);
+       let param = {
           size: 15,
           page: req.query.page?req.query.page : 1,
        }
-       Room.typeListPage(param,function(err,data){
+       Room.typeListPage(param, (err,data) => {
           data.pageInfo.page = param.page;
           data.pageInfo.pageTotle = Math.ceil(data.pageInfo.totle/param.size);
 
@@ -83,8 +77,8 @@ module.exports = function(app) {
 
 
     //添加房间类型页面    
-    app.get('/addroomtype', function(req, res) {
-       var Language = language(req);
+    app.get('/addroomtype', (req, res) => {
+       let Language = language(req);
        res.render('AddRoomType',{adminInfo:req.session.administrator,language:Language});
     });
 
@@ -92,10 +86,10 @@ module.exports = function(app) {
 
 
     //修改房间类型页面
-    app.get('/editroomtype',function(req, res) {
-       var id = req.query.id;
-       var Language = language(req);
-       Room.roomTypeInfo(id,function(data){
+    app.get('/editroomtype',(req, res) => {
+       let id = req.query.id;
+       let Language = language(req);
+       Room.roomTypeInfo(id, data => {
           res.render('EditRoomType',{data:data,adminInfo:req.session.administrator,language:Language});
        })
     });
@@ -106,14 +100,14 @@ module.exports = function(app) {
 
 
     //房间管理页面
-    app.get('/room', function(req, res) {
-       var Language = language(req);
-       var param = {
+    app.get('/room', (req, res) => {
+       let Language = language(req);
+       let param = {
           size: 15,
           page: req.query.page?req.query.page : 1,
           typeId: req.query.typeId ? req.query.typeId : null
        }
-       Room.roomListPage(param,function(err,data){
+       Room.roomListPage(param, (err,data) => {
           data.pageInfo.page = param.page;
           data.pageInfo.typeId = req.query.typeId ? req.query.typeId : -1;
           data.pageInfo.pageTotle = Math.ceil(data.pageInfo.totle/param.size);
@@ -134,8 +128,8 @@ module.exports = function(app) {
 
 
     //添加房间详情页面
-    app.get('/addroom', function(req, res) {
-       var Language = language(req);
+    app.get('/addroom', (req, res) => {
+       let Language = language(req);
        res.render('AddRoom',{adminInfo:req.session.administrator,language:Language});
     });
 
@@ -143,10 +137,10 @@ module.exports = function(app) {
 
 
     //修改房间详情页面
-    app.get('/editroom',function(req, res) {
-       var id = req.query.id;
-       var Language = language(req);
-       Room.roomInfoPage(id,function(err,data){
+    app.get('/editroom', (req, res) => {
+       let id = req.query.id;
+       let Language = language(req);
+       Room.roomInfoPage(id, (err,data) => {
           res.render('EditRoom',
             { data:data.roomInfo,
               adminInfo:req.session.administrator,
@@ -159,13 +153,13 @@ module.exports = function(app) {
 
 
     //任务列表管理页面
-    app.get('/task', function(req, res) {
-       var Language = language(req);
-       var param = {
+    app.get('/task', (req, res) => {
+       let Language = language(req);
+       let param = {
           size: 15,
           page: req.query.page?req.query.page : 1,
        }
-       Task.taskListPage(param,function(err,data){
+       Task.taskListPage(param, (err,data) => {
           data.pageInfo.page = param.page;
           data.pageInfo.pageTotle = Math.ceil(data.pageInfo.totle/param.size);
 
@@ -182,13 +176,13 @@ module.exports = function(app) {
 
     
     //添加任务页面
-    app.get('/addtask', function(req, res) {
-       var Language = language(req);
-       var roomId = -1;
+    app.get('/addtask', (req, res) => {
+       let Language = language(req);
+       let roomId = -1;
        if(req.query.roomid){
-          var roomId = parseInt(req.query.roomid)
+          let roomId = parseInt(req.query.roomid)
        }
-       Room.getAllListTwo(function(data){
+       Room.getAllListTwo( data => {
           res.render('AddTask',
                {
                 adminInfo:req.session.administrator,
@@ -203,13 +197,13 @@ module.exports = function(app) {
 
 
     //入住登记页面
-    app.get('/checkin', function(req, res) {
-       var Language = language(req);
-       var param = {
+    app.get('/checkin', (req, res) => {
+       let Language = language(req);
+       let param = {
           size: 15,
           page: req.query.page?req.query.page : 1,
        }
-       CheckIn.checkInListPage(param,function(err,data){
+       CheckIn.checkInListPage(param, (err,data) => {
           data.pageInfo.page = param.page;
           data.pageInfo.pageTotle = Math.ceil(data.pageInfo.totle/param.size);
 
@@ -225,20 +219,20 @@ module.exports = function(app) {
     
 
     //添加入住登记页面
-    app.get('/addcheckin', function(req, res) {
-       var Language = language(req);
+    app.get('/addcheckin', (req, res) => {
+       let Language = language(req);
        res.render('AddCheckIn',{adminInfo:req.session.administrator,language:Language});
     });
     
 
     //修改入住登记页面
-    app.get('/editcheckin',function(req, res) {
-       var id = req.query.id;
-       var Language = language(req);
-       var param = {
+    app.get('/editcheckin', (req, res) => {
+       let id = req.query.id;
+       let Language = language(req);
+       let param = {
          id: id
        }
-       CheckIn.editCheckInPage(param,function(err,data){
+       CheckIn.editCheckInPage(param, (err,data) => {
           res.render('EditCheckIn',
             { data:data.dataInfo,
               adminInfo:req.session.administrator,
@@ -248,12 +242,18 @@ module.exports = function(app) {
     });
 
 
+
+
+
+
     /**
      * api routers
      */
     app.post('/api/system/login',System.login);//管理员登陆
 
     app.get('/api/system/exit',System.exit);  //退出后台系统
+
+    app.get('/api/language',System.language);//切换语言
 
     app.get('/api/users/list',Users.getList) //获取用户列表
 
@@ -300,9 +300,5 @@ module.exports = function(app) {
     app.get('/api/checkin/checkout',CheckIn.checkout);//退房
 
     app.get('/api/room/nocheckin',Room.noCheckIn);//获取指定房型下没入住的房间
-    
-    app.get('/api/language',System.language);//切换语言
-
-
     
 }

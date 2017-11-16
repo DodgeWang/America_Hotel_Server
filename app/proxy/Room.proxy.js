@@ -1,5 +1,5 @@
-var mysql = require('../mysql');
-var Mapping = require('../../config/env/sqlMapping');
+const mysql = require('../mysql');
+const Mapping = require('../../config/sqlMapping');
 
 /**
  * 按页数获取房型列表
@@ -8,15 +8,15 @@ var Mapping = require('../../config/env/sqlMapping');
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.getTypeList = function(page, size, callback) {
-    var limit_Start = (page - 1) * size;
+exports.getTypeList = (page, size, callback) => {
+    let limit_Start = (page - 1) * size;
     mysql.query({
         sql: "SELECT * FROM tbl_roomtype order by id desc limit :limit_Start,:size",
         params: {
             "limit_Start": limit_Start,
             "size": size
         }
-    }, function(err, rows) {
+    }, (err, rows) => {
         if (err) {
             callback(err, null);
         }
@@ -35,11 +35,11 @@ exports.getTypeList = function(page, size, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.getAllTypeList = function(callback) {
+exports.getAllTypeList = (callback) => {
     mysql.query({
         sql: "SELECT * FROM tbl_roomtype order by id desc",
         params: {}
-    }, function(err, rows) {
+    }, (err, rows) => {
         if (err) {
             callback(err, null);
         }
@@ -59,13 +59,13 @@ exports.getAllTypeList = function(callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.typeDelete = function(id, callback) {
+exports.typeDelete = (id, callback) => {
     mysql.query({
         sql: "DELETE FROM tbl_roomtype WHERE id= :id",
         params: {  
             "id": id 
         }
-    }, function(err) {
+    }, err => {
         if (err) {
             callback(err);
         }
@@ -82,14 +82,14 @@ exports.typeDelete = function(id, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.typeAdd = function(data, callback) {
+exports.typeAdd = (data, callback) => {
     mysql.query({
         sql: "INSERT INTO tbl_roomtype SET type= :type",
         params: {  
             "type": data.type
 
         }
-    }, function(err) {
+    }, err => {
         if (err) {
             callback(err);
         }
@@ -105,13 +105,13 @@ exports.typeAdd = function(data, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.roomTypeInfo = function(id, callback) {
+exports.roomTypeInfo = (id, callback) => {
     mysql.query({
         sql: "SELECT "+Mapping.mappingToStr(Mapping.roomType)+" FROM tbl_roomtype WHERE id= :id",
         params: {
             "id": id
         }
-    }, function(err, rows) {
+    }, (err, rows) => {
         if (err) {
             callback(err, null);
         }
@@ -133,14 +133,14 @@ exports.roomTypeInfo = function(id, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.typeEdit = function(id, data, callback) {
+exports.typeEdit = (id, data, callback) => {
     mysql.query({
         sql: "UPDATE tbl_roomtype SET type=:type WHERE id= :id",
         params: {
             "id": id,
             "type": data.type
         }
-    }, function(err) {
+    }, err => {
         if (err) {
             callback(err);
         }
@@ -157,15 +157,15 @@ exports.typeEdit = function(id, data, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.getList = function(page, size, callback) {
-    var limit_Start = (page - 1) * size;
+exports.getList = (page, size, callback) => {
+    let limit_Start = (page - 1) * size;
     mysql.query({
         sql: "SELECT a.id, a.number, b.type FROM tbl_roominfo as a,tbl_roomtype as b where a.typeId = b.id order by a.id desc limit :limit_Start,:size",
         params: {
             "limit_Start": limit_Start,
             "size": size
         }
-    }, function(err, rows) {
+    }, (err, rows) => {
         if (err) {
             callback(err, null);
         }
@@ -186,11 +186,11 @@ exports.getList = function(page, size, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.getAllList = function(callback) {
+exports.getAllList = callback => {
     mysql.query({
         sql: "SELECT a.id, a.number FROM tbl_roominfo as a order by a.id desc",
         params: {}
-    }, function(err, rows) {
+    }, (err, rows) => {
         if (err) {
             callback(err, null);
         }
@@ -211,14 +211,14 @@ exports.getAllList = function(callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.add = function(data, callback) {
+exports.add = (data, callback) => {
     mysql.query({
         sql: "INSERT INTO tbl_roominfo SET number= :number,typeId = :typeId",
         params: {  
             "number": data.roomNum,
             "typeId": data.roomType
         }
-    }, function(err) {
+    }, err => {
         if (err) {
             callback(err);
         }
@@ -235,13 +235,13 @@ exports.add = function(data, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.delete = function(id, callback) {
+exports.delete = (id, callback) => {
     mysql.query({
         sql: "DELETE FROM tbl_roominfo WHERE id= :id",
         params: {  
             "id": id 
         }
-    }, function(err) {
+    }, err => {
         if (err) {
             callback(err);
         }
@@ -257,13 +257,13 @@ exports.delete = function(id, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.roomInfo = function(id, callback) {
+exports.roomInfo = (id, callback) => {
     mysql.query({
         sql: "SELECT "+Mapping.mappingToStr(Mapping.room)+" FROM tbl_roominfo WHERE id= :id",
         params: {
             "id": id
         }
-    }, function(err, rows) {
+    }, (err, rows) => {
         if (err) {
             callback(err, null);
         }
@@ -285,7 +285,7 @@ exports.roomInfo = function(id, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.edit = function(id, data, callback) {
+exports.edit = (id, data, callback) => {
     mysql.query({
         sql: "UPDATE tbl_roominfo SET number=:number,typeId=:typeId WHERE id= :id",
         params: {
@@ -293,7 +293,7 @@ exports.edit = function(id, data, callback) {
             "number": data.number,
             "typeId": data.type
         }
-    }, function(err) {
+    }, err => {
         if (err) {
             callback(err);
         }
@@ -310,14 +310,13 @@ exports.edit = function(id, data, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.noCheckIn = function(typeId, callback) {
-    console.log(typeId)
+exports.noCheckIn = (typeId, callback) => {
     mysql.query({
         sql: "SELECT * FROM tbl_roominfo WHERE typeId=:typeId AND checkInStatus=0",
         params: {
             "typeId": typeId
         }
-    }, function(err, rows) {
+    }, (err, rows) => {
         if (err) {
             callback(err, null);
         }
@@ -342,10 +341,10 @@ exports.noCheckIn = function(typeId, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.getListTwo = function(param,callback) {
+exports.getListTwo = (param,callback) => {
 
-    var limit_Start = (param.page - 1) * param.size;
-    var sqlObj = {
+    let limit_Start = (param.page - 1) * param.size;
+    let sqlObj = {
         sql: "SELECT a.id, a.number, b.type FROM tbl_roominfo AS a LEFT JOIN tbl_roomtype AS b ON a.typeId = b.id order by a.id desc limit :limit_Start,:size",
         params: {
             "limit_Start": limit_Start,
@@ -354,7 +353,7 @@ exports.getListTwo = function(param,callback) {
     }
 
     if(param.typeId != null){
-        var typeId = param.typeId;
+        let typeId = param.typeId;
         sqlObj = {
         sql: "SELECT a.id, a.number, b.type FROM tbl_roominfo AS a LEFT JOIN tbl_roomtype AS b ON a.typeId = b.id WHERE a.typeId = :typeId order by a.id desc limit :limit_Start,:size",
         params: {
@@ -366,7 +365,7 @@ exports.getListTwo = function(param,callback) {
     }
 
     
-    mysql.query(sqlObj, function(err, rows) {
+    mysql.query(sqlObj, (err, rows) => {
         if (err) {
             callback(err, null);
         }

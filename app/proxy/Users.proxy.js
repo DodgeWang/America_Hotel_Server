@@ -1,45 +1,21 @@
-var mysql = require('../mysql');
-var Mapping = require('../../config/env/sqlMapping');
+const mysql = require('../mysql');
+const Mapping = require('../../config/sqlMapping');
 
 /**
- * 获取用户列表
- * @param  {number}   page   查询页数     
- * @param  {number}   size   查询条数         
+ * 获取所有用户列表           
+ * @param  {obj}   param   页数和每页条数         
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-// exports.getList = function(page, size, callback) {
-//     var limit_Start = (page - 1) * size;
-//     mysql.query({
-//         sql: "SELECT * FROM tbl_users order by id desc limit :limit_Start,:size",
-//         params: {
-//             "limit_Start": limit_Start,
-//             "size": size
-//         }
-//     }, function(err, rows) {
-//         if (err) {
-//             callback(err, null);
-//         }
-
-//         if (rows && rows.length > 0) {
-//             callback(null, rows);
-//         } else {
-//             callback(null, []);
-//         }
-//     })
-// }
-// 
-// 
-// 
-exports.getList = function(param, callback) {
-    var sqlObj = {
+exports.getList = (param, callback) => {
+    let sqlObj = {
         sql: "SELECT * FROM tbl_users order by id desc"
     };
 
     if(param.page && param.size){
-        var page = Number(param.page);
-        var size = Number(param.size);
-        var limit_Start = (page - 1) * size;
+        let page = parseInt(param.page);
+        let size = parseInt(param.size);
+        let limit_Start = (page - 1) * size;
         sqlObj = {
             sql: "SELECT a.*,b.role,c.department FROM tbl_users as a left join tbl_userrole as b on a.roleId=b.id left join tbl_department as c on a.departmentId=c.id order by a.id desc limit :limit_Start,:size",
             params: {
@@ -49,7 +25,7 @@ exports.getList = function(param, callback) {
         }
     }
 
-    mysql.query(sqlObj, function(err, rows) {
+    mysql.query(sqlObj, (err, rows) => {
         if (err) {
             callback(err, null);
         }
@@ -71,7 +47,7 @@ exports.getList = function(param, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.delete = function(idCode, callback) {
+exports.delete = (idCode, callback) => {
     mysql.query({
         sql: "DELETE tbl_users,tbl_userschool,tbl_userworks,tbl_userreferences FROM tbl_users\
               LEFT JOIN tbl_userschool ON tbl_userschool.userIdCode=tbl_users.idCode AND tbl_users.idCode = :idCode\
@@ -84,11 +60,11 @@ exports.delete = function(idCode, callback) {
         params: {
             "idCode": idCode
         }
-    }, function(err, rows) {
+    }, err => {
         if (err) {
-            callback(err, null);
+            callback(err);
         }
-        callback(null,null);
+        callback(null);
     })
 }
 
@@ -102,14 +78,14 @@ exports.delete = function(idCode, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.editPassword = function(idCode, password, callback) {
+exports.editPassword = (idCode, password, callback) => {
     mysql.query({
         sql: "UPDATE tbl_users SET password= :password WHERE idCode= :idCode",
         params: {  
             "password": password,
             "idCode": idCode
         }
-    }, function(err) {
+    }, err => {
         if (err) {
             callback(err);
         }
@@ -127,13 +103,13 @@ exports.editPassword = function(idCode, password, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.userBaseInfo = function(idCode, callback) {
+exports.userBaseInfo = (idCode, callback) => {
     mysql.query({
         sql: "SELECT "+Mapping.mappingToStr(Mapping.userBaseInfo)+" FROM tbl_users WHERE idCode= :idCode",
         params: {
             "idCode": idCode
         }
-    }, function(err, rows) {
+    }, (err, rows) => {
         if (err) {
             callback(err, null);
         }
@@ -155,7 +131,7 @@ exports.userBaseInfo = function(idCode, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.addBaseInfo = function(idCode, data, callback) {
+exports.addBaseInfo = (idCode, data, callback) => {
     mysql.query({
         sql: "INSERT INTO tbl_users SET idCode= :idCode, username=:username, password=:password, departmentId=:departmentId, roleId=:roleId, name=:name, SSN=:SSN, mailAddress=:mailAddress, zipCode=:zipCode, telephone=:telephone, age=:age, email=:email, daysWork=:daysWork, workNature=:workNature, workHours=:workHours, workAtNight=:workAtNight,workAvailableDate=:workAvailableDate, isLegalStatus=:isLegalStatus, haveCriminalRecord=:haveCriminalRecord,criminalRecord=:criminalRecord, haveDL=:haveDL, DLNumber=:DLNumber, DLIssuedState=:DLIssuedState, IsJionedArmy=:IsJionedArmy, isMemberNG=:isMemberNG, militarySpecialty=:militarySpecialty, createTime=now()",
         params: {
@@ -186,7 +162,7 @@ exports.addBaseInfo = function(idCode, data, callback) {
             "isMemberNG": data.Is_Member_NG,
             "militarySpecialty": data.Military_Specialty
         }
-    }, function(err) {
+    }, err => {
         if (err) {
             callback(err);
         }
@@ -204,7 +180,7 @@ exports.addBaseInfo = function(idCode, data, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.editBaseInfo = function(idCode, data, callback) {
+exports.editBaseInfo = (idCode, data, callback) => {
     mysql.query({
         sql: "UPDATE tbl_users SET departmentId=:departmentId, roleId=:roleId, name=:name, SSN=:SSN, mailAddress=:mailAddress, zipCode=:zipCode, telephone=:telephone, age=:age, email=:email, daysWork=:daysWork, workNature=:workNature, workHours=:workHours, workAtNight=:workAtNight,workAvailableDate=:workAvailableDate, isLegalStatus=:isLegalStatus, haveCriminalRecord=:haveCriminalRecord,criminalRecord=:criminalRecord, haveDL=:haveDL, DLNumber=:DLNumber, DLIssuedState=:DLIssuedState, IsJionedArmy=:IsJionedArmy, isMemberNG=:isMemberNG, militarySpecialty=:militarySpecialty WHERE idCode= :idCode",
         params: {
@@ -233,7 +209,7 @@ exports.editBaseInfo = function(idCode, data, callback) {
             "isMemberNG": data.Is_Member_NG,
             "militarySpecialty": data.Military_Specialty
         }
-    }, function(err) {
+    }, err => {
         if (err) {
             callback(err);
         }
@@ -255,14 +231,14 @@ exports.editBaseInfo = function(idCode, data, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.userSchoolInfo = function(idCode, type, callback) {
+exports.userSchoolInfo = (idCode, type, callback) => {
     mysql.query({
         sql: "SELECT "+Mapping.mappingToStr(Mapping.userSchool)+" FROM tbl_userschool WHERE userIdCode= :idCode AND type= :type",
         params: {
             "idCode": idCode,
             "type": type
         }
-    }, function(err, rows) {
+    }, (err, rows) => {
         if (err) {
             callback(err, null);
         }
@@ -285,7 +261,7 @@ exports.userSchoolInfo = function(idCode, type, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.addSchool = function(idCode, data, type, callback) {
+exports.addSchool = (idCode, data, type, callback) => {
     mysql.query({
         sql: "INSERT INTO tbl_userschool SET name= :name, address= :address, yearCompleted= :yearCompleted, major= :major, degreeDiploma= :degreeDiploma, type= :type, userIdCode= :userIdCode",
         params: {  
@@ -297,7 +273,7 @@ exports.addSchool = function(idCode, data, type, callback) {
             "type": type,
             "userIdCode": idCode
         }
-    }, function(err) {
+    }, err => {
         if (err) {
             callback(err);
         }
@@ -314,14 +290,14 @@ exports.addSchool = function(idCode, data, type, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.delSchool = function(idCode, type, callback) {
+exports.delSchool = (idCode, type, callback) => {
     mysql.query({
         sql: "DELETE FROM tbl_userschool WHERE userIdCode= :userIdCode AND type= :type",
         params: {  
             "type": type,
             "userIdCode": idCode
         }
-    }, function(err) {
+    }, err => {
         if (err) {
             callback(err);
         }
@@ -338,13 +314,13 @@ exports.delSchool = function(idCode, type, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.userWorkInfo = function(idCode, callback) {
+exports.userWorkInfo = (idCode, callback) => {
     mysql.query({
         sql: "SELECT "+Mapping.mappingToStr(Mapping.userWork)+" FROM tbl_userworks WHERE userIdCode= :idCode",
         params: {
             "idCode": idCode
         }
-    }, function(err, rows) {
+    }, (err, rows) => {
         if (err) {
             callback(err, null);
         }
@@ -367,7 +343,7 @@ exports.userWorkInfo = function(idCode, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.addWork = function(idCode, data, callback) {
+exports.addWork = (idCode, data, callback) => {
     mysql.query({
         sql: "INSERT INTO tbl_userworks SET name= :name, supervisor= :supervisor,\
          address= :address, zipCode= :zipCode, phone= :phone, hours= :hours,\
@@ -392,7 +368,7 @@ exports.addWork = function(idCode, data, callback) {
             "userIdCode": idCode 
 
         }
-    }, function(err) {
+    }, err => {
         if (err) {
             callback(err);
         }
@@ -409,13 +385,13 @@ exports.addWork = function(idCode, data, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.delWork = function(idCode, callback) {
+exports.delWork = (idCode, callback) => {
     mysql.query({
         sql: "DELETE FROM tbl_userworks WHERE userIdCode= :userIdCode",
         params: {  
             "userIdCode": idCode 
         }
-    }, function(err) {
+    }, err => {
         if (err) {
             callback(err);
         }
@@ -432,13 +408,13 @@ exports.delWork = function(idCode, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.userReferencesInfo = function(idCode, callback) {
+exports.userReferencesInfo = (idCode, callback) => {
     mysql.query({
         sql: "SELECT "+Mapping.mappingToStr(Mapping.userReferences)+" FROM tbl_userreferences WHERE userIdCode= :idCode",
         params: {
             "idCode": idCode
         }
-    }, function(err, rows) {
+    }, (err, rows) => {
         if (err) {
             callback(err, null);
         }
@@ -462,7 +438,7 @@ exports.userReferencesInfo = function(idCode, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.addReferences = function(idCode, data, callback) {
+exports.addReferences = (idCode, data, callback) => {
     mysql.query({
         sql: "INSERT INTO tbl_userreferences SET content= :content,userIdCode= :userIdCode",
         params: {  
@@ -470,7 +446,7 @@ exports.addReferences = function(idCode, data, callback) {
             "userIdCode": idCode 
 
         }
-    }, function(err) {
+    }, err => {
         if (err) {
             callback(err);
         }
@@ -487,13 +463,13 @@ exports.addReferences = function(idCode, data, callback) {
  * @param  {Function} callback 回调函数
  * @return {null}
  */
-exports.delReferences = function(idCode, callback) {
+exports.delReferences = (idCode, callback) => {
     mysql.query({
         sql: "DELETE FROM tbl_userreferences WHERE userIdCode= :userIdCode",
         params: {  
             "userIdCode": idCode 
         }
-    }, function(err) {
+    }, err => {
         if (err) {
             callback(err);
         }
