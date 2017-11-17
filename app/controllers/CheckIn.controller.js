@@ -48,6 +48,7 @@ exports.add = (req, res, next) => {
     } 
     CheckIn.add(data, err => {
         if (err) {
+          
             return res.json(resUtil.generateRes(err, Status.ERROR));
         }
         CheckIn.editCheckInStatus(data.roomId,1, err => {

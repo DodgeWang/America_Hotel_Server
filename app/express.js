@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const hbsHelper = require('./hbsHelper');
+const log4js = require('log4js')
 
 
 module.exports = () => {
@@ -31,6 +32,20 @@ module.exports = () => {
         resave: true,   //(是否允许)当客户端并行发送多个请求时，其中一个请求在另一个请求结束时对session进行修改覆盖并保存,默认为true
         saveUninitialized: true  //初始化session时是否保存到存储,默认为true
     }));
+
+    // log4js.configure({
+    //     appenders:[
+    //        {type:'console'},//控制台输出
+    //        {
+    //          type: 'file',//文件输出
+    //          filename: 'logs/log.log',
+    //          maxLogSize: 1024,
+    //          backups: 3,
+    //          category: 'normal'
+    //        }
+    //     ]
+    // })
+
 
 
     app.use((req, res, next) => {
